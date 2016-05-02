@@ -1,10 +1,35 @@
+# =============== #
+# Unity generated #
+# =============== #
 Temp/
 Library/
-Build/
 
-#Un-ignore these specific files
-
-#ignoring pidb, they are just code completion caching data according to:
-# http://stackoverflow.com/questions/1022111/what-are-monodevelops-pidb-files
-*.pidb
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+ExportedObj/
+obj/
+*.svd
 *.userprefs
+/*.csproj
+*.pidb
+*.suo
+/*.sln
+*.user
+*.unityproj
+*.booproj
+
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+#ignoring mac vs windows conflict(?)
+ProjectSettings/ProjectSettings.asset
+ProjectSettings/ProjectVersion.txt
