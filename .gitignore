@@ -29,7 +29,3 @@ obj/
 .Trashes
 ehthumbs.db
 Thumbs.db
-
-#ignoring mac vs windows conflict(?)
-ProjectSettings/ProjectSettings.asset
-ProjectSettings/ProjectVersion.txt
