@@ -102,7 +102,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BaseGeometryObj: {fileID: 100002, guid: 8402693d6a71d4e119cdd98a8b5789af, type: 3}
   BaseGeometryMat: {fileID: 2100000, guid: b5cdb921c5cee4035a7eb8cf20dcd234, type: 2}
-  NoMaterial: {fileID: 2100000, guid: d50debd3b5f488042948fea697a28d19, type: 2}
+--- !u!114 &598753307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 598753303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -619905303, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 5
 --- !u!1001 &953819895
 Prefab:
   m_ObjectHideFlags: 0
@@ -417,7 +430,11 @@ Prefab:
     - target: {fileID: 2300000, guid: 8402693d6a71d4e119cdd98a8b5789af, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: d50debd3b5f488042948fea697a28d19, type: 2}
+      objectReference: {fileID: 2100000, guid: b5cdb921c5cee4035a7eb8cf20dcd234, type: 2}
+    - target: {fileID: 2300000, guid: 8402693d6a71d4e119cdd98a8b5789af, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8402693d6a71d4e119cdd98a8b5789af, type: 3}
   m_IsPrefabParent: 0
