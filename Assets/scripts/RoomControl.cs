@@ -7,28 +7,29 @@ public class RoomControl : MonoBehaviour {
 
     public GameObject BaseGeometryObj;
     public Material BaseGeometryMat; //???? CANNOT ASSIGN MATERIALS TO OBJECTS????
+    public GameObject[] HumanObjs; //should be replaced with coordinates?
 
     private bool renderMat;
+    private bool showHuman;
     // Use this for initialization
     void Start () {
         Cardboard.SDK.OnTrigger += TriggerPulled;
         renderMat = PlayerPrefs.GetInt("RenderMat") == 1;
+        showHuman = PlayerPrefs.GetInt("ShowHuman") == 1;
         ApplyMaterialLayer();
-	}
+        ApplyHumanLayer();
+    }
 	
     void TriggerPulled()
     {
         PlayerPrefs.SetInt("RenderMat", renderMat ? 1 : 0);
+        PlayerPrefs.SetInt("ShowHuman", showHuman ? 1 : 0);
         SceneManager.LoadScene("LayerScene", LoadSceneMode.Single);
     }
 
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown("space"))
-        {
-            renderMat = !renderMat;
-            ApplyMaterialLayer();
-        }
+
 	}
 
     void ApplyMaterialLayer()
@@ -44,6 +45,16 @@ public class RoomControl : MonoBehaviour {
             Texture t = new Texture();
             BaseGeometryMat.mainTexture = t;
             //mr.sharedMaterial = BaseGeometryMat;
+        }
+    }
+    void ApplyHumanLayer()
+    {
+        if (!showHuman)
+        {
+            foreach (GameObject human in HumanObjs)
+            {
+                human.SetActive(false);
+            }
         }
     }
 }
