@@ -15,6 +15,7 @@ public class Jump : MonoBehaviour {
 		if (Input.GetButtonDown("Fire1")){
 			transform.localPosition = new Vector3 (4f, 1.7f, 5f);
 		}
+		
 	}
 
 }
