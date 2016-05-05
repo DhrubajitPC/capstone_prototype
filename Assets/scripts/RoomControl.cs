@@ -8,7 +8,7 @@ public class RoomControl : MonoBehaviour {
     public GameObject PlayerObj;
     public GameObject BaseGeometryObj;
     public Material BaseGeometryMat; //???? CANNOT ASSIGN MATERIALS TO OBJECTS????
-    public GameObject[] HumanObjs; //should be replaced with coordinates?
+    public Vector4[] HumanCoords; // w is y rotation
 
     private bool renderMat;
     private bool showHuman;
@@ -74,11 +74,12 @@ public class RoomControl : MonoBehaviour {
     }
     void ApplyHumanLayer()
     {
-        if (!showHuman)
+        if (showHuman)
         {
-            foreach (GameObject human in HumanObjs)
+            foreach (Vector4 coord in HumanCoords)
             {
-                human.SetActive(false);
+                Instantiate(Resources.Load("prefabs/HumanFigure"), new Vector3(coord.x, coord.y, coord.z),
+                    Quaternion.Euler(0.0f, coord.w, 0.0f));
             }
         }
     }
@@ -87,6 +88,15 @@ public class RoomControl : MonoBehaviour {
         if (enableFreeRoam)
         {
             PlayerObj.GetComponent<Navmesh>().setMovementMode(0);
+            Canvas[] allCanvas = GameObject.FindObjectsOfType<Canvas>();
+            for (int i = 0; i < allCanvas.Length; i++)
+            {
+                RadialProgressBar[] rpb = allCanvas[i].GetComponentsInChildren<RadialProgressBar>();
+                if (rpb.Length > 0)
+                {
+                    allCanvas[i].enabled = false;
+                }
+            }
         }
         else
         {
