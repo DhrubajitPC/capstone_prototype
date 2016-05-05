@@ -90,32 +90,6 @@ NavMeshSettings:
 GameObject:
   m_PrefabParentObject: {fileID: 100004, guid: b8b03d395f5734e98af91ccf44f9bf47, type: 2}
   m_PrefabInternal: {fileID: 1337930789}
---- !u!114 &196726778
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 196726777}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16447f640516e5647a1da546b0f0f423, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BaseGeometryObj: {fileID: 100002, guid: 8402693d6a71d4e119cdd98a8b5789af, type: 3}
-  BaseGeometryMat: {fileID: 2100000, guid: b5cdb921c5cee4035a7eb8cf20dcd234, type: 2}
-  HumanObjs:
-  - {fileID: 2064419859}
---- !u!114 &196726779
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 196726777}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d6cacebbd89144439795673ae5ec7f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!64 &196726780
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -167,6 +141,7 @@ GameObject:
   - 23: {fileID: 377452946}
   - 195: {fileID: 377452945}
   - 114: {fileID: 377452944}
+  - 114: {fileID: 377452950}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -185,6 +160,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e6bd6c97b43f405aa0d9d4f834cdb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  locationNames:
+  - home
+  - new room
+  locations:
+  - {x: 5.22, y: 2, z: -4.5}
+  - {x: -2.62, y: 2, z: 5.43}
+  movementSpeed: 2
 --- !u!195 &377452945
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -264,6 +246,22 @@ Transform:
   - {fileID: 196726782}
   m_Father: {fileID: 0}
   m_RootOrder: 7
+--- !u!114 &377452950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 377452943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16447f640516e5647a1da546b0f0f423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerObj: {fileID: 377452943}
+  BaseGeometryObj: {fileID: 100002, guid: 8402693d6a71d4e119cdd98a8b5789af, type: 3}
+  BaseGeometryMat: {fileID: 2100000, guid: b5cdb921c5cee4035a7eb8cf20dcd234, type: 2}
+  HumanObjs:
+  - {fileID: 2064419859}
 --- !u!1 &626878147
 GameObject:
   m_ObjectHideFlags: 0
@@ -606,8 +604,6 @@ MonoBehaviour:
   LoadingBar: {fileID: 1585578793}
   NewRoom: new room
   style: 1
-  currentAmount: 0
-  speed: 50
 --- !u!114 &1004752681
 MonoBehaviour:
   m_ObjectHideFlags: 0

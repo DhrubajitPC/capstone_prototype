@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class RoomControl : MonoBehaviour {
 
+    public GameObject PlayerObj;
     public GameObject BaseGeometryObj;
     public Material BaseGeometryMat; //???? CANNOT ASSIGN MATERIALS TO OBJECTS????
     public GameObject[] HumanObjs; //should be replaced with coordinates?
@@ -16,6 +17,14 @@ public class RoomControl : MonoBehaviour {
         Cardboard.SDK.OnTrigger += TriggerPulled;
         renderMat = PlayerPrefs.GetInt("RenderMat") == 1;
         showHuman = PlayerPrefs.GetInt("ShowHuman") == 1;
+        if (PlayerPrefs.GetInt("LoadLocation") == 1){
+            PlayerObj.transform.position = new Vector3(PlayerPrefs.GetFloat("LocationX"),
+                PlayerPrefs.GetFloat("LocationY"), PlayerPrefs.GetFloat("LocationZ"));
+            PlayerObj.transform.rotation = new Quaternion(
+                PlayerPrefs.GetFloat("QuarternionX"), PlayerPrefs.GetFloat("QuarternionY"),
+                PlayerPrefs.GetFloat("QuarternionZ"), PlayerPrefs.GetFloat("QuarternionW"));
+            PlayerPrefs.SetInt("LoadLocation", 0);
+        }
         ApplyMaterialLayer();
         ApplyHumanLayer();
     }
@@ -25,6 +34,14 @@ public class RoomControl : MonoBehaviour {
         PlayerPrefs.SetInt("RenderMat", renderMat ? 1 : 0);
         PlayerPrefs.SetInt("ShowHuman", showHuman ? 1 : 0);
         SceneManager.LoadScene("LayerScene", LoadSceneMode.Single);
+        PlayerPrefs.SetInt("LoadLocation", 1);
+        PlayerPrefs.SetFloat("LocationX", PlayerObj.transform.position.x);
+        PlayerPrefs.SetFloat("LocationY", PlayerObj.transform.position.y);
+        PlayerPrefs.SetFloat("LocationZ", PlayerObj.transform.position.z);
+        PlayerPrefs.SetFloat("QuarternionX", PlayerObj.transform.Find("CardboardMain/Head").rotation.x);
+        PlayerPrefs.SetFloat("QuarternionY", PlayerObj.transform.Find("CardboardMain/Head").rotation.y);
+        PlayerPrefs.SetFloat("QuarternionZ", PlayerObj.transform.Find("CardboardMain/Head").rotation.z);
+        PlayerPrefs.SetFloat("QuarternionW", PlayerObj.transform.Find("CardboardMain/Head").rotation.w);
     }
 
 	// Update is called once per frame
