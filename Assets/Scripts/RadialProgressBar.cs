@@ -24,16 +24,13 @@ public class RadialProgressBar : MonoBehaviour, ICardboardGazeResponder {
 		if (currentAmount >= 100) {
 			switch (style) {
 			case 1:
-				GameObject.Find ("Capsule").SetActive (false);
 				GameObject.Find ("CardboardMain").GetComponent <Jump> ().move (NewRoom);
 				break;
 			case 2:
-				GameObject.Find ("Capsule").SetActive (true);
 				GameObject.Find ("Capsule").GetComponent<Navmesh> ().move (NewRoom);
 				break;
 
 			default:
-				GameObject.Find ("Capsule").SetActive (false);
 				GameObject.Find ("CardboardMain").GetComponent <Jump> ().move (NewRoom);
 				break;
 			}

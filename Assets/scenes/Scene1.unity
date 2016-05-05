@@ -605,7 +605,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LoadingBar: {fileID: 1585578793}
   NewRoom: new room
-  style: 2
+  style: 1
   currentAmount: 0
   speed: 50
 --- !u!114 &1004752681
