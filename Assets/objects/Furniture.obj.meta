@@ -1,0 +1,208 @@
+fileFormatVersion: 2
+guid: aaf88a76653079e4a92d8ca85b37702c
+timeCreated: 1462372915
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Furniture__Living_Room_Light
+    100004: Furniture__Sofa
+    100006: Furniture__Sofa_MeshPart0
+    100008: Furniture__Sofa_MeshPart1
+    100010: Furniture__Sofa_MeshPart2
+    100012: Furniture__Master_Bedroom_Lights
+    100014: Furniture__Sofa__Legs
+    100016: Furniture__Sofa__1
+    100018: Furniture__Sofa__2
+    100020: Furniture__Sofa__3
+    100022: Furniture__Sofa__3_MeshPart0
+    100024: Furniture__Sofa__3_MeshPart1
+    100026: Furniture__Clock
+    100028: Furniture__Coffee_Tables
+    100030: Furniture__Pots
+    100032: Furniture__TV
+    100034: Furniture__Dining_Chairs
+    100036: Furniture__Dining_Table
+    100038: Furniture__Kitchen_Bar
+    100040: Furniture__Kitchen_Counter
+    100042: Furniture__Master_Bed
+    100044: Furniture__Master_Bed_MeshPart0
+    100046: Furniture__Master_Bed_MeshPart1
+    100048: Furniture__Study_Chair
+    100050: Furniture__Study_Chair_MeshPart0
+    100052: Furniture__Study_Chair_MeshPart1
+    100054: Furniture__Study_Clock
+    100056: Furniture__Study_Shelf
+    100058: Furniture__Study_Table
+    400000: //RootNode
+    400002: Furniture__Living_Room_Light
+    400004: Furniture__Sofa
+    400006: Furniture__Sofa_MeshPart0
+    400008: Furniture__Sofa_MeshPart1
+    400010: Furniture__Sofa_MeshPart2
+    400012: Furniture__Master_Bedroom_Lights
+    400014: Furniture__Sofa__Legs
+    400016: Furniture__Sofa__1
+    400018: Furniture__Sofa__2
+    400020: Furniture__Sofa__3
+    400022: Furniture__Sofa__3_MeshPart0
+    400024: Furniture__Sofa__3_MeshPart1
+    400026: Furniture__Clock
+    400028: Furniture__Coffee_Tables
+    400030: Furniture__Pots
+    400032: Furniture__TV
+    400034: Furniture__Dining_Chairs
+    400036: Furniture__Dining_Table
+    400038: Furniture__Kitchen_Bar
+    400040: Furniture__Kitchen_Counter
+    400042: Furniture__Master_Bed
+    400044: Furniture__Master_Bed_MeshPart0
+    400046: Furniture__Master_Bed_MeshPart1
+    400048: Furniture__Study_Chair
+    400050: Furniture__Study_Chair_MeshPart0
+    400052: Furniture__Study_Chair_MeshPart1
+    400054: Furniture__Study_Clock
+    400056: Furniture__Study_Shelf
+    400058: Furniture__Study_Table
+    2300000: Furniture__Living_Room_Light
+    2300002: Furniture__Sofa_MeshPart0
+    2300004: Furniture__Sofa_MeshPart1
+    2300006: Furniture__Sofa_MeshPart2
+    2300008: Furniture__Master_Bedroom_Lights
+    2300010: Furniture__Sofa__Legs
+    2300012: Furniture__Sofa__1
+    2300014: Furniture__Sofa__2
+    2300016: Furniture__Sofa__3_MeshPart0
+    2300018: Furniture__Sofa__3_MeshPart1
+    2300020: Furniture__Clock
+    2300022: Furniture__Coffee_Tables
+    2300024: Furniture__Pots
+    2300026: Furniture__TV
+    2300028: Furniture__Dining_Chairs
+    2300030: Furniture__Dining_Table
+    2300032: Furniture__Kitchen_Bar
+    2300034: Furniture__Kitchen_Counter
+    2300036: Furniture__Master_Bed_MeshPart0
+    2300038: Furniture__Master_Bed_MeshPart1
+    2300040: Furniture__Study_Chair_MeshPart0
+    2300042: Furniture__Study_Chair_MeshPart1
+    2300044: Furniture__Study_Clock
+    2300046: Furniture__Study_Shelf
+    2300048: Furniture__Study_Table
+    3300000: Furniture__Living_Room_Light
+    3300002: Furniture__Sofa_MeshPart0
+    3300004: Furniture__Sofa_MeshPart1
+    3300006: Furniture__Sofa_MeshPart2
+    3300008: Furniture__Master_Bedroom_Lights
+    3300010: Furniture__Sofa__Legs
+    3300012: Furniture__Sofa__1
+    3300014: Furniture__Sofa__2
+    3300016: Furniture__Sofa__3_MeshPart0
+    3300018: Furniture__Sofa__3_MeshPart1
+    3300020: Furniture__Clock
+    3300022: Furniture__Coffee_Tables
+    3300024: Furniture__Pots
+    3300026: Furniture__TV
+    3300028: Furniture__Dining_Chairs
+    3300030: Furniture__Dining_Table
+    3300032: Furniture__Kitchen_Bar
+    3300034: Furniture__Kitchen_Counter
+    3300036: Furniture__Master_Bed_MeshPart0
+    3300038: Furniture__Master_Bed_MeshPart1
+    3300040: Furniture__Study_Chair_MeshPart0
+    3300042: Furniture__Study_Chair_MeshPart1
+    3300044: Furniture__Study_Clock
+    3300046: Furniture__Study_Shelf
+    3300048: Furniture__Study_Table
+    4300000: Furniture__Living_Room_Light
+    4300002: Furniture__Sofa_MeshPart0
+    4300004: Furniture__Sofa_MeshPart1
+    4300006: Furniture__Sofa_MeshPart2
+    4300008: Furniture__Master_Bedroom_Lights
+    4300010: Furniture__Sofa__Legs_MeshPart0
+    4300012: Furniture__Sofa__1_MeshPart0
+    4300014: Furniture__Sofa__2
+    4300016: Furniture__Sofa__3_MeshPart0
+    4300018: Furniture__Sofa__3_MeshPart1
+    4300020: Furniture__Sofa__1
+    4300022: Furniture__Sofa__Legs
+    4300024: Furniture__Clock
+    4300026: Furniture__Coffee_Tables
+    4300028: Furniture__Pots
+    4300030: Furniture__TV
+    4300032: Furniture__Dining_Chairs
+    4300034: Furniture__Dining_Table
+    4300036: Furniture__Kitchen_Bar
+    4300038: Furniture__Kitchen_Counter
+    4300040: Furniture__Master_Bed_MeshPart0
+    4300042: Furniture__Master_Bed_MeshPart1
+    4300044: Furniture__Study_Chair_MeshPart0
+    4300046: Furniture__Study_Chair_MeshPart1
+    4300048: Furniture__Study_Clock
+    4300050: Furniture__Study_Shelf
+    4300052: Furniture__Study_Table
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

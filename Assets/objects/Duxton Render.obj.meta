@@ -1,66 +1,52 @@
 fileFormatVersion: 2
 guid: ef1c4d976efa8fc43a387be42b2bc633
-timeCreated: 1462193249
+timeCreated: 1462370228
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: Ceiling
     100002: Concrete
-    100004: Default
-    100006: Doors
-    100008: //RootNode
-    100010: Glass
-    100012: Mesh_Railing
-    100014: Mullions
-    100016: Steel_handles
-    100018: White_Paint
+    100004: Doors
+    100006: //RootNode
+    100008: Glass
+    100010: Mesh_Railing
+    100012: Mullions
+    100014: Steel_handles
+    100016: White_Paint
     400000: Ceiling
     400002: Concrete
-    400004: Default
-    400006: Doors
-    400008: //RootNode
-    400010: Glass
-    400012: Mesh_Railing
-    400014: Mullions
-    400016: Steel_handles
-    400018: White_Paint
+    400004: Doors
+    400006: //RootNode
+    400008: Glass
+    400010: Mesh_Railing
+    400012: Mullions
+    400014: Steel_handles
+    400016: White_Paint
     2300000: Ceiling
     2300002: Concrete
-    2300004: Default
-    2300006: Doors
-    2300008: Glass
-    2300010: Mesh_Railing
-    2300012: Mullions
-    2300014: Steel_handles
-    2300016: White_Paint
+    2300004: Doors
+    2300006: Glass
+    2300008: Mesh_Railing
+    2300010: Mullions
+    2300012: Steel_handles
+    2300014: White_Paint
     3300000: Ceiling
     3300002: Concrete
-    3300004: Default
-    3300006: Doors
-    3300008: Glass
-    3300010: Mesh_Railing
-    3300012: Mullions
-    3300014: Steel_handles
-    3300016: White_Paint
+    3300004: Doors
+    3300006: Glass
+    3300008: Mesh_Railing
+    3300010: Mullions
+    3300012: Steel_handles
+    3300014: White_Paint
     4300000: Ceiling
     4300002: Concrete
-    4300004: Default
-    4300006: Doors
-    4300008: Glass
-    4300010: Mesh_Railing
-    4300012: Mullions
-    4300014: Steel_handles
-    4300016: White_Paint
-    6400000: Ceiling
-    6400002: Concrete
-    6400004: Default
-    6400006: Doors
-    6400008: Glass
-    6400010: Mesh_Railing
-    6400012: Mullions
-    6400014: Steel_handles
-    6400016: White_Paint
+    4300004: Doors
+    4300006: Glass
+    4300008: Mesh_Railing
+    4300010: Mullions
+    4300012: Steel_handles
+    4300014: White_Paint
   materials:
     importMaterials: 1
     materialName: 0
@@ -87,10 +73,10 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
