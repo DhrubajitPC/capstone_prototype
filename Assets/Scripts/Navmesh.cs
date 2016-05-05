@@ -6,16 +6,17 @@ public class Navmesh : MonoBehaviour {
 
     public string[] locationNames;
     public Vector3[] locations;
-    public float movementSpeed = 2;
+    public float movementSpeed = 1;
 
     private Vector3 startingLocation;
     private Dictionary<string, Vector3> jumpLocations;
 	private NavMeshAgent agent;
     private int movementType = 1; //0 is free roam, 1 teleport, 2 pathed teleport
-	void Start () {
+    void Start () {
 		agent = GetComponent<NavMeshAgent>();
         startingLocation = this.transform.position;
         jumpLocations = new Dictionary<string, Vector3>();
+        this.GetComponent<NavMeshAgent>().speed = movementSpeed;
         for (int i=0;i<Mathf.Min(locationNames.Length, locations.Length); i++)
         {
             jumpLocations.Add(locationNames[i], locations[i]);
@@ -47,11 +48,12 @@ public class Navmesh : MonoBehaviour {
     {
         if (jumpLocations.ContainsKey(location_name))
         {
-            transform.position = jumpLocations[location_name];
+            this.transform.position = jumpLocations[location_name];
+            Debug.Log(jumpLocations[location_name]);
         }
         else
         {
-            transform.position = startingLocation;
+            this.transform.position = startingLocation;
         }
     }
 

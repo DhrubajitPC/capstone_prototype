@@ -6,11 +6,11 @@ using UnityEngine.SceneManagement;
 public class RoomControl : MonoBehaviour {
 
     public GameObject PlayerObj;
-    public GameObject BaseGeometryObj;
-    public Material BaseGeometryMat; //???? CANNOT ASSIGN MATERIALS TO OBJECTS????
+    public GameObject FurnitureMain;
     public Vector4[] HumanCoords; // w is y rotation
 
     private bool renderMat;
+    private bool showFurn;
     private bool showHuman;
     private bool enableFreeRoam;
     private bool pathedTeleport;
@@ -18,6 +18,7 @@ public class RoomControl : MonoBehaviour {
     void Start () {
         Cardboard.SDK.OnTrigger += TriggerPulled;
         renderMat = PlayerPrefs.GetInt("RenderMat") == 1;
+        showFurn = PlayerPrefs.GetInt("ShowFurn") == 1;
         showHuman = PlayerPrefs.GetInt("ShowHuman") == 1;
         enableFreeRoam = PlayerPrefs.GetInt("EnableFreeRoam") == 1;
         pathedTeleport = PlayerPrefs.GetInt("PathedTeleport") == 1;
@@ -29,6 +30,7 @@ public class RoomControl : MonoBehaviour {
                 PlayerPrefs.GetFloat("QuarternionZ"), PlayerPrefs.GetFloat("QuarternionW"));
             PlayerPrefs.SetInt("LoadLocation", 0);
         }
+        ApplyFurnitureLayer();
         ApplyMaterialLayer();
         ApplyHumanLayer();
         ApplyMovements();
@@ -37,6 +39,7 @@ public class RoomControl : MonoBehaviour {
     void TriggerPulled()
     {
         PlayerPrefs.SetInt("RenderMat", renderMat ? 1 : 0);
+        PlayerPrefs.SetInt("ShowFurn", showFurn ? 1 : 0);
         PlayerPrefs.SetInt("ShowHuman", showHuman ? 1 : 0);
         PlayerPrefs.SetInt("EnableFreeRoam", enableFreeRoam ? 1 : 0);
         PlayerPrefs.SetInt("PathedTeleport", pathedTeleport ? 1 : 0);
@@ -59,17 +62,28 @@ public class RoomControl : MonoBehaviour {
 
     void ApplyMaterialLayer()
     {
-        MeshRenderer mr = BaseGeometryObj.GetComponentInChildren<MeshRenderer>() as MeshRenderer;
-        if (renderMat)
+        if (!renderMat)
         {
-            Texture t = Resources.Load("images/WDF_2069399") as Texture;
-            BaseGeometryMat.mainTexture = t;
-            //mr.sharedMaterial = BaseGeometryMat;
+            GameObject[] objs = GameObject.FindObjectsOfType<GameObject>();
+            for (int i = 0; i < objs.Length; i++)
+            {
+                if (objs[i].isStatic)
+                {
+                    MeshRenderer[] mrs = objs[i].GetComponents<MeshRenderer>();
+                    for (int j = 0; j < mrs.Length; j++)
+                    {
+                        mrs[j].material = new Material(Shader.Find("Diffuse"));
+                    }
+                }
+            }
         }
-        else {
-            Texture t = new Texture();
-            BaseGeometryMat.mainTexture = t;
-            //mr.sharedMaterial = BaseGeometryMat;
+    }
+
+    void ApplyFurnitureLayer()
+    {
+        if (!showFurn)
+        {
+            FurnitureMain.SetActive(false);
         }
     }
     void ApplyHumanLayer()
