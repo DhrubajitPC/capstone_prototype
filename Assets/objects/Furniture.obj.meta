@@ -35,6 +35,8 @@ ModelImporter:
     100054: Furniture__Study_Clock
     100056: Furniture__Study_Shelf
     100058: Furniture__Study_Table
+    100060: Furniture__Dining_Light
+    100062: Furniture__Study_Table_Lsmp
     400000: //RootNode
     400002: Furniture__Living_Room_Light
     400004: Furniture__Sofa
@@ -65,6 +67,8 @@ ModelImporter:
     400054: Furniture__Study_Clock
     400056: Furniture__Study_Shelf
     400058: Furniture__Study_Table
+    400060: Furniture__Dining_Light
+    400062: Furniture__Study_Table_Lsmp
     2300000: Furniture__Living_Room_Light
     2300002: Furniture__Sofa_MeshPart0
     2300004: Furniture__Sofa_MeshPart1
@@ -90,6 +94,8 @@ ModelImporter:
     2300044: Furniture__Study_Clock
     2300046: Furniture__Study_Shelf
     2300048: Furniture__Study_Table
+    2300050: Furniture__Dining_Light
+    2300052: Furniture__Study_Table_Lsmp
     3300000: Furniture__Living_Room_Light
     3300002: Furniture__Sofa_MeshPart0
     3300004: Furniture__Sofa_MeshPart1
@@ -115,6 +121,8 @@ ModelImporter:
     3300044: Furniture__Study_Clock
     3300046: Furniture__Study_Shelf
     3300048: Furniture__Study_Table
+    3300050: Furniture__Dining_Light
+    3300052: Furniture__Study_Table_Lsmp
     4300000: Furniture__Living_Room_Light
     4300002: Furniture__Sofa_MeshPart0
     4300004: Furniture__Sofa_MeshPart1
@@ -142,6 +150,8 @@ ModelImporter:
     4300048: Furniture__Study_Clock
     4300050: Furniture__Study_Shelf
     4300052: Furniture__Study_Table
+    4300054: Furniture__Dining_Light
+    4300056: Furniture__Study_Table_Lsmp
   materials:
     importMaterials: 1
     materialName: 0
