@@ -1,21 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(Collider))]
 public class Jump : MonoBehaviour {
 
-	private Vector3 startingPostition;
-	// Use this for initialization
-	void Start () {
-		startingPostition = transform.localPosition;
-	}
-
-	void Update(){
-		print (startingPostition);
-		if (Input.GetButtonDown("Fire1")){
-			transform.localPosition = new Vector3 (4f, 1.7f, 5f);
+	private Vector3 startingPostition = new Vector3(5.22f,2f,-4.5f);
+	private Vector3 newRoom = new Vector3(-2.62f,2f,5.43f);
+	
+	public void move(string pos){
+		switch(pos){
+			case "new room":
+				GameObject.Find ("CardboardMain").transform.position = newRoom;
+				break;
+			default:
+				GameObject.Find ("CardboardMain").transform.position = startingPostition;
+				break;
 		}
-		
 	}
-
 }
