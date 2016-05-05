@@ -28,7 +28,8 @@ public class RadialProgressBar : MonoBehaviour, ICardboardGazeResponder {
 		}
 		LoadingBar.GetComponent<Image> ().fillAmount = currentAmount / 100;
 		if (currentAmount >= 100) {
-			GameObject.Find ("CardboardMain").GetComponent <Jump>().move (NewRoom);
+//			GameObject.Find ("CardboardMain").GetComponent <Jump>().move (NewRoom);
+			GameObject.Find ("Capsule").GetComponent<Navmesh> ().move (NewRoom);
 		}
 	}
 
@@ -44,3 +45,32 @@ public class RadialProgressBar : MonoBehaviour, ICardboardGazeResponder {
 	public void OnGazeTrigger(){
 	}
 }
+
+//using UnityEngine;
+//using System.Collections;
+//
+//public class AgentScript : MonoBehaviour {
+//
+//	NavMeshAgent agent;
+//	// Use this for initialization
+//	void Start () {
+//		agent = GetComponent<NavMeshAgent>();
+//	}
+//
+//	// Update is called once per frame
+//	void Update () {
+//		if ( Input.GetMouseButtonDown(0) ) {
+//			Plane plane = new Plane(Vector3.up, 0);
+//			//Vector3 dest = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+//			float dist;
+//			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+//			if (plane.Raycast(ray, out dist))
+//			{
+//				Vector3 point = ray.GetPoint(dist);
+//				agent.SetDestination(point);
+//				//				indicator.position = point;
+//			}
+//		}
+//	}
+//}
+
