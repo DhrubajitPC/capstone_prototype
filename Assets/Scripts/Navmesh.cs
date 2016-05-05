@@ -11,8 +11,7 @@ public class Navmesh : MonoBehaviour {
     private Vector3 startingLocation;
     private Dictionary<string, Vector3> jumpLocations;
 	private NavMeshAgent agent;
-
-    private bool autoWalk = false;
+    private int movementType = 1; //0 is free roam, 1 teleport, 2 pathed teleport
 	void Start () {
 		agent = GetComponent<NavMeshAgent>();
         startingLocation = this.transform.position;
@@ -23,7 +22,18 @@ public class Navmesh : MonoBehaviour {
         }
 	}
 
-	public void setDestination(string location_name){
+    public void move(string location_name)
+    {
+        if (movementType==1)
+        {
+            jump(location_name);
+        } else if (movementType == 2)
+        {
+            setDestination(location_name);
+        }
+    }
+
+	private void setDestination(string location_name){
         if (jumpLocations.ContainsKey(location_name))
         {
             agent.SetDestination(jumpLocations[location_name]);
@@ -33,7 +43,7 @@ public class Navmesh : MonoBehaviour {
         }
 	}
 
-    public void jump(string location_name)
+    private void jump(string location_name)
     {
         if (jumpLocations.ContainsKey(location_name))
         {
@@ -45,14 +55,14 @@ public class Navmesh : MonoBehaviour {
         }
     }
 
-    public void SetAutoWalk(bool value)
+    public void setMovementMode(int value)
     {
-        autoWalk = value;
+        movementType = value;
     }
 
     void Update()
     {
-        if (autoWalk || Input.GetKey("space"))
+        if (movementType==0 || Input.GetKey("space"))
         {
             this.transform.position += transform.Find("CardboardMain/Head").transform.forward * Time.deltaTime * movementSpeed;
         }

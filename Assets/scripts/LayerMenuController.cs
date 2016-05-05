@@ -4,22 +4,36 @@ using UnityEngine.SceneManagement;
 
 public class LayerMenuController : MonoBehaviour {
 
-    public UnityEngine.UI.Toggle toggle;
-    public UnityEngine.UI.Toggle toggle2;
+    public UnityEngine.UI.Toggle toggleMat;
+    public UnityEngine.UI.Toggle toggleHuman;
+    public UnityEngine.UI.Toggle toggleFreeRoam;
+    public UnityEngine.UI.Toggle togglePathedTele;
 
     private bool renderMat;
     private bool showHuman;
+    private bool enableFreeRoam;
+    private bool pathedTeleport;
 
     // Use this for initialization
     void Start () {
         renderMat = false;
         showHuman = false;
+        enableFreeRoam = false;
+        pathedTeleport = false;
         if (PlayerPrefs.GetInt("RenderMat") == 1) {
-            toggle.isOn = PlayerPrefs.GetInt("RenderMat") == 1; //this toggles the trigger
+            toggleMat.isOn = PlayerPrefs.GetInt("RenderMat") == 1; //this toggles the trigger
         }
         if (PlayerPrefs.GetInt("ShowHuman") == 1)
         {
-            toggle2.isOn = PlayerPrefs.GetInt("ShowHuman") == 1;
+            toggleHuman.isOn = PlayerPrefs.GetInt("ShowHuman") == 1;
+        }
+        if (PlayerPrefs.GetInt("EnableFreeRoam") == 1)
+        {
+            toggleFreeRoam.isOn = PlayerPrefs.GetInt("EnableFreeRoam") == 1;
+        }
+        if (PlayerPrefs.GetInt("PathedTeleport") == 1)
+        {
+            togglePathedTele.isOn = PlayerPrefs.GetInt("PathedTeleport") == 1;
         }
     }
 	
@@ -30,11 +44,21 @@ public class LayerMenuController : MonoBehaviour {
     {
         showHuman = !showHuman;
     }
+    public void ToggleFreeRoam()
+    {
+        enableFreeRoam = !enableFreeRoam;
+    }
+    public void TogglePathedTele()
+    {
+        pathedTeleport = !pathedTeleport;
+    }
 
     public void BackToRoom()
     {
         PlayerPrefs.SetInt("RenderMat", renderMat ? 1 : 0);
         PlayerPrefs.SetInt("ShowHuman", showHuman ? 1 : 0);
+        PlayerPrefs.SetInt("EnableFreeRoam", enableFreeRoam ? 1 : 0);
+        PlayerPrefs.SetInt("PathedTeleport", pathedTeleport ? 1 : 0);
         SceneManager.LoadScene("Scene1",LoadSceneMode.Single);
     }
 

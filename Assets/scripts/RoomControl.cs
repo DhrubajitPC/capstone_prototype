@@ -12,11 +12,15 @@ public class RoomControl : MonoBehaviour {
 
     private bool renderMat;
     private bool showHuman;
+    private bool enableFreeRoam;
+    private bool pathedTeleport;
     // Use this for initialization
     void Start () {
         Cardboard.SDK.OnTrigger += TriggerPulled;
         renderMat = PlayerPrefs.GetInt("RenderMat") == 1;
         showHuman = PlayerPrefs.GetInt("ShowHuman") == 1;
+        enableFreeRoam = PlayerPrefs.GetInt("EnableFreeRoam") == 1;
+        pathedTeleport = PlayerPrefs.GetInt("PathedTeleport") == 1;
         if (PlayerPrefs.GetInt("LoadLocation") == 1){
             PlayerObj.transform.position = new Vector3(PlayerPrefs.GetFloat("LocationX"),
                 PlayerPrefs.GetFloat("LocationY"), PlayerPrefs.GetFloat("LocationZ"));
@@ -27,13 +31,16 @@ public class RoomControl : MonoBehaviour {
         }
         ApplyMaterialLayer();
         ApplyHumanLayer();
+        ApplyMovements();
     }
 	
     void TriggerPulled()
     {
         PlayerPrefs.SetInt("RenderMat", renderMat ? 1 : 0);
         PlayerPrefs.SetInt("ShowHuman", showHuman ? 1 : 0);
-        SceneManager.LoadScene("LayerScene", LoadSceneMode.Single);
+        PlayerPrefs.SetInt("EnableFreeRoam", enableFreeRoam ? 1 : 0);
+        PlayerPrefs.SetInt("PathedTeleport", pathedTeleport ? 1 : 0);
+        //location
         PlayerPrefs.SetInt("LoadLocation", 1);
         PlayerPrefs.SetFloat("LocationX", PlayerObj.transform.position.x);
         PlayerPrefs.SetFloat("LocationY", PlayerObj.transform.position.y);
@@ -42,6 +49,7 @@ public class RoomControl : MonoBehaviour {
         PlayerPrefs.SetFloat("QuarternionY", PlayerObj.transform.Find("CardboardMain/Head").rotation.y);
         PlayerPrefs.SetFloat("QuarternionZ", PlayerObj.transform.Find("CardboardMain/Head").rotation.z);
         PlayerPrefs.SetFloat("QuarternionW", PlayerObj.transform.Find("CardboardMain/Head").rotation.w);
+        SceneManager.LoadScene("LayerScene", LoadSceneMode.Single);
     }
 
 	// Update is called once per frame
@@ -71,6 +79,23 @@ public class RoomControl : MonoBehaviour {
             foreach (GameObject human in HumanObjs)
             {
                 human.SetActive(false);
+            }
+        }
+    }
+    void ApplyMovements()
+    {
+        if (enableFreeRoam)
+        {
+            PlayerObj.GetComponent<Navmesh>().setMovementMode(0);
+        }
+        else
+        {
+            if (pathedTeleport)
+            {
+                PlayerObj.GetComponent<Navmesh>().setMovementMode(2);
+            } else
+            {
+                PlayerObj.GetComponent<Navmesh>().setMovementMode(1);
             }
         }
     }

@@ -7,7 +7,6 @@ public class RadialProgressBar : MonoBehaviour, ICardboardGazeResponder {
 
 	public Transform LoadingBar;
 	public string NewRoom;
-	public int style; //movement syle: 1 for jump, 2 for walk
 
 	private float currentAmount = 0;
 	private float speed = 50;
@@ -27,18 +26,8 @@ public class RadialProgressBar : MonoBehaviour, ICardboardGazeResponder {
 		}
 		LoadingBar.GetComponent<Image> ().fillAmount = currentAmount / 100;
 		if (currentAmount >= 100) {
-			switch (style) {
-			case 1:
-				GameObject.Find ("Capsule").GetComponent <Navmesh> ().jump (NewRoom);
-				break;
-			case 2:
-				GameObject.Find ("Capsule").GetComponent<Navmesh> ().setDestination(NewRoom);
-				break;
-			default:
-				GameObject.Find ("Capsule").GetComponent <Navmesh> ().jump (NewRoom);
-				break;
-			}
-		}
+            GameObject.Find("Capsule").GetComponent<Navmesh>().move(NewRoom);
+        }
 	}
 
 	public void OnGazeEnter(){
