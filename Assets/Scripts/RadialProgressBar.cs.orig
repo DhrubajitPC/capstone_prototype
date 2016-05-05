@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -29,6 +29,7 @@ public class RadialProgressBar : MonoBehaviour, ICardboardGazeResponder {
 		}
 		LoadingBar.GetComponent<Image> ().fillAmount = currentAmount / 100;
 		if (currentAmount >= 100) {
+<<<<<<< HEAD
 			switch (style) {
 			case 1:
 				GameObject.Find ("CardboardMain").GetComponent <Jump> ().move (NewRoom);
@@ -41,6 +42,10 @@ public class RadialProgressBar : MonoBehaviour, ICardboardGazeResponder {
 				break;
 			}
 				
+=======
+//			GameObject.Find ("CardboardMain").GetComponent <Jump>().move (NewRoom);
+			GameObject.Find ("Capsule").GetComponent<Navmesh> ().move (NewRoom);
+>>>>>>> 1a35bb6bc9c95e3dbef226fe7870b2a94d06d27d
 		}
 	}
 
