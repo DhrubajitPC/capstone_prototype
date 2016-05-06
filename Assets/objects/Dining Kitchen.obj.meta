@@ -1,0 +1,138 @@
+fileFormatVersion: 2
+guid: 32364cd40d202de45ae51864c894887b
+timeCreated: 1462480298
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Default
+    100002: //RootNode
+    100004: Furniture__Clock
+    100006: Furniture__Dining_Chairs
+    100008: Furniture__Dining_Light
+    100010: Furniture__Dining_Table
+    100012: Furniture__Kitchen_Bar
+    100014: Furniture__Kitchen_Counter
+    100016: Furniture__Clock__Inside
+    100018: Furniture__Dining_Chairs__Seat
+    100020: Furniture__Dining_Light__Glass
+    100022: Furniture__Kitchen
+    100024: Furniture__Tables
+    100026: Furniture__Tables__Glass
+    400000: Default
+    400002: //RootNode
+    400004: Furniture__Clock
+    400006: Furniture__Dining_Chairs
+    400008: Furniture__Dining_Light
+    400010: Furniture__Dining_Table
+    400012: Furniture__Kitchen_Bar
+    400014: Furniture__Kitchen_Counter
+    400016: Furniture__Clock__Inside
+    400018: Furniture__Dining_Chairs__Seat
+    400020: Furniture__Dining_Light__Glass
+    400022: Furniture__Kitchen
+    400024: Furniture__Tables
+    400026: Furniture__Tables__Glass
+    2300000: Default
+    2300002: Furniture__Clock
+    2300004: Furniture__Dining_Chairs
+    2300006: Furniture__Dining_Light
+    2300008: Furniture__Dining_Table
+    2300010: Furniture__Kitchen_Bar
+    2300012: Furniture__Kitchen_Counter
+    2300014: Furniture__Clock__Inside
+    2300016: Furniture__Dining_Chairs__Seat
+    2300018: Furniture__Dining_Light__Glass
+    2300020: Furniture__Kitchen
+    2300022: Furniture__Tables
+    2300024: Furniture__Tables__Glass
+    3300000: Default
+    3300002: Furniture__Clock
+    3300004: Furniture__Dining_Chairs
+    3300006: Furniture__Dining_Light
+    3300008: Furniture__Dining_Table
+    3300010: Furniture__Kitchen_Bar
+    3300012: Furniture__Kitchen_Counter
+    3300014: Furniture__Clock__Inside
+    3300016: Furniture__Dining_Chairs__Seat
+    3300018: Furniture__Dining_Light__Glass
+    3300020: Furniture__Kitchen
+    3300022: Furniture__Tables
+    3300024: Furniture__Tables__Glass
+    4300000: Default
+    4300002: Furniture__Clock
+    4300004: Furniture__Dining_Chairs
+    4300006: Furniture__Dining_Light
+    4300008: Furniture__Dining_Table
+    4300010: Furniture__Kitchen_Bar
+    4300012: Furniture__Kitchen_Counter
+    4300014: Furniture__Clock__Inside
+    4300016: Furniture__Dining_Chairs__Seat
+    4300018: Furniture__Dining_Light__Glass
+    4300020: Furniture__Kitchen
+    4300022: Furniture__Tables
+    4300024: Furniture__Tables__Glass
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

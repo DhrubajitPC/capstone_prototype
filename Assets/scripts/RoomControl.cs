@@ -92,7 +92,7 @@ public class RoomControl : MonoBehaviour {
         {
             foreach (Vector4 coord in HumanCoords)
             {
-                Instantiate(Resources.Load("prefabs/HumanFigure"), new Vector3(coord.x, coord.y, coord.z),
+                Instantiate(Resources.Load("prefabs/HumanFigure"), new Vector3(coord.x, 0.14f, coord.z), //"TODO" instantiating with y to be 0.14 and not coord.y as a quick fix
                     Quaternion.Euler(0.0f, coord.w, 0.0f));
             }
         }

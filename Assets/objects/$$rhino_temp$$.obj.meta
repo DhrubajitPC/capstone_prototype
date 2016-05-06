@@ -1,0 +1,130 @@
+fileFormatVersion: 2
+guid: a264b49e45efe794f9c9ddc3114be6aa
+timeCreated: 1462392053
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Furniture__Clock
+    100004: Furniture__Coffee_Tables
+    100006: Furniture__Living_Room_Light
+    100008: Furniture__Master_Bedroom_Lights
+    100010: Furniture__Pots
+    100012: Furniture__Sofa__1
+    100014: Furniture__Sofa__2
+    100016: Furniture__Sofa__3
+    100018: Furniture__Sofa__3_MeshPart0
+    100020: Furniture__Sofa__3_MeshPart1
+    100022: Furniture__Sofa__Legs
+    100024: Furniture__TV
+    400000: //RootNode
+    400002: Furniture__Clock
+    400004: Furniture__Coffee_Tables
+    400006: Furniture__Living_Room_Light
+    400008: Furniture__Master_Bedroom_Lights
+    400010: Furniture__Pots
+    400012: Furniture__Sofa__1
+    400014: Furniture__Sofa__2
+    400016: Furniture__Sofa__3
+    400018: Furniture__Sofa__3_MeshPart0
+    400020: Furniture__Sofa__3_MeshPart1
+    400022: Furniture__Sofa__Legs
+    400024: Furniture__TV
+    2300000: Furniture__Clock
+    2300002: Furniture__Coffee_Tables
+    2300004: Furniture__Living_Room_Light
+    2300006: Furniture__Master_Bedroom_Lights
+    2300008: Furniture__Pots
+    2300010: Furniture__Sofa__1
+    2300012: Furniture__Sofa__2
+    2300014: Furniture__Sofa__3_MeshPart0
+    2300016: Furniture__Sofa__3_MeshPart1
+    2300018: Furniture__Sofa__Legs
+    2300020: Furniture__TV
+    3300000: Furniture__Clock
+    3300002: Furniture__Coffee_Tables
+    3300004: Furniture__Living_Room_Light
+    3300006: Furniture__Master_Bedroom_Lights
+    3300008: Furniture__Pots
+    3300010: Furniture__Sofa__1
+    3300012: Furniture__Sofa__2
+    3300014: Furniture__Sofa__3_MeshPart0
+    3300016: Furniture__Sofa__3_MeshPart1
+    3300018: Furniture__Sofa__Legs
+    3300020: Furniture__TV
+    4300000: Furniture__Clock
+    4300002: Furniture__Coffee_Tables
+    4300004: Furniture__Living_Room_Light
+    4300006: Furniture__Master_Bedroom_Lights
+    4300008: Furniture__Pots
+    4300010: Furniture__Sofa__1
+    4300012: Furniture__Sofa__2
+    4300014: Furniture__Sofa__3_MeshPart0
+    4300016: Furniture__Sofa__3_MeshPart1
+    4300018: Furniture__Sofa__Legs
+    4300020: Furniture__TV
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
