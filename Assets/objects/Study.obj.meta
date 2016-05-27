@@ -15,6 +15,7 @@ ModelImporter:
     100014: Furniture__Study_Table_Lsmp_MeshPart2
     100016: //RootNode
     100018: Furniture__Dining_Chairs__Seat
+    100020: Furniture__Study_Chair
     400000: Furniture__Dining_Chairs
     400002: Furniture__Study_Clock
     400004: Furniture__Study_Shelf
@@ -25,6 +26,7 @@ ModelImporter:
     400014: Furniture__Study_Table_Lsmp_MeshPart2
     400016: //RootNode
     400018: Furniture__Dining_Chairs__Seat
+    400020: Furniture__Study_Chair
     2300000: Furniture__Dining_Chairs
     2300002: Furniture__Study_Clock
     2300004: Furniture__Study_Shelf
@@ -33,6 +35,7 @@ ModelImporter:
     2300010: Furniture__Study_Table_Lsmp_MeshPart1
     2300012: Furniture__Study_Table_Lsmp_MeshPart2
     2300014: Furniture__Dining_Chairs__Seat
+    2300016: Furniture__Study_Chair
     3300000: Furniture__Dining_Chairs
     3300002: Furniture__Study_Clock
     3300004: Furniture__Study_Shelf
@@ -41,6 +44,7 @@ ModelImporter:
     3300010: Furniture__Study_Table_Lsmp_MeshPart1
     3300012: Furniture__Study_Table_Lsmp_MeshPart2
     3300014: Furniture__Dining_Chairs__Seat
+    3300016: Furniture__Study_Chair
     4300000: Furniture__Dining_Chairs
     4300002: Furniture__Study_Clock
     4300004: Furniture__Study_Shelf
@@ -49,6 +53,7 @@ ModelImporter:
     4300010: Furniture__Study_Table_Lsmp_MeshPart1
     4300012: Furniture__Study_Table_Lsmp_MeshPart2
     4300014: Furniture__Dining_Chairs__Seat
+    4300016: Furniture__Study_Chair
   materials:
     importMaterials: 1
     materialName: 0
