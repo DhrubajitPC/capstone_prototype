@@ -1,0 +1,57 @@
+﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System;
+
+public class ImportCsv
+{
+    List<string[]> CsvList = new List<string[]>();
+    
+    public ImportCsv(string FilePath)
+    //Get filepath and convert into list of strings
+    {
+        string CsvValues = "";
+        using (StreamReader CsvReader = new StreamReader(File.OpenRead(FilePath)))
+        {
+            CsvValues = CsvReader.ReadToEnd();
+        }
+
+        string[] CsvLines = CsvValues.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+        foreach (string CsvLine in CsvLines)
+        {
+            this.CsvList.Add(CsvLine.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries));
+        }
+
+    }
+    
+    public int Count
+    //Get length of list
+    {
+        get
+        {
+            return CsvList.Count;
+        }
+    }
+
+    public string[] Line(int row)
+    //Get Item in String
+    {
+        return CsvList[row];
+    }
+
+
+    public string Item(int row, int col)
+    //Get Item in String
+    {
+        return CsvList[row][col];
+    }
+
+    public float Itemf(int row, int col)
+    //Get Item in Float
+    {
+        return float.Parse(CsvList[row][col]);
+    }   
+
+}
+

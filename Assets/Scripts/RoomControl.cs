@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 using UnityEngine.SceneManagement;
 
@@ -7,15 +8,20 @@ public class RoomControl : MonoBehaviour {
 
     public GameObject PlayerObj;
     public GameObject FurnitureMain;
-    public Vector4[] HumanCoords; // w is y rotation
+    // public Vector4[] HumanCoords; // w is y rotation
+
+    List<Vector4> HumanCoords = new List<Vector4>(); //Added by Lawrence :D
 
     private bool renderMat;
     private bool showFurn;
     private bool showHuman;
     private bool enableFreeRoam;
     private bool pathedTeleport;
+    
+
     // Use this for initialization
     void Start () {
+
         Cardboard.SDK.OnTrigger += TriggerPulled;
         renderMat = PlayerPrefs.GetInt("RenderMat") == 1;
         showFurn = PlayerPrefs.GetInt("ShowFurn") == 1;
@@ -35,7 +41,9 @@ public class RoomControl : MonoBehaviour {
         ApplyHumanLayer();
         ApplyMovements();
     }
-	
+
+
+
     void TriggerPulled()
     {
         PlayerPrefs.SetInt("RenderMat", renderMat ? 1 : 0);
@@ -88,13 +96,36 @@ public class RoomControl : MonoBehaviour {
     }
     void ApplyHumanLayer()
     {
+        ImportCsv Human = new ImportCsv(@"Assets/imported/humancoords.csv");
+        for (int i = 0; i < Human.Count; i++)
+        {
+            HumanCoords.Add(new Vector4(Human.Itemf(i, 0), Human.Itemf(i, 1), Human.Itemf(i, 2), Human.Itemf(i, 3)));
+        }
         if (showHuman)
         {
-            foreach (Vector4 coord in HumanCoords)
+            for (int i = 0; i < HumanCoords.Count; i++)
             {
-                Instantiate(Resources.Load("prefabs/HumanFigure"), new Vector3(coord.x, 0.14f, coord.z), //"TODO" instantiating with y to be 0.14 and not coord.y as a quick fix
-                    Quaternion.Euler(0.0f, coord.w, 0.0f));
+                //Duplicate Human Figures
+                GameObject person = (GameObject)Instantiate(GameObject.Find("HumanFigure"), new Vector3(HumanCoords[i].x, 0.14f, HumanCoords[i].z), //"TODO" instantiating with y to be 0.14 and not coord.y as a quick fix
+                    Quaternion.Euler(0.0f, HumanCoords[i].w, 0.0f));
+                person.name = "Person" + i;
+                //person.AddComponent<TooltipPopup>();
+
+                //Match location coordinates with closest CFD data
+                CFDClosestPt CFD = new CFDClosestPt(HumanCoords[i].x, HumanCoords[i].z);
+
+                //Duplicate Cloth
+                GameObject WindCloth = (GameObject)Instantiate(GameObject.Find("WindCloth"), new Vector3(HumanCoords[i].x, 0.638f, HumanCoords[i].z), Quaternion.Euler(270f, HumanCoords[i].w + 180f, 0.0f));
+                WindCloth.name = "WindCloth" + i;
+                WindCloth.GetComponent<Cloth>().externalAcceleration = new Vector3(CFD.Vx/2, CFD.Vz / 2, CFD.Vy / 2);
+                WindCloth.GetComponent<Cloth>().randomAcceleration = new Vector3(CFD.Vx / 2, CFD.Vz / 2, CFD.Vy / 2);
+
+                //Display Data in Tooltip
+                GameObject Tooltip = (GameObject)Instantiate(GameObject.Find("Tooltip"), new Vector3(HumanCoords[i].x, 0.638f, HumanCoords[i].z), Quaternion.Euler(270f, HumanCoords[i].w + 180f, 0.0f));
+                Tooltip.name = "Tooltip" + i;
+                Tooltip.GetComponent<TextMesh>().text = "Wind Speed = " + CFD.V.ToString("F2") + " m/s";
             }
+           
         }
     }
     void ApplyMovements()
