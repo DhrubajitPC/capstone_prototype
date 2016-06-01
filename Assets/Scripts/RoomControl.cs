@@ -56,10 +56,10 @@ public class RoomControl : MonoBehaviour {
         PlayerPrefs.SetFloat("LocationX", PlayerObj.transform.position.x);
         PlayerPrefs.SetFloat("LocationY", PlayerObj.transform.position.y);
         PlayerPrefs.SetFloat("LocationZ", PlayerObj.transform.position.z);
-        PlayerPrefs.SetFloat("QuarternionX", PlayerObj.transform.Find("CardboardMain/Head").rotation.x);
-        PlayerPrefs.SetFloat("QuarternionY", PlayerObj.transform.Find("CardboardMain/Head").rotation.y);
-        PlayerPrefs.SetFloat("QuarternionZ", PlayerObj.transform.Find("CardboardMain/Head").rotation.z);
-        PlayerPrefs.SetFloat("QuarternionW", PlayerObj.transform.Find("CardboardMain/Head").rotation.w);
+        PlayerPrefs.SetFloat("QuarternionX", PlayerObj.transform.Find("VRMain/Head").rotation.x);
+		PlayerPrefs.SetFloat("QuarternionY", PlayerObj.transform.Find("VRMain/Head").rotation.y);
+		PlayerPrefs.SetFloat("QuarternionZ", PlayerObj.transform.Find("VRMain/Head").rotation.z);
+		PlayerPrefs.SetFloat("QuarternionW", PlayerObj.transform.Find("VRMain/Head").rotation.w);
         SceneManager.LoadScene("LayerScene", LoadSceneMode.Single);
     }
 
