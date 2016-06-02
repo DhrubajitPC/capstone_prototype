@@ -66,7 +66,7 @@ public class Navmesh : MonoBehaviour {
     {
         if (movementType==0 || Input.GetKey("space"))
         {
-            this.transform.position += transform.Find("CardboardMain/Head").transform.forward * Time.deltaTime * movementSpeed;
+            this.transform.position += transform.Find("VRMain/Head").transform.forward * Time.deltaTime * movementSpeed;
         }
     }
 }
