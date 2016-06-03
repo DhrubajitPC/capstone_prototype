@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class RoomControl : MonoBehaviour {
 
     public GameObject PlayerObj;
     public GameObject FurnitureMain;
-    // public Vector4[] HumanCoords; // w is y rotation
 
-    List<Vector4> HumanCoords = new List<Vector4>(); //Added by Lawrence :D
+    List<Vector4> HumanCoords = new List<Vector4>(); //w is y rotation
 
     private bool renderMat;
     private bool showFurn;
@@ -105,11 +105,11 @@ public class RoomControl : MonoBehaviour {
         {
             for (int i = 0; i < HumanCoords.Count; i++)
             {
-                //Duplicate Human Figures
-                GameObject person = (GameObject)Instantiate(GameObject.Find("HumanFigure"), new Vector3(HumanCoords[i].x, 0.14f, HumanCoords[i].z), //"TODO" instantiating with y to be 0.14 and not coord.y as a quick fix
+                //"TODO" instantiating with y to be 0.14 and not coord.y as a quick fix
+                GameObject person = (GameObject) Instantiate(Resources.Load("prefabs/HumanFigure"), 
+                    new Vector3(HumanCoords[i].x, 0.14f, HumanCoords[i].z), 
                     Quaternion.Euler(0.0f, HumanCoords[i].w, 0.0f));
                 person.name = "Person" + i;
-                //person.AddComponent<TooltipPopup>();
 
                 //Match location coordinates with closest CFD data
                 CFDClosestPt CFD = new CFDClosestPt(HumanCoords[i].x, HumanCoords[i].z);
@@ -120,10 +120,7 @@ public class RoomControl : MonoBehaviour {
                 WindCloth.GetComponent<Cloth>().externalAcceleration = new Vector3(CFD.Vx/2, CFD.Vz / 2, CFD.Vy / 2);
                 WindCloth.GetComponent<Cloth>().randomAcceleration = new Vector3(CFD.Vx / 2, CFD.Vz / 2, CFD.Vy / 2);
 
-                //Display Data in Tooltip
-                GameObject Tooltip = (GameObject)Instantiate(GameObject.Find("Tooltip"), new Vector3(HumanCoords[i].x, 0.638f, HumanCoords[i].z), Quaternion.Euler(270f, HumanCoords[i].w + 180f, 0.0f));
-                Tooltip.name = "Tooltip" + i;
-                Tooltip.GetComponent<TextMesh>().text = "Wind Speed = " + CFD.V.ToString("F2") + " m/s";
+                person.GetComponent<TooltipPopup>().setTooltip("Wind Speed = " + CFD.V.ToString("F2") + " m/s");
             }
            
         }

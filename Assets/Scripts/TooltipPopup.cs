@@ -4,32 +4,36 @@ using System.Collections;
 
 public class TooltipPopup : MonoBehaviour, ICardboardGazeResponder
 {
-    //TO BE UPDATED ONCE MOVE INTO OCULUS LIBRARY
-    private bool visible = true;
-    string game = "asdTooltip0";
+    private string tooltipText;
     
     // Use this for initialization
     void Start () {
-
+        if (tooltipText == null) {
+            tooltipText = this.name;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        // this.game = "Tooltip" + this.gameObject.name.Replace("Person", "");
-        GameObject.Find(this.game.Replace("asd", "")).GetComponent<Renderer>().enabled = visible;
 
+    }
 
+    public void setTooltip(string text)
+    {
+        tooltipText = text;
     }
 
     public void OnGazeEnter()
     {
-        visible = false;
+        GameObject.Find("Tooltip").GetComponent<Canvas>().enabled = true;
+        GameObject.Find("TooltipText").GetComponent<Text>().text = this.tooltipText;
+        Debug.Log(this.tooltipText);
     }
 
     public void OnGazeExit()
     {
-        visible = true;
+        GameObject.Find("Tooltip").GetComponent<Canvas>().enabled = false;
     }
 
     public void OnGazeTrigger()
