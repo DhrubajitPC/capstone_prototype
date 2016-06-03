@@ -114,9 +114,9 @@ public class RoomControl : MonoBehaviour {
                 //Match location coordinates with closest CFD data
                 CFDClosestPt CFD = new CFDClosestPt(HumanCoords[i].x, HumanCoords[i].z);
 
-                //Duplicate Cloth
-                GameObject WindCloth = (GameObject)Instantiate(GameObject.Find("WindCloth"), new Vector3(HumanCoords[i].x, 0.638f, HumanCoords[i].z), Quaternion.Euler(270f, HumanCoords[i].w + 180f, 0.0f));
-                WindCloth.name = "WindCloth" + i;
+                //Cloth Setting
+                GameObject WindCloth = person.transform.Find("WindCloth").gameObject;
+                //GameObject WindCloth = (GameObject)Instantiate(GameObject.Find("WindCloth"), new Vector3(HumanCoords[i].x, 0.638f, HumanCoords[i].z), Quaternion.Euler(270f, HumanCoords[i].w + 180f, 0.0f));
                 WindCloth.GetComponent<Cloth>().externalAcceleration = new Vector3(CFD.Vx/2, CFD.Vz / 2, CFD.Vy / 2);
                 WindCloth.GetComponent<Cloth>().randomAcceleration = new Vector3(CFD.Vx / 2, CFD.Vz / 2, CFD.Vy / 2);
 
