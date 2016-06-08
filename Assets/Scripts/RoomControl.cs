@@ -106,7 +106,7 @@ public class RoomControl : MonoBehaviour {
             for (int i = 0; i < HumanCoords.Count; i++)
             {
                 //"TODO" instantiating with y to be 0.14 and not coord.y as a quick fix
-                GameObject person = (GameObject) Instantiate(Resources.Load("prefabs/HumanFigure"), 
+                GameObject person = (GameObject) Instantiate(Resources.Load("prefabs/HumanFig"), 
                     new Vector3(HumanCoords[i].x, 0.14f, HumanCoords[i].z), 
                     Quaternion.Euler(0.0f, HumanCoords[i].w, 0.0f));
                 person.name = "Person" + i;
@@ -115,10 +115,10 @@ public class RoomControl : MonoBehaviour {
                 CFDClosestPt CFD = new CFDClosestPt(HumanCoords[i].x, HumanCoords[i].z);
 
                 //Cloth Setting
-                GameObject WindCloth = person.transform.Find("WindCloth").gameObject;
+                GameObject WindCloth = person.transform.Find("dress").gameObject;
                 //GameObject WindCloth = (GameObject)Instantiate(GameObject.Find("WindCloth"), new Vector3(HumanCoords[i].x, 0.638f, HumanCoords[i].z), Quaternion.Euler(270f, HumanCoords[i].w + 180f, 0.0f));
-                WindCloth.GetComponent<Cloth>().externalAcceleration = new Vector3(CFD.Vx/2, CFD.Vz / 2, CFD.Vy / 2);
-                WindCloth.GetComponent<Cloth>().randomAcceleration = new Vector3(CFD.Vx / 2, CFD.Vz / 2, CFD.Vy / 2);
+                WindCloth.GetComponent<Cloth>().externalAcceleration = new Vector3(CFD.Vx * 0.8f, CFD.Vz * 0.8f, CFD.Vy * 0.8f);
+                WindCloth.GetComponent<Cloth>().randomAcceleration = new Vector3(CFD.Vx * 0.4f, CFD.Vz * 0.4f, CFD.Vy * 0.4f);
 
                 person.GetComponent<TooltipPopup>().setTooltip("Wind Speed = " + CFD.V.ToString("F2") + " m/s");
             }
