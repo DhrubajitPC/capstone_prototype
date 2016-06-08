@@ -16,6 +16,19 @@ public class LayerMenuController : MonoBehaviour {
     private bool enableFreeRoam;
     private bool pathedTeleport;
 
+//
+//	[MenuItem("VR Build Settings/Build GearVR")]
+//	static void BuildGearVRSettings(){
+//		PlayerSettings.virtualRealitySupported = true;
+//		Cardboard cardboard = (Cardboard)GameObject.FindGameObjectWithTag("Cam").GetComponent<Cardboard>();
+//		CardboardHead cardboardHead = cardboard.GetComponentInChildren<CardboardHead>();
+//		cardboard.VRModeEnabled = false;
+//		cardboardHead.trackPosition = false;
+//		cardboardHead.trackRotation = false;
+//		EditorUtility.SetDirty (cardboard);
+//		EditorUtility.SetDirty (cardboardHead);
+//	}
+//
     // Use this for initialization
     void Start () {
         renderMat = false;
@@ -23,6 +36,18 @@ public class LayerMenuController : MonoBehaviour {
         showHuman = false;
         enableFreeRoam = false;
         pathedTeleport = false;
+
+//		Cardboard cardboard = (Cardboard)GameObject.FindGameObjectWithTag("Cam").GetComponent<Cardboard>();
+//		CardboardHead cardboardHead = cardboard.GetComponentInChildren<CardboardHead>();
+//		cardboardHead.trackPosition = false;
+//		cardboardHead.trackRotation = false;
+//		cardboard.VRModeEnabled = false;
+//		GameObject.Find("Head").transform.position = new Vector3(0,0,0);
+//		GameObject.Find("Head").transform.rotation = new Vector3(0,0,0);
+//		cardboardHead.transform.position = new Vector3(0,0,0);
+//		cardboardHead.transform.rotation = new Vector3(0,0,0);
+//		GameObject.Find('Canvas').transform.position = new Vector3(0,0,0);
+
         if (PlayerPrefs.GetInt("RenderMat") == 1) {
             toggleMat.isOn = PlayerPrefs.GetInt("RenderMat") == 1; //this toggles the trigger
         }
@@ -77,7 +102,23 @@ public class LayerMenuController : MonoBehaviour {
 	// Update is called once per frame
 	void LateUpdate () {
 		//		relocating the camera angle to default
-//		GameObject.Find ("CardboardMain").transform.eulerAngles = new Vector3 (0, 0, 0);
-//		GameObject.Find ("CardboardMain").transform.position = new Vector3 (0, 0, 0);
+		float curX = GameObject.Find ("Head").transform.eulerAngles.x;
+		float curY = GameObject.Find ("Head").transform.eulerAngles.y;
+		float curZ = GameObject.Find ("Head").transform.eulerAngles.z;
+//		print ("x:" + curX + "y:" + curY + "z:" + curZ);
+//		print ("y:" + curY);
+//		print ("z:" + curZ);
+		if (curZ > 0.01f) {
+//			GameObject.Find ("Head").transform.eulerAngles = new Vector3 (curX, curY, 0.01f);
+//		} else if (curZ < -0.03f) {
+//			GameObject.Find ("Head").transform.eulerAngles = new Vector3 (curX, curY, -0.03f);
+		} else if (curY > 0.02f) {
+			GameObject.Find ("Head").transform.eulerAngles = new Vector3 (curX, 0.02f, curZ);
+		} else if (curY < -0.02f) {
+			GameObject.Find ("Head").transform.eulerAngles = new Vector3 (curX, -0.02f, curZ);
+		}
+//		GameObject.Find ("Head").transform.eulerAngles = new Vector3 (0, 0, 0);
+//		GameObject.Find ("Head").transform.position = new Vector3 (0, 0, 0);
 	}
 }
+//y -0.04 0.02 x -0.03 0.01

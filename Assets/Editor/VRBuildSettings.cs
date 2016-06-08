@@ -20,7 +20,6 @@ public class VRBuildSettings{
 		PlayerSettings.virtualRealitySupported = false;
 		Cardboard cardboard = (Cardboard)GameObject.FindGameObjectWithTag("Cam").GetComponent<Cardboard>();
 		CardboardHead cardboardHead = cardboard.GetComponentInChildren<CardboardHead>();
-//		CardboardHead cardboardHead = cardboard.gameObject.transform.GetChild(0).gameObject.GetComponent<CardboardHead>();
 		cardboard.VRModeEnabled = true;
 		cardboardHead.trackPosition = true;
 		cardboardHead.trackRotation = true;

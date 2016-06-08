@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using UnityEngine.VR;
 
 public class RoomControl : MonoBehaviour {
 
@@ -18,10 +19,10 @@ public class RoomControl : MonoBehaviour {
     private bool enableFreeRoam;
     private bool pathedTeleport;
     
-
+	private float m_renderScale = 1.5f;
     // Use this for initialization
     void Start () {
-
+		VRSettings.renderScale = m_renderScale;
         Cardboard.SDK.OnTrigger += TriggerPulled;
         renderMat = PlayerPrefs.GetInt("RenderMat") == 1;
         showFurn = PlayerPrefs.GetInt("ShowFurn") == 1;
