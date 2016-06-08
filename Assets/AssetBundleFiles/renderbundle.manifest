@@ -1,0 +1,35 @@
+ManifestFileVersion: 0
+CRC: 1957666632
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 98932cfad5bd2ec818e0e27ad67687d1
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 509e25eb735c3517e55918fdecb21e7f
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/objects/AssetBundles/FurnitureMain.prefab
+- Assets/objects/AssetBundles/Duxton Render.prefab
+Dependencies: []

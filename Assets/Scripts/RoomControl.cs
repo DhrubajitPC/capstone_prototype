@@ -8,9 +8,10 @@ using UnityEngine.EventSystems;
 public class RoomControl : MonoBehaviour {
 
     public GameObject PlayerObj;
-    public GameObject FurnitureMain;
 
-    List<Vector4> HumanCoords = new List<Vector4>(); //w is y rotation
+    private List<Vector4> HumanCoords = new List<Vector4>(); //w is y rotation
+    private GameObject BaseGeometry;
+    private GameObject Furniture;
 
     private bool renderMat;
     private bool showFurn;
@@ -21,7 +22,6 @@ public class RoomControl : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
         Cardboard.SDK.OnTrigger += TriggerPulled;
         renderMat = PlayerPrefs.GetInt("RenderMat") == 1;
         showFurn = PlayerPrefs.GetInt("ShowFurn") == 1;
@@ -36,6 +36,8 @@ public class RoomControl : MonoBehaviour {
                 PlayerPrefs.GetFloat("QuarternionZ"), PlayerPrefs.GetFloat("QuarternionW"));
             PlayerPrefs.SetInt("LoadLocation", 0);
         }
+        StartCoroutine(loadAssetBundle("", 1));
+        ApplyGeometryLayer();
         ApplyFurnitureLayer();
         ApplyMaterialLayer();
         ApplyHumanLayer();
@@ -68,6 +70,42 @@ public class RoomControl : MonoBehaviour {
 
 	}
 
+    private IEnumerator loadAssetBundle(string url, int version)
+    {
+        // wait for the caching system to be ready
+        while (!Caching.ready)
+            yield return null;
+
+        //// load AssetBundle file from Cache if it exists with the same version or download and store it in the cache
+        //WWW www = WWW.LoadFromCacheOrDownload(url, version);
+        //yield return www;
+
+        //Debug.Log("Loaded ");
+
+        //if (www.error != null)
+        //    throw new Exception("WWW download had an error: " + www.error);
+
+        //AssetBundle assetBundle = www.assetBundle;
+
+        //AssetBundle assetBundle = AssetBundle.LoadFromFile("Assets/AssetBundleFiles/AssetBundleFiles");
+        AssetBundle assetBundle = AssetBundle.LoadFromFile("Assets/AssetBundleFiles/renderbundle");
+        Furniture = assetBundle.LoadAsset<GameObject>("FurnitureMain.prefab");
+        BaseGeometry = assetBundle.LoadAsset<GameObject>("Duxton Render.prefab");
+
+        // Unload the AssetBundles compressed contents to conserve memory
+        assetBundle.Unload(false);
+    }
+
+    void ApplyGeometryLayer()
+    {
+        if (true)
+        {
+            GameObject geometry = (GameObject)Instantiate(BaseGeometry, 
+                Vector3.zero, Quaternion.Euler(0.0f,-180.0f,0.0f)); //fix with standardized coor
+            geometry.name = "BaseGeometryLayer";
+        }
+    }
+
     void ApplyMaterialLayer()
     {
         if (!renderMat)
@@ -89,9 +127,13 @@ public class RoomControl : MonoBehaviour {
 
     void ApplyFurnitureLayer()
     {
-        if (!showFurn)
+        if (showFurn)
         {
-            FurnitureMain.SetActive(false);
+            GameObject furniture = (GameObject)Instantiate(Furniture, 
+                new Vector3(6.252522f, 2.140625f, 3.574341f), //fix with standardized coor
+                //Vector3.zero, 
+                Quaternion.identity);
+            furniture.name = "FurnitureLayer";
         }
     }
     void ApplyHumanLayer()

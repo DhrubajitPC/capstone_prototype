@@ -71,7 +71,7 @@ public class LayerMenuController : MonoBehaviour {
         PlayerPrefs.SetInt("ShowHuman", showHuman ? 1 : 0);
         PlayerPrefs.SetInt("EnableFreeRoam", enableFreeRoam ? 1 : 0);
         PlayerPrefs.SetInt("PathedTeleport", pathedTeleport ? 1 : 0);
-        SceneManager.LoadScene("Duxton Render",LoadSceneMode.Single);
+        SceneManager.LoadScene("Dynamic Scene",LoadSceneMode.Single);
     }
 
 	// Update is called once per frame
