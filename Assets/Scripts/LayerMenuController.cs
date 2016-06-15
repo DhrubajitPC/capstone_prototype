@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class LayerMenuController : MonoBehaviour {
 
+    public GameObject canvas;
     public UnityEngine.UI.Toggle toggleMat;
     public UnityEngine.UI.Toggle toggleFurn;
     public UnityEngine.UI.Toggle toggleHuman;
@@ -18,6 +19,9 @@ public class LayerMenuController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        //Ensure canvas is always in front of you (and facing you)
+        canvas.transform.position = this.transform.position + this.transform.Find("Head").forward.normalized * 200;
+        canvas.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
         renderMat = false;
         showFurn = false;
         showHuman = false;

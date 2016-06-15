@@ -9,6 +9,9 @@ public class RoomControl : MonoBehaviour {
 
     public GameObject PlayerObj;
 
+    private const string download_url = "luccan.github.io/capstone_prototype_assetbundle/renderbundle";
+    private bool loadRotation = true;
+
     private List<Vector4> HumanCoords = new List<Vector4>(); //w is y rotation
     private GameObject BaseGeometry;
     private GameObject Furniture;
@@ -31,20 +34,22 @@ public class RoomControl : MonoBehaviour {
         if (PlayerPrefs.GetInt("LoadLocation") == 1){
             PlayerObj.transform.position = new Vector3(PlayerPrefs.GetFloat("LocationX"),
                 PlayerPrefs.GetFloat("LocationY"), PlayerPrefs.GetFloat("LocationZ"));
-            PlayerObj.transform.rotation = new Quaternion(
-                PlayerPrefs.GetFloat("QuarternionX"), PlayerPrefs.GetFloat("QuarternionY"),
-                PlayerPrefs.GetFloat("QuarternionZ"), PlayerPrefs.GetFloat("QuarternionW"));
+            if (loadRotation)
+            {
+                //this is reset by cardboard/gear. Apply fix pls
+                PlayerObj.transform.Find("VRMain/Head").rotation = new Quaternion(
+                    PlayerPrefs.GetFloat("QuarternionX"), PlayerPrefs.GetFloat("QuarternionY"),
+                    PlayerPrefs.GetFloat("QuarternionZ"), PlayerPrefs.GetFloat("QuarternionW"));
+            }
             PlayerPrefs.SetInt("LoadLocation", 0);
         }
-        StartCoroutine(loadAssetBundle("", 1));
+        StartCoroutine(loadAssetBundle(download_url, 1));
         ApplyGeometryLayer();
         ApplyFurnitureLayer();
         ApplyMaterialLayer();
         ApplyHumanLayer();
         ApplyMovements();
     }
-
-
 
     void TriggerPulled()
     {
@@ -58,10 +63,13 @@ public class RoomControl : MonoBehaviour {
         PlayerPrefs.SetFloat("LocationX", PlayerObj.transform.position.x);
         PlayerPrefs.SetFloat("LocationY", PlayerObj.transform.position.y);
         PlayerPrefs.SetFloat("LocationZ", PlayerObj.transform.position.z);
-        PlayerPrefs.SetFloat("QuarternionX", PlayerObj.transform.Find("VRMain/Head").rotation.x);
-		PlayerPrefs.SetFloat("QuarternionY", PlayerObj.transform.Find("VRMain/Head").rotation.y);
-		PlayerPrefs.SetFloat("QuarternionZ", PlayerObj.transform.Find("VRMain/Head").rotation.z);
-		PlayerPrefs.SetFloat("QuarternionW", PlayerObj.transform.Find("VRMain/Head").rotation.w);
+        if (loadRotation)
+        {
+            PlayerPrefs.SetFloat("QuarternionX", PlayerObj.transform.Find("VRMain/Head").rotation.x);
+            PlayerPrefs.SetFloat("QuarternionY", PlayerObj.transform.Find("VRMain/Head").rotation.y);
+            PlayerPrefs.SetFloat("QuarternionZ", PlayerObj.transform.Find("VRMain/Head").rotation.z);
+            PlayerPrefs.SetFloat("QuarternionW", PlayerObj.transform.Find("VRMain/Head").rotation.w);
+        }
         SceneManager.LoadScene("LayerScene", LoadSceneMode.Single);
     }
 
@@ -171,7 +179,7 @@ public class RoomControl : MonoBehaviour {
     {
         if (enableFreeRoam)
         {
-            PlayerObj.GetComponent<Navmesh>().setMovementMode(0);
+            PlayerObj.GetComponent<Navigation>().setMovementMode(0);
             Canvas[] allCanvas = GameObject.FindObjectsOfType<Canvas>();
             for (int i = 0; i < allCanvas.Length; i++)
             {
@@ -186,10 +194,10 @@ public class RoomControl : MonoBehaviour {
         {
             if (pathedTeleport)
             {
-                PlayerObj.GetComponent<Navmesh>().setMovementMode(2);
+                PlayerObj.GetComponent<Navigation>().setMovementMode(2);
             } else
             {
-                PlayerObj.GetComponent<Navmesh>().setMovementMode(1);
+                PlayerObj.GetComponent<Navigation>().setMovementMode(1);
             }
         }
     }
