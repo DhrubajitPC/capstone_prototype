@@ -36,6 +36,7 @@ public class RoomControl : MonoBehaviour {
                 PlayerPrefs.GetFloat("LocationY"), PlayerPrefs.GetFloat("LocationZ"));
             if (loadRotation)
             {
+                //this is reset by cardboard/gear. Apply fix pls
                 PlayerObj.transform.Find("VRMain/Head").rotation = new Quaternion(
                     PlayerPrefs.GetFloat("QuarternionX"), PlayerPrefs.GetFloat("QuarternionY"),
                     PlayerPrefs.GetFloat("QuarternionZ"), PlayerPrefs.GetFloat("QuarternionW"));
@@ -49,8 +50,6 @@ public class RoomControl : MonoBehaviour {
         ApplyHumanLayer();
         ApplyMovements();
     }
-
-
 
     void TriggerPulled()
     {
