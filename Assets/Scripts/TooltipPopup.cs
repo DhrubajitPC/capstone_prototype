@@ -28,12 +28,14 @@ public class TooltipPopup : MonoBehaviour, ICardboardGazeResponder
     {
         GameObject.Find("Tooltip").GetComponent<Canvas>().enabled = true;
         GameObject.Find("TooltipText").GetComponent<Text>().text = this.tooltipText;
+        transform.Find("Glows").gameObject.SetActive(true);
         //Debug.Log(this.tooltipText);
     }
 
     public void OnGazeExit()
     {
         GameObject.Find("Tooltip").GetComponent<Canvas>().enabled = false;
+        transform.Find("Glows").gameObject.SetActive(false);
     }
 
     public void OnGazeTrigger()
