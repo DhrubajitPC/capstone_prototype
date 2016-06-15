@@ -1116,6 +1116,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerObj: {fileID: 2059873652}
+  jumpLocations:
+  - {x: 2.15, y: 1, z: 6.18}
+  - {x: 3.29, y: 1, z: 3.2}
+  - {x: 12.45, y: 1, z: 9.13}
+  - {x: 7.3, y: 1, z: 4.3}
+  - {x: 8, y: 1, z: 6.1}
+  - {x: 13, y: 1, z: 6.1}
 --- !u!114 &2059873655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1127,16 +1134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cac80ff0127e0b649b6e69d785504e26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  locationNames:
-  - livingroom
-  - kitchen
-  - bedroom
-  - study
-  locations:
-  - {x: 2.15, y: 1, z: 6.18}
-  - {x: 3.29, y: 1, z: 3.2}
-  - {x: 12.45, y: 1, z: 9.13}
-  - {x: 7.3, y: 1, z: 4.3}
   movementSpeed: 1
 --- !u!23 &2059873656
 MeshRenderer:

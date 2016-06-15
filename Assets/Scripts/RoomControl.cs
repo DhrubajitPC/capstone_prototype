@@ -8,11 +8,13 @@ using UnityEngine.EventSystems;
 public class RoomControl : MonoBehaviour {
 
     public GameObject PlayerObj;
+    public Vector3[] jumpLocations;
 
     private const string download_url = "luccan.github.io/capstone_prototype_assetbundle/renderbundle";
     private bool loadRotation = true;
 
     private List<Vector4> HumanCoords = new List<Vector4>(); //w is y rotation
+    private List<Canvas> movementCanvases = new List<Canvas>();
     private GameObject BaseGeometry;
     private GameObject Furniture;
 
@@ -180,7 +182,7 @@ public class RoomControl : MonoBehaviour {
         if (enableFreeRoam)
         {
             PlayerObj.GetComponent<Navigation>().setMovementMode(0);
-            Canvas[] allCanvas = GameObject.FindObjectsOfType<Canvas>();
+            /*Canvas[] allCanvas = GameObject.FindObjectsOfType<Canvas>();
             for (int i = 0; i < allCanvas.Length; i++)
             {
                 RadialProgressBar[] rpb = allCanvas[i].GetComponentsInChildren<RadialProgressBar>();
@@ -188,16 +190,43 @@ public class RoomControl : MonoBehaviour {
                 {
                     allCanvas[i].enabled = false;
                 }
-            }
+            }*/
         }
         else
         {
+            //create jumpProgressBars as necessary
+            for (int i = 0; i < jumpLocations.Length; i++)
+            {
+                GameObject canvas = (GameObject)Instantiate(Resources.Load("prefabs/MovementCanvas"),
+                    new Vector3(jumpLocations[i].x, jumpLocations[i].y, jumpLocations[i].z), 
+                    Quaternion.identity);
+                canvas.GetComponentInChildren<RadialProgressBar>().roomControl = this;
+                movementCanvases.Add(canvas.GetComponent<Canvas>());
+            }
+            rotateMovementCanvases(transform.position);
             if (pathedTeleport)
             {
                 PlayerObj.GetComponent<Navigation>().setMovementMode(2);
             } else
             {
                 PlayerObj.GetComponent<Navigation>().setMovementMode(1);
+            }
+        }
+    }
+
+    //rotates all canvases to face targetLocation. Also hides the canvas if it is too close to current position.
+    public void rotateMovementCanvases(Vector3 targetLocation)
+    {
+        for (int i = 0; i < movementCanvases.Count; i++)
+        {
+            //if too near
+            if ((movementCanvases[i].transform.position- targetLocation).magnitude < 1.5f){
+                movementCanvases[i].enabled = false;
+            }
+            else {
+                movementCanvases[i].enabled = true;
+                movementCanvases[i].transform.rotation = Quaternion.
+                    LookRotation(movementCanvases[i].transform.position - targetLocation);
             }
         }
     }

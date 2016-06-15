@@ -4,61 +4,37 @@ using System.Collections.Generic;
 
 public class Navigation : MonoBehaviour
 {
-
-    public string[] locationNames;
-    public Vector3[] locations;
     public float movementSpeed = 1;
 
     private Vector3 startingLocation;
-    private Dictionary<string, Vector3> jumpLocations;
     private Rigidbody agent;
     private int movementType = 1; //0 is free roam, 1 teleport, 2 pathed teleport
     void Start()
     {
         agent = GetComponent<Rigidbody>();
         startingLocation = this.transform.position;
-        jumpLocations = new Dictionary<string, Vector3>();
-        for (int i = 0; i < Mathf.Min(locationNames.Length, locations.Length); i++)
-        {
-            jumpLocations.Add(locationNames[i], locations[i]);
-        }
     }
 
-    public void move(string location_name)
+    public void move(Vector3 position)
     {
         if (movementType == 1)
         {
-            jump(location_name);
+            jump(position);
         }
         else if (movementType == 2)
         {
-            setDestination(location_name);
+            setDestination(position);
         }
     }
 
-    private void setDestination(string location_name)
+    private void setDestination(Vector3 position)
     {
-        if (jumpLocations.ContainsKey(location_name))
-        {
-            agent.MovePosition(jumpLocations[location_name]);
-        }
-        else
-        {
-            agent.MovePosition(startingLocation);
-        }
+        agent.MovePosition(position);
     }
 
-    private void jump(string location_name)
+    private void jump(Vector3 position)
     {
-        if (jumpLocations.ContainsKey(location_name))
-        {
-            this.transform.position = jumpLocations[location_name];
-            Debug.Log(jumpLocations[location_name]);
-        }
-        else
-        {
-            this.transform.position = startingLocation;
-        }
+        this.transform.position = position;
     }
 
     public void setMovementMode(int value)

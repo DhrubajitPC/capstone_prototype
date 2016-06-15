@@ -4,9 +4,7 @@ using System.Collections;
 
 public class RadialProgressBar : MonoBehaviour, ICardboardGazeResponder {
 
-
-	public Transform LoadingBar;
-	public string NewRoom;
+    public RoomControl roomControl;
 
 	private float currentAmount = 0;
 	private float speed = 50;
@@ -24,20 +22,24 @@ public class RadialProgressBar : MonoBehaviour, ICardboardGazeResponder {
 				currentAmount += speed * Time.deltaTime;
 			}
 		}
-		LoadingBar.GetComponent<Image> ().fillAmount = currentAmount / 100;
+		this.transform.Find("LoadingBar").GetComponent<Image>().fillAmount = currentAmount / 100;
 		if (currentAmount >= 100) {
-            GameObject.Find("Capsule").GetComponent<Navmesh>().move(NewRoom);
+            GameObject.Find("Capsule").GetComponent<Navigation>().move(transform.parent.position);
+            if (roomControl != null)
+                roomControl.rotateMovementCanvases(transform.parent.position);
         }
 	}
 
 	public void OnGazeEnter(){
 		gazing = true;
+        ((Behaviour)transform.GetComponent("Halo")).enabled = true;
 	}
 
 	public void OnGazeExit(){
 		gazing = false;
 		currentAmount = 0;
-	}
+        ((Behaviour)transform.GetComponent("Halo")).enabled = false;
+    }
 
 	public void OnGazeTrigger(){
 	}
