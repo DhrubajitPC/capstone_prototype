@@ -154,7 +154,7 @@ MonoBehaviour:
   m_FillMethod: 4
   m_FillAmount: 0
   m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillOrigin: 2
 --- !u!114 &11444798
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -349,7 +349,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 161500}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -16.314447}
+  m_LocalPosition: {x: 0, y: 0, z: -28.684465}
   m_LocalScale: {x: 0.0015, y: 0.0015, z: 0.0015}
   m_Children:
   - {fileID: 22478588}
@@ -357,7 +357,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 11.225229, y: -3.5580587}
+  m_AnchoredPosition: {x: 9.354076, y: -5.5195265}
   m_SizeDelta: {x: 1409.71, y: 984.72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22421562

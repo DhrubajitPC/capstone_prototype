@@ -158,8 +158,8 @@ public class RoomControl : MonoBehaviour {
             for (int i = 0; i < HumanCoords.Count; i++)
             {
                 //"TODO" instantiating with y to be 0.14 and not coord.y as a quick fix
-                GameObject person = (GameObject) Instantiate(Resources.Load("prefabs/HumanFig"), 
-                    new Vector3(HumanCoords[i].x, 0.14f, HumanCoords[i].z), 
+                GameObject person = (GameObject)Instantiate(Resources.Load("prefabs/HumanFig"),
+                    new Vector3(HumanCoords[i].x, 0.14f, HumanCoords[i].z),
                     Quaternion.Euler(0.0f, HumanCoords[i].w, 0.0f));
                 person.name = "Person" + i;
 
@@ -173,8 +173,11 @@ public class RoomControl : MonoBehaviour {
                 WindCloth.GetComponent<Cloth>().randomAcceleration = new Vector3(CFD.Vx * 0.4f, CFD.Vz * 0.4f, CFD.Vy * 0.4f);
 
                 person.GetComponent<TooltipPopup>().setTooltip("Wind Speed = " + CFD.V.ToString("F2") + " m/s");
+
+                //set mood based on PMV here
+                //random from 0-100 inclusive
+                person.GetComponent<HumanEmoticon>().setMood(UnityEngine.Random.Range(0, 101));
             }
-           
         }
     }
     void ApplyMovements()
@@ -182,15 +185,6 @@ public class RoomControl : MonoBehaviour {
         if (enableFreeRoam)
         {
             PlayerObj.GetComponent<Navigation>().setMovementMode(0);
-            /*Canvas[] allCanvas = GameObject.FindObjectsOfType<Canvas>();
-            for (int i = 0; i < allCanvas.Length; i++)
-            {
-                RadialProgressBar[] rpb = allCanvas[i].GetComponentsInChildren<RadialProgressBar>();
-                if (rpb.Length > 0)
-                {
-                    allCanvas[i].enabled = false;
-                }
-            }*/
         }
         else
         {
