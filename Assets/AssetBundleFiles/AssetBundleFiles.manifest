@@ -4,3 +4,6 @@ AssetBundleManifest:
     Info_0:
       Name: renderbundle
       Dependencies: {}
+    Info_1:
+      Name: humancfd
+      Dependencies: {}
