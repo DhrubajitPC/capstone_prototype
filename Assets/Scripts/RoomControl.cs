@@ -10,11 +10,12 @@ public class RoomControl : MonoBehaviour {
     public GameObject PlayerObj;
     public Vector3[] jumpLocations;
 
-    private const string download_url = "luccan.github.io/capstone_prototype_assetbundle/renderbundle";
+    private const string download_url = "https://luccan.github.io/capstone_prototype_assetbundle/renderbundle";
     private bool loadRotation = true;
 
     private List<Vector4> HumanCoords = new List<Vector4>(); //w is y rotation
     private List<Canvas> movementCanvases = new List<Canvas>();
+    AssetBundle assetBundle;
     private GameObject BaseGeometry;
     private GameObject Furniture;
 
@@ -27,30 +28,7 @@ public class RoomControl : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        Cardboard.SDK.OnTrigger += TriggerPulled;
-        renderMat = PlayerPrefs.GetInt("RenderMat") == 1;
-        showFurn = PlayerPrefs.GetInt("ShowFurn") == 1;
-        showHuman = PlayerPrefs.GetInt("ShowHuman") == 1;
-        enableFreeRoam = PlayerPrefs.GetInt("EnableFreeRoam") == 1;
-        pathedTeleport = PlayerPrefs.GetInt("PathedTeleport") == 1;
-        if (PlayerPrefs.GetInt("LoadLocation") == 1){
-            PlayerObj.transform.position = new Vector3(PlayerPrefs.GetFloat("LocationX"),
-                PlayerPrefs.GetFloat("LocationY"), PlayerPrefs.GetFloat("LocationZ"));
-            if (loadRotation)
-            {
-                //this is reset by cardboard/gear. Apply fix pls
-                PlayerObj.transform.Find("VRMain/Head").rotation = new Quaternion(
-                    PlayerPrefs.GetFloat("QuarternionX"), PlayerPrefs.GetFloat("QuarternionY"),
-                    PlayerPrefs.GetFloat("QuarternionZ"), PlayerPrefs.GetFloat("QuarternionW"));
-            }
-            PlayerPrefs.SetInt("LoadLocation", 0);
-        }
-        StartCoroutine(loadAssetBundle(download_url, 1));
-        ApplyGeometryLayer();
-        ApplyFurnitureLayer();
-        ApplyMaterialLayer();
-        ApplyHumanLayer();
-        ApplyMovements();
+        StartCoroutine(initializeDynamicScene());
     }
 
     void TriggerPulled()
@@ -80,30 +58,88 @@ public class RoomControl : MonoBehaviour {
 
 	}
 
+    private IEnumerator initializeDynamicScene()
+    {
+        renderMat = PlayerPrefs.GetInt("RenderMat") == 1;
+        showFurn = PlayerPrefs.GetInt("ShowFurn") == 1;
+        showHuman = PlayerPrefs.GetInt("ShowHuman") == 1;
+        enableFreeRoam = PlayerPrefs.GetInt("EnableFreeRoam") == 1;
+        pathedTeleport = PlayerPrefs.GetInt("PathedTeleport") == 1;
+        if (PlayerPrefs.GetInt("LoadLocation") == 1)
+        {
+            PlayerObj.transform.position = new Vector3(PlayerPrefs.GetFloat("LocationX"),
+                PlayerPrefs.GetFloat("LocationY"), PlayerPrefs.GetFloat("LocationZ"));
+            if (loadRotation)
+            {
+                //this is reset by cardboard/gear. Apply fix pls
+                PlayerObj.transform.Find("VRMain/Head").rotation = new Quaternion(
+                    PlayerPrefs.GetFloat("QuarternionX"), PlayerPrefs.GetFloat("QuarternionY"),
+                    PlayerPrefs.GetFloat("QuarternionZ"), PlayerPrefs.GetFloat("QuarternionW"));
+            }
+            PlayerPrefs.SetInt("LoadLocation", 0);
+        }
+        yield return StartCoroutine(loadAssetBundle(download_url, 1)); //wait for this coroutine to finish
+        //loadAssetBundle(download_url, 1);
+        //yield return new WaitUntil(() => assetBundle != null);
+        ApplyGeometryLayer();
+        ApplyFurnitureLayer();
+        ApplyMaterialLayer();
+        ApplyHumanLayer();
+        ApplyMovements();
+        unloadAssetBundle();
+
+        Cardboard.SDK.OnTrigger += TriggerPulled;
+
+        yield return 1;
+    }
+
     private IEnumerator loadAssetBundle(string url, int version)
     {
         // wait for the caching system to be ready
         while (!Caching.ready)
             yield return null;
 
-        //// load AssetBundle file from Cache if it exists with the same version or download and store it in the cache
-        //WWW www = WWW.LoadFromCacheOrDownload(url, version);
-        //yield return www;
+        WWW www;
+        try {
+            // load AssetBundle file from Cache if it exists with the same version or download and store it in the cache
+            www = WWW.LoadFromCacheOrDownload(url, version);
+            //yield return www;
 
-        //Debug.Log("Loaded ");
+            Debug.Log("Loaded ");
 
-        //if (www.error != null)
-        //    throw new Exception("WWW download had an error: " + www.error);
+            if (www.error != null)
+            {
+                GameObject.Find("ERROR").GetComponent<UnityEngine.UI.Text>().text = www.error;
+            }
+        } catch (Exception e)
+        {
+            throw new Exception("WWW download had an error: " + e.Message);
+        }
 
-        //AssetBundle assetBundle = www.assetBundle;
+        assetBundle = www.assetBundle;
+        /*
+        string path = "Assets/AssetBundleFiles/Windows/";
+#if UNITY_ANDROID
+        path = Application.dataPath + "!assets/AssetBundleFiles/Android/";
+#endif
+        GameObject.Find("ERROR").GetComponent<UnityEngine.UI.Text>().text = "Loading AssetBundle for " + path;
+        AssetBundle assetBundle = AssetBundle.LoadFromFile(path + "renderbundle");*/
+        if (assetBundle != null)
+        {
+            GameObject.Find("ERROR").GetComponent<UnityEngine.UI.Text>().text = "LOADED ";
+            Furniture = assetBundle.LoadAsset<GameObject>("FurnitureMain.prefab");
+            BaseGeometry = assetBundle.LoadAsset<GameObject>("Duxton Render.prefab");
+        } else
+        {
+            GameObject.Find("ERROR").GetComponent<UnityEngine.UI.Text>().text = "FAIL TO LOAD ";
+        }
+    }
 
-        //AssetBundle assetBundle = AssetBundle.LoadFromFile("Assets/AssetBundleFiles/AssetBundleFiles");
-        AssetBundle assetBundle = AssetBundle.LoadFromFile("Assets/AssetBundleFiles/renderbundle");
-        Furniture = assetBundle.LoadAsset<GameObject>("FurnitureMain.prefab");
-        BaseGeometry = assetBundle.LoadAsset<GameObject>("Duxton Render.prefab");
-
+    void unloadAssetBundle()
+    {
         // Unload the AssetBundles compressed contents to conserve memory
-        assetBundle.Unload(false);
+        if (assetBundle != null)
+            assetBundle.Unload(false);
     }
 
     void ApplyGeometryLayer()
