@@ -10,26 +10,50 @@ public class HumanEmoticon : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //transform.Find("MoodCanvas").rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
+        transform.Find("MoodCanvas").rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
     }
 
-    public void setMood(int score)
+    public void setMood(float score)
     {
-        transform.Find("MoodCanvas/HappyMood").gameObject.SetActive(false);
-        transform.Find("MoodCanvas/GoodMood").gameObject.SetActive(false);
-        transform.Find("MoodCanvas/BadMood").gameObject.SetActive(false);
-        transform.Find("MoodCanvas/SadMood").gameObject.SetActive(false);
-        string mood = "HappyMood";
-        if (score < 25)
+
+        string mood = "mood0";
+        if (score <= 0.5 && score >= -0.5)
         {
-            mood = "SadMood";
-        } else if (score < 50)
+            mood = "mood0";
+        } else if (score < -0.5 && score >= -1)
         {
-            mood = "BadMood";
-        } else if (score < 75)
+            mood = "mood1c";
+        } else if (score < -1 && score >= -2)
         {
-            mood = "GoodMood";
+            mood = "mood2c";
+        } else if (score < -2 && score >= -3)
+        {
+            mood = "mood3c";
         }
+        else if (score < -3)
+        {
+            mood = "mood4c";
+        }
+
+
+
+        else if (score < 1 && score > -0.5)
+        {
+            mood = "mood1c";
+        }
+        else if (score < 2 && score >= 1)
+        {
+            mood = "mood2c";
+        }
+        else if (score < 3 && score >= 2)
+        {
+            mood = "mood3c";
+        }
+        else if (score > 3)
+        {
+            mood = "mood4c";
+        }
+
         transform.Find("MoodCanvas/"+mood).gameObject.SetActive(true);
     }
 }

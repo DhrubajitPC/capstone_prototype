@@ -172,11 +172,15 @@ public class RoomControl : MonoBehaviour {
                 WindCloth.GetComponent<Cloth>().externalAcceleration = new Vector3(CFD.Vx * 0.8f, CFD.Vz * 0.8f, CFD.Vy * 0.8f);
                 WindCloth.GetComponent<Cloth>().randomAcceleration = new Vector3(CFD.Vx * 0.4f, CFD.Vz * 0.4f, CFD.Vy * 0.4f);
 
-                person.GetComponent<TooltipPopup>().setTooltip("Wind Speed = " + CFD.V.ToString("F2") + " m/s");
+                person.GetComponent<TooltipPopup>().setTooltip(
+                    CFD.PPS.ToString("F0") + "% of people will be comfortable here!" + Environment.NewLine +
+                    "Wind Speed = " + CFD.V.ToString("F2") + " m/s" + Environment.NewLine +
+                    "Temperature = " + CFD.T.ToString("F1") + " C"
+                    );
 
                 //set mood based on PMV here
                 //random from 0-100 inclusive
-                person.GetComponent<HumanEmoticon>().setMood(UnityEngine.Random.Range(0, 101));
+                person.GetComponent<HumanEmoticon>().setMood(CFD.PMV);
             }
         }
     }
