@@ -8,8 +8,25 @@ using System.IO;
 public class ExportAssetBundles : MonoBehaviour
 {
 
-    [MenuItem("Assets/Build AssetBundle From Selection - Track dependencies")]
-    static void ExportResurce()
+    [MenuItem("Assets/Build AssetBundle For Windows")]
+    static void ExportWindows()
+    {
+        ExportResource(0);
+    }
+
+    [MenuItem("Assets/Build AssetBundle For Android")]
+    static void ExportAndroid()
+    {
+        ExportResource(1);
+    }
+
+    [MenuItem("Assets/Clean AssetBundle Cache")]
+    static void CleanAssetBundleCache()
+    {
+        Caching.CleanCache();
+    }
+
+    static void ExportResource(int mode) //0=windows, 1=android
     {
         // Bring up save panel
         string basename = Selection.activeObject ? Selection.activeObject.name : "New Resource";
@@ -20,15 +37,21 @@ public class ExportAssetBundles : MonoBehaviour
             // Build the resource file from the active selection.
             Object[] selection = Selection.GetFiltered(typeof(Object), SelectionMode.DeepAssets);
 
-            // for Android
-            BuildPipeline.BuildAssetBundles(path,// + ".android.unity3d",
-                BuildAssetBundleOptions.None,
-                BuildTarget.Android);
+            if (mode == 0)
+            {
+                // for Windows
+                BuildPipeline.BuildAssetBundles(path + "Windows/",
+                    BuildAssetBundleOptions.ForceRebuildAssetBundle,
+                    BuildTarget.StandaloneWindows64);
+            }
 
-            // for Windows
-            BuildPipeline.BuildAssetBundles(path,// + ".unity3d",
-                BuildAssetBundleOptions.None,
-                BuildTarget.StandaloneWindows64);
+            if (mode == 1)
+            {
+                // for Android
+                BuildPipeline.BuildAssetBundles(path + "Android/",
+                    BuildAssetBundleOptions.ForceRebuildAssetBundle,
+                    BuildTarget.Android);
+            }
 
             Selection.objects = selection;
         }
