@@ -201,22 +201,31 @@ public class RoomControl : MonoBehaviour {
 
                 //Match location coordinates with closest CFD data
                 CFDClosestPt CFD = new CFDClosestPt(HumanCoords[i].x, HumanCoords[i].z);
+                Vector3 extWind = new Vector3(CFD.Vx * 0.8f, CFD.Vz * 0.8f, CFD.Vy * 0.8f);
+                Vector3 ranWind = new Vector3(CFD.Vx * 0.4f, CFD.Vz * 0.4f, CFD.Vy * 0.4f);
 
                 //Cloth Setting
                 GameObject WindCloth = person.transform.Find("dress").gameObject;
                 //GameObject WindCloth = (GameObject)Instantiate(GameObject.Find("WindCloth"), new Vector3(HumanCoords[i].x, 0.638f, HumanCoords[i].z), Quaternion.Euler(270f, HumanCoords[i].w + 180f, 0.0f));
-                WindCloth.GetComponent<Cloth>().externalAcceleration = new Vector3(CFD.Vx * 0.8f, CFD.Vz * 0.8f, CFD.Vy * 0.8f);
-                WindCloth.GetComponent<Cloth>().randomAcceleration = new Vector3(CFD.Vx * 0.4f, CFD.Vz * 0.4f, CFD.Vy * 0.4f);
+                WindCloth.GetComponent<Cloth>().externalAcceleration = extWind;
+                WindCloth.GetComponent<Cloth>().randomAcceleration = ranWind;
 
-                person.GetComponent<TooltipPopup>().setTooltip(
-                    CFD.PPS.ToString("F0") + "% of people will be comfortable here!" + Environment.NewLine +
-                    "Wind Speed = " + CFD.V.ToString("F2") + " m/s" + Environment.NewLine +
-                    "Temperature = " + CFD.T.ToString("F1") + " C"
-                    );
+                GameObject Hair = person.transform.Find("hair1").gameObject;
+                //GameObject WindCloth = (GameObject)Instantiate(GameObject.Find("WindCloth"), new Vector3(HumanCoords[i].x, 0.638f, HumanCoords[i].z), Quaternion.Euler(270f, HumanCoords[i].w + 180f, 0.0f));
+                Hair.GetComponent<Cloth>().externalAcceleration = extWind * 2;
+                Hair.GetComponent<Cloth>().randomAcceleration = ranWind * 2;
+
+                GameObject Hair2 = person.transform.Find("hair2").gameObject;
+                //GameObject WindCloth = (GameObject)Instantiate(GameObject.Find("WindCloth"), new Vector3(HumanCoords[i].x, 0.638f, HumanCoords[i].z), Quaternion.Euler(270f, HumanCoords[i].w + 180f, 0.0f));
+                Hair2.GetComponent<Cloth>().externalAcceleration = extWind;
+                Hair2.GetComponent<Cloth>().randomAcceleration = ranWind;
+
+                person.GetComponent<TooltipPopup>().setTooltip(CFD.PPS.ToString("F0"), CFD.T.ToString("F1"), CFD.V.ToString("F2"), CFD.PMV);
 
                 //set mood based on PMV here
                 //random from 0-100 inclusive
                 person.GetComponent<HumanEmoticon>().setMood(CFD.PMV);
+
             }
         }
     }
