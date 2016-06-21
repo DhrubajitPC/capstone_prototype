@@ -5,7 +5,7 @@ using System;
 public class CFDClosestPt
 {
     //Coordinates XYZ are in architecture coordinates not unity coordinates (this.Z = Unity Y)
-    ImportCsv cfdData = new ImportCsv(@"Assets/imported/cfd.csv");
+    ImportCsv cfdData = new ImportCsv(WWWLoader.resources_path + "cfd");
     int id = 0;
     public float Vx = 0;
     public float Vy = 0;

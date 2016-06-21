@@ -79,23 +79,50 @@ public class RoomControl : MonoBehaviour {
             PlayerPrefs.SetInt("LoadLocation", 0);
         }
         yield return StartCoroutine(loadAssetBundle(download_url, 1)); //wait for this coroutine to finish
-        //loadAssetBundle(download_url, 1);
-        //yield return new WaitUntil(() => assetBundle != null);
-        ApplyGeometryLayer();
-        ApplyFurnitureLayer();
-        ApplyMaterialLayer();
-        ApplyHumanLayer();
-        ApplyMovements();
-        unloadAssetBundle();
+                                                                        //loadAssetBundle(download_url, 1);
+                                                                        //yield return new WaitUntil(() => assetBundle != null);
+        try
+        {
+            ApplyGeometryLayer();
+            ApplyFurnitureLayer();
+            ApplyMaterialLayer();
+            ApplyHumanLayer();
+            ApplyMovements();
+            unloadAssetBundle();
 
-        Cardboard.SDK.OnTrigger += TriggerPulled;
+            Cardboard.SDK.OnTrigger += TriggerPulled;
+        } catch (Exception e)
+        {
+            GameObject.Find("ERROR").GetComponent<UnityEngine.UI.Text>().text = e.Message;
+        }
 
         yield return 1;
+    }
+
+    private IEnumerator downloadAssetBundle()
+    {
+        yield return WWWLoader.downloadFile("renderbundle");
+        yield return WWWLoader.downloadFile("cfd.csv");
+        yield return WWWLoader.downloadFile("humancoords.csv");
     }
 
     private IEnumerator loadAssetBundle2(string url, int version)
     {
         yield return null;
+        string file_path = WWWLoader.resources_path + "renderbundle";
+        if (!System.IO.File.Exists(file_path))
+        {
+            yield return downloadAssetBundle();
+        }
+        assetBundle = AssetBundle.LoadFromFile(file_path);
+        if (assetBundle != null)
+        {
+            Furniture = assetBundle.LoadAsset<GameObject>("FurnitureMain.prefab");
+            BaseGeometry = assetBundle.LoadAsset<GameObject>("Duxton Render.prefab");
+        } else
+        {
+            loadAssetBundle(url, version);
+        }
     }
 
     private IEnumerator loadAssetBundle(string url, int version)
@@ -189,7 +216,7 @@ public class RoomControl : MonoBehaviour {
     }
     void ApplyHumanLayer()
     {
-        ImportCsv Human = new ImportCsv(@"Assets/imported/humancoords.csv");
+        ImportCsv Human = new ImportCsv(WWWLoader.resources_path + "humancoords");
         for (int i = 0; i < Human.Count; i++)
         {
             HumanCoords.Add(new Vector4(Human.Itemf(i, 0), Human.Itemf(i, 1), Human.Itemf(i, 2), Human.Itemf(i, 3)));

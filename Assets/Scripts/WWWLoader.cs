@@ -5,6 +5,8 @@ using System.IO;
 
 public static class WWWLoader{
     static bool is_downloading = false;
+    public const string resources_path = "downloads/";
+    public const string download_url = "https://luccan.github.io/capstone_prototype_assetbundle/";
 
     public static WWW loadWWWAssetBundle(string url, int version)
     {
@@ -53,19 +55,19 @@ public static class WWWLoader{
         return www;
     }
 
-    public static IEnumerator downloadFile(string url, string filename)
+    public static IEnumerator downloadFile(string filename)
     {
         is_downloading = true;
-        WWW www = new WWW(url + filename);
+        WWW www = new WWW(download_url + filename);
         yield return www;
-        byte[] bytes = www.bytes;
+        string content = www.text;
         string path = null;
-        path = "Assets/Resources/downloads/" + filename;
+        path = resources_path + filename;
         using (FileStream fs = new FileStream(path, FileMode.Create))
         {
             using (StreamWriter writer = new StreamWriter(fs))
             {
-                writer.Write(bytes);
+                writer.Write(content);
             }
         }
         #if UNITY_EDITOR
