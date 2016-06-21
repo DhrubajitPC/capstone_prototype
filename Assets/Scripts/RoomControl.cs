@@ -85,7 +85,7 @@ public class RoomControl : MonoBehaviour {
         {
             ApplyGeometryAndFurnitureLayer();
             //ApplyFurnitureLayer();
-            ApplyMaterialLayer();
+            //ApplyMaterialLayer();
             ApplyHumanLayer();
             ApplyMovements();
             unloadAssetBundle();
@@ -184,13 +184,23 @@ public class RoomControl : MonoBehaviour {
         {
             baseGeometry = BaseGeometry;
         }
-        GameObject furniture = (GameObject)Instantiate(baseGeometry,
+        GameObject geom = (GameObject)Instantiate(baseGeometry,
                 //new Vector3(6.252522f, 2.140625f, 3.574341f), //fix with standardized coor
                 Vector3.zero, 
                 Quaternion.identity);
-        furniture.name = "BaseGeometryLayer";
-        furniture.GetComponentInChildren<MeshRenderer>().material.shader = Shader.Find("Custom/DoubleSidedCutout");
+        geom.name = "BaseGeometryLayer";
+        geom.GetComponentInChildren<MeshRenderer>().material.shader = Shader.Find("Custom/DoubleSidedCutout");
         //furniture.GetComponentInChildren<MeshRenderer>().material.shader = Shader.Find("Standard");
+
+        if (!renderMat)
+        {
+            GameObject.Find("Lights/DirectionalLight").GetComponent<Light>().enabled = true;
+            MeshRenderer[] mrs = geom.GetComponentsInChildren<MeshRenderer>();
+            for (int j = 0; j < mrs.Length; j++)
+            {
+                mrs[j].material = Resources.Load<Material>("material/NoMaterial");
+            }
+        }
     }
 
     /*void ApplyGeometryLayer()
@@ -203,24 +213,24 @@ public class RoomControl : MonoBehaviour {
         }
     }*/
 
-    void ApplyMaterialLayer()
+    /*void ApplyMaterialLayer()
     {
         if (!renderMat)
         {
-            GameObject[] objs = GameObject.FindObjectsOfType<GameObject>();
+            GameObject[] objs = GameObject.FindObjectOfType<GameObject>();
             for (int i = 0; i < objs.Length; i++)
             {
-                if (objs[i].isStatic)
+                if (true)
                 {
                     MeshRenderer[] mrs = objs[i].GetComponents<MeshRenderer>();
                     for (int j = 0; j < mrs.Length; j++)
                     {
-                        mrs[j].material = new Material(Shader.Find("Diffuse"));
+                        mrs[j].material = Resources.Load<Material>("material/NoMaterial");
                     }
                 }
             }
         }
-    }
+    }*/
 
     /*void ApplyFurnitureLayer()
     {
