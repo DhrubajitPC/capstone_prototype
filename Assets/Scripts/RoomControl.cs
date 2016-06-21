@@ -83,8 +83,8 @@ public class RoomControl : MonoBehaviour {
                                                                         //yield return new WaitUntil(() => assetBundle != null);
         try
         {
-            ApplyGeometryLayer();
-            ApplyFurnitureLayer();
+            ApplyGeometryAndFurnitureLayer();
+            //ApplyFurnitureLayer();
             ApplyMaterialLayer();
             ApplyHumanLayer();
             ApplyMovements();
@@ -159,8 +159,8 @@ public class RoomControl : MonoBehaviour {
         if (assetBundle != null)
         {
             GameObject.Find("ERROR").GetComponent<UnityEngine.UI.Text>().text = "LOADED ";
-            Furniture = assetBundle.LoadAsset<GameObject>("FurnitureMain.prefab");
-            BaseGeometry = assetBundle.LoadAsset<GameObject>("Duxton Render.prefab");
+            Furniture = assetBundle.LoadAsset<GameObject>("Furniture.prefab");
+            BaseGeometry = assetBundle.LoadAsset<GameObject>("Walls.prefab");
         } else
         {
             GameObject.Find("ERROR").GetComponent<UnityEngine.UI.Text>().text = "FAIL TO LOAD ";
@@ -174,15 +174,34 @@ public class RoomControl : MonoBehaviour {
             assetBundle.Unload(false);
     }
 
-    void ApplyGeometryLayer()
+    void ApplyGeometryAndFurnitureLayer()
+    {
+        GameObject baseGeometry;
+        if (showFurn)
+        {
+            baseGeometry = Furniture;
+        } else
+        {
+            baseGeometry = BaseGeometry;
+        }
+        GameObject furniture = (GameObject)Instantiate(baseGeometry,
+                //new Vector3(6.252522f, 2.140625f, 3.574341f), //fix with standardized coor
+                Vector3.zero, 
+                Quaternion.identity);
+        furniture.name = "BaseGeometryLayer";
+        furniture.GetComponentInChildren<MeshRenderer>().material.shader = Shader.Find("Custom/DoubleSidedCutout");
+        //furniture.GetComponentInChildren<MeshRenderer>().material.shader = Shader.Find("Standard");
+    }
+
+    /*void ApplyGeometryLayer()
     {
         if (true)
         {
             GameObject geometry = (GameObject)Instantiate(BaseGeometry, 
-                Vector3.zero, Quaternion.Euler(0.0f,-180.0f,0.0f)); //fix with standardized coor
+                Vector3.zero, Quaternion.identity); //fix with standardized coor
             geometry.name = "BaseGeometryLayer";
         }
-    }
+    }*/
 
     void ApplyMaterialLayer()
     {
@@ -203,17 +222,16 @@ public class RoomControl : MonoBehaviour {
         }
     }
 
-    void ApplyFurnitureLayer()
+    /*void ApplyFurnitureLayer()
     {
         if (showFurn)
         {
             GameObject furniture = (GameObject)Instantiate(Furniture, 
-                new Vector3(6.252522f, 2.140625f, 3.574341f), //fix with standardized coor
-                //Vector3.zero, 
+                Vector3.zero, 
                 Quaternion.identity);
             furniture.name = "FurnitureLayer";
         }
-    }
+    }*/
     void ApplyHumanLayer()
     {
         ImportCsv Human = new ImportCsv(WWWLoader.resources_path + "humancoords");
