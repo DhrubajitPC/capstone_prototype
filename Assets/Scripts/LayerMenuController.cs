@@ -79,7 +79,7 @@ public class LayerMenuController : MonoBehaviour {
     }
 
 	// Update is called once per frame
-	void LateUpdate () {
+	void Update () {
 		//		relocating the camera angle to default
 //		GameObject.Find ("CardboardMain").transform.eulerAngles = new Vector3 (0, 0, 0);
 //		GameObject.Find ("CardboardMain").transform.position = new Vector3 (0, 0, 0);
