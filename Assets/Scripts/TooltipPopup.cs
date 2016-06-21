@@ -4,13 +4,14 @@ using System.Collections;
 
 public class TooltipPopup : MonoBehaviour, ICardboardGazeResponder
 {
-    private string tooltipText;
-    
+    private string TextPPS;
+    private string TextTemp;
+    private string TextWind;
+    private float FloatPMV;
+
     // Use this for initialization
     void Start () {
-        if (tooltipText == null) {
-            tooltipText = this.name;
-        }
+
     }
 
     // Update is called once per frame
@@ -19,16 +20,48 @@ public class TooltipPopup : MonoBehaviour, ICardboardGazeResponder
 
     }
 
-    public void setTooltip(string text)
+    public void setTooltip(string PPS, string Temp, string Wind, float PMV)
     {
-        tooltipText = text;
+        TextPPS = PPS;
+        TextTemp = Temp;
+        TextWind = Wind;
+        FloatPMV = PMV;
     }
 
     public void OnGazeEnter()
     {
         GameObject.Find("Tooltip").GetComponent<Canvas>().enabled = true;
-        GameObject.Find("TooltipText").GetComponent<Text>().text = this.tooltipText;
+        GameObject.Find("PPS").GetComponent<Text>().text = this.TextPPS;
+        GameObject.Find("Temp").GetComponent<Text>().text = this.TextTemp;
+        GameObject.Find("Wind").GetComponent<Text>().text = this.TextWind;
         transform.Find("Glows").gameObject.SetActive(true);
+
+        if (FloatPMV >= -0.5 && FloatPMV <=0.5)
+        {
+            GameObject.Find("PPS").GetComponent<Text>().color = new Color(0,0.5f,0);
+        }
+
+        else if (FloatPMV < -0.5 && FloatPMV >= -1)
+        {
+            GameObject.Find("PPS").GetComponent<Text>().color = new Color(0, 0.5f, 0.5f);
+        }
+
+        else if (FloatPMV > 0.5 && FloatPMV <= 1)
+        {
+            GameObject.Find("PPS").GetComponent<Text>().color = new Color(1f, 0.5f, 0);
+        }
+
+        else if (FloatPMV < -1)
+        {
+            GameObject.Find("PPS").GetComponent<Text>().color = new Color(0, 0, 0.5f);
+        }
+
+        else if (FloatPMV > 1)
+        {
+            GameObject.Find("PPS").GetComponent<Text>().color = new Color(0.5f, 0, 0);
+        }
+
+
         //Debug.Log(this.tooltipText);
     }
 

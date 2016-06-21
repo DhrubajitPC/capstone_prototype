@@ -17,7 +17,7 @@ public class HumanEmoticon : MonoBehaviour {
     {
 
         string mood = "mood0";
-        if (score <= 0.5 && score >= -0.5)
+        if (score >= -0.5 && score <= 0.5)
         {
             mood = "mood0";
         } else if (score < -0.5 && score >= -1)
@@ -37,21 +37,21 @@ public class HumanEmoticon : MonoBehaviour {
 
 
 
-        else if (score < 1 && score > -0.5)
+        else if (score > 0.5 && score <= 1)
         {
-            mood = "mood1c";
+            mood = "mood1h";
         }
         else if (score < 2 && score >= 1)
         {
-            mood = "mood2c";
+            mood = "mood2h";
         }
         else if (score < 3 && score >= 2)
         {
-            mood = "mood3c";
+            mood = "mood3h";
         }
         else if (score > 3)
         {
-            mood = "mood4c";
+            mood = "mood4h";
         }
 
         transform.Find("MoodCanvas/"+mood).gameObject.SetActive(true);
