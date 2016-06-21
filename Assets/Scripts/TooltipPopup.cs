@@ -30,10 +30,12 @@ public class TooltipPopup : MonoBehaviour, ICardboardGazeResponder
 
     public void OnGazeEnter()
     {
-        GameObject.Find("Tooltip").GetComponent<Canvas>().enabled = true;
-        GameObject.Find("PPS").GetComponent<Text>().text = this.TextPPS;
-        GameObject.Find("Temp").GetComponent<Text>().text = this.TextTemp;
-        GameObject.Find("Wind").GetComponent<Text>().text = this.TextWind;
+        GameObject tooltip = GameObject.Find("Tooltip");
+        Canvas canvas = tooltip.GetComponent<Canvas>();
+        tooltip.GetComponent<Canvas>().enabled = true;
+        tooltip.transform.Find("TooltipButton/PPS").GetComponent<Text>().text = this.TextPPS;
+        tooltip.transform.Find("TooltipButton/Temp").GetComponent<Text>().text = this.TextTemp;
+        tooltip.transform.Find("TooltipButton/Wind").GetComponent<Text>().text = this.TextWind;
         transform.Find("Glows").gameObject.SetActive(true);
 
         if (FloatPMV >= -0.5 && FloatPMV <=0.5)
