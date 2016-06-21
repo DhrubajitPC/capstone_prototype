@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.IO;
 
 public static class WWWLoader{
+    static bool is_downloading = false;
 
     public static WWW loadWWWAssetBundle(string url, int version)
     {
@@ -49,6 +51,27 @@ public static class WWWLoader{
             throw new Exception("WWW download had an error: " + e.Message);
         }
         return www;
+    }
+
+    public static IEnumerator downloadFile(string url, string filename)
+    {
+        is_downloading = true;
+        WWW www = new WWW(url + filename);
+        yield return www;
+        byte[] bytes = www.bytes;
+        string path = null;
+        path = "Assets/Resources/downloads/" + filename;
+        using (FileStream fs = new FileStream(path, FileMode.Create))
+        {
+            using (StreamWriter writer = new StreamWriter(fs))
+            {
+                writer.Write(bytes);
+            }
+        }
+        #if UNITY_EDITOR
+            UnityEditor.AssetDatabase.Refresh();
+        #endif
+        is_downloading = false;
     }
 
 }

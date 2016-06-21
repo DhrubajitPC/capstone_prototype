@@ -93,6 +93,11 @@ public class RoomControl : MonoBehaviour {
         yield return 1;
     }
 
+    private IEnumerator loadAssetBundle2(string url, int version)
+    {
+        yield return null;
+    }
+
     private IEnumerator loadAssetBundle(string url, int version)
     {
         // wait for the caching system to be ready
