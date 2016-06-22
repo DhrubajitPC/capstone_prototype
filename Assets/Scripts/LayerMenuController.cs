@@ -20,8 +20,6 @@ public class LayerMenuController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         //Ensure canvas is always in front of you (and facing you)
-        canvas.transform.position = this.transform.position + this.transform.Find("Head").forward.normalized * 200;
-        canvas.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
         renderMat = false;
         showFurn = false;
         showHuman = false;
@@ -80,8 +78,12 @@ public class LayerMenuController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		//		relocating the camera angle to default
-//		GameObject.Find ("CardboardMain").transform.eulerAngles = new Vector3 (0, 0, 0);
-//		GameObject.Find ("CardboardMain").transform.position = new Vector3 (0, 0, 0);
+        Vector3 screenPoint = Camera.main.WorldToViewportPoint(canvas.transform.position);
+        bool onScreen = screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
+        if (!onScreen)
+        {
+            canvas.transform.position = this.transform.position + this.transform.Find("Head").forward.normalized * 200;
+            canvas.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
+        }
 	}
 }

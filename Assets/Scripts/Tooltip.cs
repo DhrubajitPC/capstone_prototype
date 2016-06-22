@@ -11,10 +11,7 @@ public class Tooltip : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKey("space"))
-        {
-            transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
-            transform.position = Camera.main.transform.position + (Camera.main.transform.forward * 0.1f);
-        }
+        transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
+        transform.position = Camera.main.transform.position + (Camera.main.transform.forward * 0.4f);
     }
 }

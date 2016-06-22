@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 2965567636
+CRC: 2327465843
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: af8c102f7fe7dde661589420ad241c69
+    Hash: 59d29907c3c209efe3ffef9396de894e
   TypeTreeHash:
     serializedVersion: 2
-    Hash: b7fe94eecd7df9a159465bb12c80f7e5
+    Hash: a5ddcd058db4d86d804e5b6e61b181ce
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -25,13 +25,11 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 48
   Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
 - Class: 65
   Script: {instanceID: 0}
-- Class: 198
-  Script: {instanceID: 0}
-- Class: 199
-  Script: {instanceID: 0}
 Assets:
-- Assets/objects/AssetBundles/FurnitureMain.prefab
-- Assets/objects/AssetBundles/Duxton Render.prefab
+- Assets/objects/AssetBundles/Walls.prefab
+- Assets/objects/AssetBundles/Furniture.prefab
 Dependencies: []

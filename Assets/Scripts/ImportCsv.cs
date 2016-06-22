@@ -12,10 +12,11 @@ public class ImportCsv
     //Get filepath and convert into list of strings
     {
         string CsvValues = "";
-        using (StreamReader CsvReader = new StreamReader(File.OpenRead(FilePath)))
+        CsvValues = ((TextAsset)Resources.Load(FilePath, typeof(TextAsset))).text;
+        /*using (StreamReader CsvReader = new StreamReader(File.OpenRead(FilePath)))
         {
             CsvValues = CsvReader.ReadToEnd();
-        }
+        }*/
 
         string[] CsvLines = CsvValues.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
         foreach (string CsvLine in CsvLines)
