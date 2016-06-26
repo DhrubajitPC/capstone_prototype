@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 
-public class ExportAssetBundles : MonoBehaviour
+public class ExportAssetBundles
 {
 
     [MenuItem("Assets/Build AssetBundle For Windows")]
