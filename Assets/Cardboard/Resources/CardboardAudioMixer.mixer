@@ -34,6 +34,7 @@ AudioMixerGroupController:
   m_Effects:
   - {fileID: 24415202}
   - {fileID: 24400002}
+  - {fileID: 24420178}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
@@ -64,6 +65,47 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!244 &24420178
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_EffectID: 64ec542627a18f54a934c98c88d6a3c2
+  m_EffectName: SFX Reverb
+  m_MixLevel: f103d8b9303e923479cb0747d31678e4
+  m_Parameters:
+  - m_ParameterName: Dry Level
+    m_GUID: 1129246dba3c4df43a43844d1c4924ef
+  - m_ParameterName: Room
+    m_GUID: fc2f9df0fe0938249bccf8fc09058b46
+  - m_ParameterName: Room HF
+    m_GUID: ae099c0a54127d2478144f70ba74d22e
+  - m_ParameterName: Decay Time
+    m_GUID: 2f7c6c450efa22d439891afe08c6c36b
+  - m_ParameterName: Decay HF Ratio
+    m_GUID: d7347623b80bda74ebbbe32dcf9d4eec
+  - m_ParameterName: Reflections
+    m_GUID: 35baf5bff3dd64a46a20aea5cbd02edb
+  - m_ParameterName: Reflect Delay
+    m_GUID: f005b358dac722640b5478cc7ba1382f
+  - m_ParameterName: Reverb
+    m_GUID: 0dffe1aa70d2cde4c889e6f707427bc6
+  - m_ParameterName: Reverb Delay
+    m_GUID: b09df33a9a95f8e458f89e6e8bf28e32
+  - m_ParameterName: Diffusion
+    m_GUID: 551ec905530df434cbe41cb9eb2a6243
+  - m_ParameterName: Density
+    m_GUID: 6c7e04d9684e03d4496766ae20b30b3a
+  - m_ParameterName: HF Reference
+    m_GUID: f424cd535e701dc4eaca3c2273bf6590
+  - m_ParameterName: Room LF
+    m_GUID: a32d10988aec88743928518bfae45c0b
+  - m_ParameterName: LF Reference
+    m_GUID: ef8961f0d11274e4c800795f07e14556
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!245 &24500003
 AudioMixerSnapshotController:
   m_ObjectHideFlags: 0
@@ -72,5 +114,7 @@ AudioMixerSnapshotController:
   m_Name: Snapshot
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 631b64129c98e4ed4be93f5196ab1cac
-  m_FloatValues: {}
+  m_FloatValues:
+    fc2f9df0fe0938249bccf8fc09058b46: -10000
+    f2077248ad8e04a4b85906f156bc9139: -2.5
   m_TransitionOverrides: {}
