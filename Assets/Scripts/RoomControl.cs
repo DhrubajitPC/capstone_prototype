@@ -13,6 +13,7 @@ public class RoomControl : MonoBehaviour {
     private bool loadRotation = true;
 
     private List<Vector4> HumanCoords = new List<Vector4>(); //w is y rotation
+    private Vector3[] jumpLocations;
     private List<Canvas> movementCanvases = new List<Canvas>();
     AssetBundle assetBundle;
     private GameObject BaseGeometry;
@@ -64,19 +65,7 @@ public class RoomControl : MonoBehaviour {
         showHuman = PlayerPrefs.GetInt("ShowHuman") == 1;
         enableFreeRoam = PlayerPrefs.GetInt("EnableFreeRoam") == 1;
         pathedTeleport = PlayerPrefs.GetInt("PathedTeleport") == 1;
-        if (PlayerPrefs.GetInt("LoadLocation") == 1)
-        {
-            PlayerObj.transform.position = new Vector3(PlayerPrefs.GetFloat("LocationX"),
-                PlayerPrefs.GetFloat("LocationY"), PlayerPrefs.GetFloat("LocationZ"));
-            if (loadRotation)
-            {
-                //this is reset by cardboard/gear. Apply fix pls
-                PlayerObj.transform.Find("VRMain/Head").rotation = new Quaternion(
-                    PlayerPrefs.GetFloat("QuarternionX"), PlayerPrefs.GetFloat("QuarternionY"),
-                    PlayerPrefs.GetFloat("QuarternionZ"), PlayerPrefs.GetFloat("QuarternionW"));
-            }
-            PlayerPrefs.SetInt("LoadLocation", 0);
-        }
+        
         yield return StartCoroutine(loadAssetBundle(download_url, 1)); //wait for this coroutine to finish
                                                                         //loadAssetBundle(download_url, 1);
                                                                         //yield return new WaitUntil(() => assetBundle != null);
@@ -95,6 +84,26 @@ public class RoomControl : MonoBehaviour {
             GameObject.Find("ERROR").GetComponent<UnityEngine.UI.Text>().text = e.Message;
         }
 
+        //Setup player location and orientation
+        if (PlayerPrefs.GetInt("LoadLocation") == 1)
+        {
+            PlayerObj.transform.position = new Vector3(PlayerPrefs.GetFloat("LocationX"),
+                PlayerPrefs.GetFloat("LocationY"), PlayerPrefs.GetFloat("LocationZ"));
+            if (loadRotation)
+            {
+                //this is reset by cardboard/gear. Apply fix pls
+                PlayerObj.transform.Find("VRMain/Head").rotation = new Quaternion(
+                    PlayerPrefs.GetFloat("QuarternionX"), PlayerPrefs.GetFloat("QuarternionY"),
+                    PlayerPrefs.GetFloat("QuarternionZ"), PlayerPrefs.GetFloat("QuarternionW"));
+            }
+            PlayerPrefs.SetInt("LoadLocation", 0);
+        }
+        else
+        {
+            PlayerObj.transform.position = jumpLocations[0];
+        }
+        rotateMovementCanvases(transform.position);
+
         yield return 1;
     }
 
@@ -102,6 +111,7 @@ public class RoomControl : MonoBehaviour {
     {
         yield return WWWLoader.downloadFile("renderbundle");
         yield return WWWLoader.downloadFile("cfd.csv");
+        yield return WWWLoader.downloadFile("jumplocations.csv");
         yield return WWWLoader.downloadFile("humancoords.csv");
     }
 
@@ -300,7 +310,7 @@ public class RoomControl : MonoBehaviour {
         else
         {
             ImportCsv loc = new ImportCsv(WWWLoader.resources_path + "jumplocations");
-            Vector3[] jumpLocations = new Vector3[loc.Count];
+            jumpLocations = new Vector3[loc.Count];
             for (int i=0; i < loc.Count; i++)
             {
                 jumpLocations[i] = new Vector3(loc.Itemf(i, 0), loc.Itemf(i, 1), loc.Itemf(i, 2));
