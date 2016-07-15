@@ -186,8 +186,10 @@ public class RoomControl : MonoBehaviour {
         }
         GameObject geom = (GameObject)Instantiate(baseGeometry,
                 //new Vector3(6.252522f, 2.140625f, 3.574341f), //fix with standardized coor
-                Vector3.zero, 
-                Quaternion.identity);
+                baseGeometry.transform.position,
+                //Vector3.zero, 
+                //Quaternion.identity);
+                baseGeometry.transform.rotation);
         geom.name = "BaseGeometryLayer";
         geom.GetComponentInChildren<MeshRenderer>().material.shader = Shader.Find("Custom/DoubleSidedCutout");
         //furniture.GetComponentInChildren<MeshRenderer>().material.shader = Shader.Find("Standard");
