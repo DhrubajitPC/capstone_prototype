@@ -8,7 +8,6 @@ using UnityEngine.EventSystems;
 public class RoomControl : MonoBehaviour {
 
     public GameObject PlayerObj;
-    public Vector3[] jumpLocations;
 
     private const string download_url = "https://luccan.github.io/capstone_prototype_assetbundle/renderbundle";
     private bool loadRotation = true;
@@ -191,6 +190,7 @@ public class RoomControl : MonoBehaviour {
                 //Quaternion.identity);
                 baseGeometry.transform.rotation);
         geom.name = "BaseGeometryLayer";
+        geom.transform.localScale = baseGeometry.transform.localScale;
         geom.GetComponentInChildren<MeshRenderer>().material.shader = Shader.Find("Custom/DoubleSidedCutout");
         //furniture.GetComponentInChildren<MeshRenderer>().material.shader = Shader.Find("Standard");
 
@@ -299,6 +299,13 @@ public class RoomControl : MonoBehaviour {
         }
         else
         {
+            ImportCsv loc = new ImportCsv(WWWLoader.resources_path + "jumplocations");
+            Vector3[] jumpLocations = new Vector3[loc.Count];
+            for (int i=0; i < loc.Count; i++)
+            {
+                jumpLocations[i] = new Vector3(loc.Itemf(i, 0), loc.Itemf(i, 1), loc.Itemf(i, 2));
+            }
+
             //create jumpProgressBars as necessary
             for (int i = 0; i < jumpLocations.Length; i++)
             {
