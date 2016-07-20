@@ -79,11 +79,13 @@ public class LayerMenuController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Vector3 screenPoint = Camera.main.WorldToViewportPoint(canvas.transform.position);
+		print (screenPoint);
         bool onScreen = screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
         if (!onScreen)
         {
             canvas.transform.position = this.transform.position + this.transform.Find("Head").forward.normalized * 200;
-            canvas.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
+			canvas.transform.rotation = Quaternion.LookRotation(canvas.transform.position-this.transform.position);
         }
+		
 	}
 }
