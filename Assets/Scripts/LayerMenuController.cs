@@ -8,14 +8,16 @@ public class LayerMenuController : MonoBehaviour {
     public UnityEngine.UI.Toggle toggleMat;
     public UnityEngine.UI.Toggle toggleFurn;
     public UnityEngine.UI.Toggle toggleHuman;
+    public UnityEngine.UI.Toggle toggleView;
+    public UnityEngine.UI.Toggle toggleNoise;
     public UnityEngine.UI.Toggle toggleFreeRoam;
-    public UnityEngine.UI.Toggle togglePathedTele;
 
     private bool renderMat;
     private bool showFurn;
     private bool showHuman;
+    private bool showView;
+    private bool enableNoise;
     private bool enableFreeRoam;
-    private bool pathedTeleport;
 
     // Use this for initialization
     void Start () {
@@ -23,8 +25,9 @@ public class LayerMenuController : MonoBehaviour {
         renderMat = false;
         showFurn = false;
         showHuman = false;
+        showView = false;
+        enableNoise = false;
         enableFreeRoam = false;
-        pathedTeleport = false;
         if (PlayerPrefs.GetInt("RenderMat") == 1) {
             toggleMat.isOn = PlayerPrefs.GetInt("RenderMat") == 1; //this toggles the trigger
         }
@@ -36,13 +39,17 @@ public class LayerMenuController : MonoBehaviour {
         {
             toggleHuman.isOn = PlayerPrefs.GetInt("ShowHuman") == 1;
         }
+        if (PlayerPrefs.GetInt("ShowView") == 1)
+        {
+            toggleView.isOn = PlayerPrefs.GetInt("ShowView") == 1;
+        }
+        if (PlayerPrefs.GetInt("EnableNoise") == 1)
+        {
+            toggleNoise.isOn = PlayerPrefs.GetInt("EnableNoise") == 1;
+        }
         if (PlayerPrefs.GetInt("EnableFreeRoam") == 1)
         {
             toggleFreeRoam.isOn = PlayerPrefs.GetInt("EnableFreeRoam") == 1;
-        }
-        if (PlayerPrefs.GetInt("PathedTeleport") == 1)
-        {
-            togglePathedTele.isOn = PlayerPrefs.GetInt("PathedTeleport") == 1;
         }
     }
 	
@@ -57,13 +64,17 @@ public class LayerMenuController : MonoBehaviour {
     {
         showHuman = !showHuman;
     }
+    public void ToggleView()
+    {
+        showView = !showView;
+    }
+    public void ToggleNoise()
+    {
+        enableNoise = !enableNoise;
+    }
     public void ToggleFreeRoam()
     {
         enableFreeRoam = !enableFreeRoam;
-    }
-    public void TogglePathedTele()
-    {
-        pathedTeleport = !pathedTeleport;
     }
 
     public void BackToRoom()
@@ -71,8 +82,9 @@ public class LayerMenuController : MonoBehaviour {
         PlayerPrefs.SetInt("RenderMat", renderMat ? 1 : 0);
         PlayerPrefs.SetInt("ShowFurn", showFurn ? 1 : 0);
         PlayerPrefs.SetInt("ShowHuman", showHuman ? 1 : 0);
+        PlayerPrefs.SetInt("ShowView", showView ? 1 : 0);
+        PlayerPrefs.SetInt("EnableNoise", enableNoise ? 1 : 0);
         PlayerPrefs.SetInt("EnableFreeRoam", enableFreeRoam ? 1 : 0);
-        PlayerPrefs.SetInt("PathedTeleport", pathedTeleport ? 1 : 0);
         SceneManager.LoadScene("Dynamic Scene",LoadSceneMode.Single);
     }
 

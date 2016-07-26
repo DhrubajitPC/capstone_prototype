@@ -17,13 +17,15 @@ public class RoomControl : MonoBehaviour {
     private List<Canvas> movementCanvases = new List<Canvas>();
     AssetBundle assetBundle;
     private GameObject BaseGeometry;
-    private GameObject Furniture;
+    private GameObject FurnitureGeometry;
+    private GameObject ViewGeometry;
 
     private bool renderMat;
     private bool showFurn;
     private bool showHuman;
+    private bool showView;
+    private bool enableNoise;
     private bool enableFreeRoam;
-    private bool pathedTeleport;
 
 	private bool singleTap = false;
 	private float tapTime = 0.3f;
@@ -52,33 +54,32 @@ public class RoomControl : MonoBehaviour {
 			PlayerObj.GetComponent<Navigation> ().setMovementMode (1);
 		}
 		lastTap = Time.time;
-
     }
 
 	private IEnumerator SingleTap(){
 		yield return new WaitForSeconds (0.3f);
 		if (singleTap) {
-			
-			PlayerPrefs.SetInt("RenderMat", renderMat ? 1 : 0);
-			PlayerPrefs.SetInt("ShowFurn", showFurn ? 1 : 0);
-			PlayerPrefs.SetInt("ShowHuman", showHuman ? 1 : 0);
-			PlayerPrefs.SetInt("EnableFreeRoam", enableFreeRoam ? 1 : 0);
-			PlayerPrefs.SetInt("PathedTeleport", pathedTeleport ? 1 : 0);
-			//location
-			PlayerPrefs.SetInt("LoadLocation", 1);
-			PlayerPrefs.SetFloat("LocationX", PlayerObj.transform.position.x);
-			PlayerPrefs.SetFloat("LocationY", PlayerObj.transform.position.y);
-			PlayerPrefs.SetFloat("LocationZ", PlayerObj.transform.position.z);
-			if (loadRotation)
-			{
-				PlayerPrefs.SetFloat("QuarternionX", PlayerObj.transform.Find("VRMain/Head").rotation.x);
-				PlayerPrefs.SetFloat("QuarternionY", PlayerObj.transform.Find("VRMain/Head").rotation.y);
-				PlayerPrefs.SetFloat("QuarternionZ", PlayerObj.transform.Find("VRMain/Head").rotation.z);
-				PlayerPrefs.SetFloat("QuarternionW", PlayerObj.transform.Find("VRMain/Head").rotation.w);
-			}
 
-			SceneManager.LoadScene ("LayerScene", LoadSceneMode.Single);
-			singleTap = false;
+            PlayerPrefs.SetInt("RenderMat", renderMat ? 1 : 0);
+            PlayerPrefs.SetInt("ShowFurn", showFurn ? 1 : 0);
+            PlayerPrefs.SetInt("ShowHuman", showHuman ? 1 : 0);
+            PlayerPrefs.SetInt("ShowView", showView ? 1 : 0);
+            PlayerPrefs.SetInt("EnableNoise", enableNoise ? 1 : 0);
+            PlayerPrefs.SetInt("EnableFreeRoam", enableFreeRoam ? 1 : 0);
+            //location
+            PlayerPrefs.SetInt("LoadLocation", 1);
+            PlayerPrefs.SetFloat("LocationX", PlayerObj.transform.position.x);
+            PlayerPrefs.SetFloat("LocationY", PlayerObj.transform.position.y);
+            PlayerPrefs.SetFloat("LocationZ", PlayerObj.transform.position.z);
+            if (loadRotation)
+            {
+                PlayerPrefs.SetFloat("QuarternionX", PlayerObj.transform.Find("VRMain/Head").rotation.x);
+                PlayerPrefs.SetFloat("QuarternionY", PlayerObj.transform.Find("VRMain/Head").rotation.y);
+                PlayerPrefs.SetFloat("QuarternionZ", PlayerObj.transform.Find("VRMain/Head").rotation.z);
+                PlayerPrefs.SetFloat("QuarternionW", PlayerObj.transform.Find("VRMain/Head").rotation.w);
+            }
+            SceneManager.LoadScene("LayerScene", LoadSceneMode.Single);
+            singleTap = false;
 		}
 	}
 
@@ -92,8 +93,9 @@ public class RoomControl : MonoBehaviour {
         renderMat = PlayerPrefs.GetInt("RenderMat") == 1;
         showFurn = PlayerPrefs.GetInt("ShowFurn") == 1;
         showHuman = PlayerPrefs.GetInt("ShowHuman") == 1;
+        showView = PlayerPrefs.GetInt("ShowView") == 1;
+        enableNoise = PlayerPrefs.GetInt("EnableNoise") == 1;
         enableFreeRoam = PlayerPrefs.GetInt("EnableFreeRoam") == 1;
-        pathedTeleport = PlayerPrefs.GetInt("PathedTeleport") == 1;
         
         yield return StartCoroutine(loadAssetBundle(download_url, 1)); //wait for this coroutine to finish
                                                                         //loadAssetBundle(download_url, 1);
@@ -104,6 +106,8 @@ public class RoomControl : MonoBehaviour {
             //ApplyFurnitureLayer();
             //ApplyMaterialLayer();
             ApplyHumanLayer();
+            ApplyViewLayer();
+            ApplyNoise();
             ApplyMovements();
             unloadAssetBundle();
 
@@ -155,7 +159,7 @@ public class RoomControl : MonoBehaviour {
         assetBundle = AssetBundle.LoadFromFile(file_path);
         if (assetBundle != null)
         {
-            Furniture = assetBundle.LoadAsset<GameObject>("FurnitureMain.prefab");
+            FurnitureGeometry = assetBundle.LoadAsset<GameObject>("FurnitureMain.prefab");
             BaseGeometry = assetBundle.LoadAsset<GameObject>("Duxton Render.prefab");
         } else
         {
@@ -197,8 +201,9 @@ public class RoomControl : MonoBehaviour {
         if (assetBundle != null)
         {
             GameObject.Find("ERROR").GetComponent<UnityEngine.UI.Text>().text = "LOADED ";
-            Furniture = assetBundle.LoadAsset<GameObject>("Furniture.prefab");
+            FurnitureGeometry = assetBundle.LoadAsset<GameObject>("Furniture.prefab");
             BaseGeometry = assetBundle.LoadAsset<GameObject>("Walls.prefab");
+            ViewGeometry = assetBundle.LoadAsset<GameObject>("View.prefab");
         } else
         {
             GameObject.Find("ERROR").GetComponent<UnityEngine.UI.Text>().text = "FAIL TO LOAD ";
@@ -217,16 +222,13 @@ public class RoomControl : MonoBehaviour {
         GameObject baseGeometry;
         if (showFurn)
         {
-            baseGeometry = Furniture;
+            baseGeometry = FurnitureGeometry;
         } else
         {
             baseGeometry = BaseGeometry;
         }
         GameObject geom = (GameObject)Instantiate(baseGeometry,
-                //new Vector3(6.252522f, 2.140625f, 3.574341f), //fix with standardized coor
                 baseGeometry.transform.position,
-                //Vector3.zero, 
-                //Quaternion.identity);
                 baseGeometry.transform.rotation);
         geom.name = "BaseGeometryLayer";
         geom.transform.localScale = baseGeometry.transform.localScale;
@@ -241,6 +243,20 @@ public class RoomControl : MonoBehaviour {
             {
                 mrs[j].material = Resources.Load<Material>("material/NoMaterial");
             }
+        }
+    }
+
+    void ApplyViewLayer()
+    {
+        if (showView)
+        {
+            GameObject view = (GameObject)Instantiate(ViewGeometry,
+                    ViewGeometry.transform.position,
+                    ViewGeometry.transform.rotation);
+            view.name = "ViewLayer";
+            view.transform.localScale = ViewGeometry.transform.localScale;
+            view.GetComponentInChildren<MeshRenderer>().material.shader = Shader.Find("Custom/DoubleSidedCutout");
+            //furniture.GetComponentInChildren<MeshRenderer>().material.shader = Shader.Find("Standard");
         }
     }
 
@@ -355,12 +371,34 @@ public class RoomControl : MonoBehaviour {
                 movementCanvases.Add(canvas.GetComponent<Canvas>());
             }
             rotateMovementCanvases(transform.position);
-            if (pathedTeleport)
+            PlayerObj.GetComponent<Navigation>().setMovementMode(1);
+
+            /*if (pathedTeleport)
             {
                 PlayerObj.GetComponent<Navigation>().setMovementMode(2);
             } else
             {
                 PlayerObj.GetComponent<Navigation>().setMovementMode(1);
+            }*/
+        }
+    }
+    void ApplyNoise()
+    {
+        ImportCsv Noise = new ImportCsv(WWWLoader.resources_path + "noisecoords");
+        List<Vector3> NoiseCoords = new List<Vector3>();
+        for (int i = 0; i < Noise.Count; i++)
+        {
+            NoiseCoords.Add(new Vector3(Noise.Itemf(i, 0), Noise.Itemf(i, 1), Noise.Itemf(i, 2)));
+        }
+        if (enableNoise)
+        {
+            for (int i = 0; i < NoiseCoords.Count; i++)
+            {
+                //"TODO" instantiating with y to be 0.14 and not coord.y as a quick fix
+                GameObject person = (GameObject)Instantiate(Resources.Load("prefabs/NoiseSource"),
+                    new Vector3(NoiseCoords[i].x, NoiseCoords[i].y, NoiseCoords[i].z),
+                    Quaternion.identity);
+                person.name = "Noise" + i;
             }
         }
     }
