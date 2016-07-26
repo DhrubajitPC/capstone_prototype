@@ -40,24 +40,17 @@ public class RoomControl : MonoBehaviour {
     void TriggerPulled()
     {
 		if (!singleTap) {
+            //single tap
 			singleTap = true;
-			StartCoroutine (SingleTap ());
-		}
-		if ((Time.time - lastTap) < tapTime) {
-			singleTap = false;
-			enableFreeRoam = !enableFreeRoam;
+			StartCoroutine (GoToLayerScene());
 		}
 
-		if (enableFreeRoam) {
-			PlayerObj.GetComponent<Navigation> ().setMovementMode (0);
-		} else {
-			PlayerObj.GetComponent<Navigation> ().setMovementMode (1);
-		}
-		lastTap = Time.time;
+        //Double Tap
+        ToggleFreeRoam();
     }
 
-	private IEnumerator SingleTap(){
-		yield return new WaitForSeconds (0.3f);
+	private IEnumerator GoToLayerScene(){
+		yield return new WaitForSeconds (tapTime);
 		if (singleTap) {
 
             PlayerPrefs.SetInt("RenderMat", renderMat ? 1 : 0);
@@ -83,6 +76,24 @@ public class RoomControl : MonoBehaviour {
 		}
 	}
 
+    private void ToggleFreeRoam()
+    {
+        if ((Time.time - lastTap) < tapTime)
+        {
+            singleTap = false;
+            enableFreeRoam = !enableFreeRoam;
+        }
+
+        if (enableFreeRoam)
+        {
+            PlayerObj.GetComponent<Navigation>().setMovementMode(0);
+        }
+        else {
+            PlayerObj.GetComponent<Navigation>().setMovementMode(1);
+        }
+        lastTap = Time.time;
+    }
+
 	// Update is called once per frame
 	void Update () {
 
@@ -97,7 +108,7 @@ public class RoomControl : MonoBehaviour {
         enableNoise = PlayerPrefs.GetInt("EnableNoise") == 1;
         enableFreeRoam = PlayerPrefs.GetInt("EnableFreeRoam") == 1;
         
-        yield return StartCoroutine(loadAssetBundle(download_url, 1)); //wait for this coroutine to finish
+        yield return StartCoroutine(loadAssetBundle2(download_url, 1)); //wait for this coroutine to finish
                                                                         //loadAssetBundle(download_url, 1);
                                                                         //yield return new WaitUntil(() => assetBundle != null);
         try
@@ -151,19 +162,22 @@ public class RoomControl : MonoBehaviour {
     private IEnumerator loadAssetBundle2(string url, int version)
     {
         yield return null;
-        string file_path = WWWLoader.resources_path + "renderbundle";
-        if (!System.IO.File.Exists(file_path))
+        string file_path = WWWLoader.full_resources_path + "renderbundle";
+        /*if (!System.IO.File.Exists(file_path))
         {
             yield return downloadAssetBundle();
-        }
+        }*/
         assetBundle = AssetBundle.LoadFromFile(file_path);
         if (assetBundle != null)
         {
-            FurnitureGeometry = assetBundle.LoadAsset<GameObject>("FurnitureMain.prefab");
-            BaseGeometry = assetBundle.LoadAsset<GameObject>("Duxton Render.prefab");
-        } else
+            GameObject.Find("ERROR").GetComponent<UnityEngine.UI.Text>().text = "LOADED ";
+            FurnitureGeometry = assetBundle.LoadAsset<GameObject>("Furniture.prefab");
+            BaseGeometry = assetBundle.LoadAsset<GameObject>("Walls.prefab");
+            ViewGeometry = assetBundle.LoadAsset<GameObject>("View.prefab");
+        }
+        else
         {
-            loadAssetBundle(url, version);
+            GameObject.Find("ERROR").GetComponent<UnityEngine.UI.Text>().text = "FAIL TO LOAD ";
         }
     }
 
@@ -192,11 +206,6 @@ public class RoomControl : MonoBehaviour {
 
         assetBundle = www.assetBundle;
         /*
-        string path = "Assets/AssetBundleFiles/Windows/";
-#if UNITY_ANDROID
-        path = Application.dataPath + "!assets/AssetBundleFiles/Android/";
-#endif
-        GameObject.Find("ERROR").GetComponent<UnityEngine.UI.Text>().text = "Loading AssetBundle for " + path;
         AssetBundle assetBundle = AssetBundle.LoadFromFile(path + "renderbundle");*/
         if (assetBundle != null)
         {

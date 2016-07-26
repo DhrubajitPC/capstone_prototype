@@ -6,6 +6,7 @@ using System.IO;
 public static class WWWLoader{
     static bool is_downloading = false;
     public const string resources_path = "downloads/";
+    public const string full_resources_path = "Assets/resources/downloads/";
     public const string download_url = "https://luccan.github.io/capstone_prototype_assetbundle/";
 
     public static IEnumerator downloadFile(string filename)
