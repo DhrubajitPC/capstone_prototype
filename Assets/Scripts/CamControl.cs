@@ -9,7 +9,7 @@ public class CamControl : MonoBehaviour {
 	GameObject capsule;
 
 	private void makeCapsuleParent(){
-		if (scene.name != "LayerScene") {
+		if (scene.name == "Dynamic Scene") {
 			capsule = GameObject.Find ("Capsule");
 			cam.transform.parent = capsule.transform;
 			cam.GetComponent<LayerMenuController> ().enabled = false;
