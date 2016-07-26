@@ -20,7 +20,7 @@ public class CamControl : MonoBehaviour {
 	void Awake () {
 		scene = SceneManager.GetActiveScene ();
 		cam = GameObject.Find ("VRMain");
-		print (scene.name);
+//		print (scene.name);
 		if(scene.name == "LayerScene"){
 			DontDestroyOnLoad (cam);	
 		}

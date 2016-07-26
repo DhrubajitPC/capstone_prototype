@@ -9,6 +9,8 @@ public class Navigation : MonoBehaviour
     private Vector3 startingLocation;
     private Rigidbody agent;
     private int movementType = 1; //0 is free roam, 1 teleport, 2 pathed teleport
+
+
     void Start()
     {
         agent = GetComponent<Rigidbody>();
@@ -42,11 +44,13 @@ public class Navigation : MonoBehaviour
         movementType = value;
     }
 
+
     void Update()
     {
-        if (movementType == 0 || Input.GetKey("space"))
+		
+		if (movementType == 0 || Input.GetKey("space"))
         {
-            agent.MovePosition(this.transform.position+transform.Find("VRMain/Head").transform.forward * Time.deltaTime * movementSpeed);
+			agent.MovePosition(this.transform.position+GameObject.Find("Head").transform.forward * Time.deltaTime * movementSpeed);
             //this.transform.position += transform.Find("VRMain/Head").transform.forward * Time.deltaTime * movementSpeed;
         }
     }

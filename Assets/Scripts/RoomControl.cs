@@ -26,35 +26,62 @@ public class RoomControl : MonoBehaviour {
     private bool showView;
     private bool enableNoise;
     private bool enableFreeRoam;
-    
 
+	private bool singleTap = false;
+	private float tapTime = 0.3f;
+	private float lastTap = 0;
+    
     // Use this for initialization
     void Start () {
         StartCoroutine(initializeDynamicScene());
+//		print (SceneManager.GetActiveScene().name);
     }
 
     void TriggerPulled()
     {
-        PlayerPrefs.SetInt("RenderMat", renderMat ? 1 : 0);
-        PlayerPrefs.SetInt("ShowFurn", showFurn ? 1 : 0);
-        PlayerPrefs.SetInt("ShowHuman", showHuman ? 1 : 0);
-        PlayerPrefs.SetInt("ShowView", showView ? 1 : 0);
-        PlayerPrefs.SetInt("EnableNoise", enableNoise ? 1 : 0);
-        PlayerPrefs.SetInt("EnableFreeRoam", enableFreeRoam ? 1 : 0);
-        //location
-        PlayerPrefs.SetInt("LoadLocation", 1);
-        PlayerPrefs.SetFloat("LocationX", PlayerObj.transform.position.x);
-        PlayerPrefs.SetFloat("LocationY", PlayerObj.transform.position.y);
-        PlayerPrefs.SetFloat("LocationZ", PlayerObj.transform.position.z);
-        if (loadRotation)
-        {
-            PlayerPrefs.SetFloat("QuarternionX", PlayerObj.transform.Find("VRMain/Head").rotation.x);
-            PlayerPrefs.SetFloat("QuarternionY", PlayerObj.transform.Find("VRMain/Head").rotation.y);
-            PlayerPrefs.SetFloat("QuarternionZ", PlayerObj.transform.Find("VRMain/Head").rotation.z);
-            PlayerPrefs.SetFloat("QuarternionW", PlayerObj.transform.Find("VRMain/Head").rotation.w);
-        }
-        SceneManager.LoadScene("LayerScene", LoadSceneMode.Single);
+		if (!singleTap) {
+			singleTap = true;
+			StartCoroutine (SingleTap ());
+		}
+		if ((Time.time - lastTap) < tapTime) {
+			singleTap = false;
+			enableFreeRoam = !enableFreeRoam;
+		}
+
+		if (enableFreeRoam) {
+			PlayerObj.GetComponent<Navigation> ().setMovementMode (0);
+		} else {
+			PlayerObj.GetComponent<Navigation> ().setMovementMode (1);
+		}
+		lastTap = Time.time;
     }
+
+	private IEnumerator SingleTap(){
+		yield return new WaitForSeconds (0.3f);
+		if (singleTap) {
+
+            PlayerPrefs.SetInt("RenderMat", renderMat ? 1 : 0);
+            PlayerPrefs.SetInt("ShowFurn", showFurn ? 1 : 0);
+            PlayerPrefs.SetInt("ShowHuman", showHuman ? 1 : 0);
+            PlayerPrefs.SetInt("ShowView", showView ? 1 : 0);
+            PlayerPrefs.SetInt("EnableNoise", enableNoise ? 1 : 0);
+            PlayerPrefs.SetInt("EnableFreeRoam", enableFreeRoam ? 1 : 0);
+            //location
+            PlayerPrefs.SetInt("LoadLocation", 1);
+            PlayerPrefs.SetFloat("LocationX", PlayerObj.transform.position.x);
+            PlayerPrefs.SetFloat("LocationY", PlayerObj.transform.position.y);
+            PlayerPrefs.SetFloat("LocationZ", PlayerObj.transform.position.z);
+            if (loadRotation)
+            {
+                PlayerPrefs.SetFloat("QuarternionX", PlayerObj.transform.Find("VRMain/Head").rotation.x);
+                PlayerPrefs.SetFloat("QuarternionY", PlayerObj.transform.Find("VRMain/Head").rotation.y);
+                PlayerPrefs.SetFloat("QuarternionZ", PlayerObj.transform.Find("VRMain/Head").rotation.z);
+                PlayerPrefs.SetFloat("QuarternionW", PlayerObj.transform.Find("VRMain/Head").rotation.w);
+            }
+            SceneManager.LoadScene("LayerScene", LoadSceneMode.Single);
+            singleTap = false;
+		}
+	}
 
 	// Update is called once per frame
 	void Update () {
@@ -84,7 +111,7 @@ public class RoomControl : MonoBehaviour {
             ApplyMovements();
             unloadAssetBundle();
 
-            Cardboard.SDK.OnTrigger += TriggerPulled;
+			Cardboard.SDK.OnTrigger += TriggerPulled;
         } catch (Exception e)
         {
             GameObject.Find("ERROR").GetComponent<UnityEngine.UI.Text>().text = e.Message;
