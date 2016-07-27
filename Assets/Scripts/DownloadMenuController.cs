@@ -43,6 +43,7 @@ public class DownloadMenuController : MonoBehaviour {
         string url = GameObject.Find("Url Field").GetComponent<UnityEngine.UI.InputField>().text;
         string bundlename = GameObject.Find("BundleName Field").GetComponent<UnityEngine.UI.InputField>().text;
 
+        PlayerPrefs.SetString("ERROR", "");
         showStatusText("Downloading Bundle " + bundlename + "...");
         yield return WWWLoader.downloadFiles(url, bundlename);
         showStatusText("Done Downloading Bundle " + bundlename);

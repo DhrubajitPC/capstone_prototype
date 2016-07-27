@@ -28,19 +28,27 @@ public static class WWWLoader{
             download_url += "/";
         download_url += bundlename;
         string savepath = full_download_path + bundlename;
-        if (System.IO.Directory.Exists(savepath))
-        {
-            System.IO.Directory.Delete(savepath, true);
+        try {
+            if (System.IO.Directory.Exists(savepath))
+            {
+                System.IO.Directory.Delete(savepath, true);
+            }
+            System.IO.Directory.CreateDirectory(savepath);
         }
-        System.IO.Directory.CreateDirectory(savepath);
+        catch (Exception ex)
+        {
+            PlayerPrefs.SetString("ERROR", "!" + ex.Message);
+        }
 
-        yield return downloadFile(download_url, "renderbundle", savepath);
-        yield return downloadFile(download_url, "cfd.csv", savepath);
-        yield return downloadFile(download_url, "cfdorigin.csv", savepath);
-        yield return downloadFile(download_url, "jumplocations.csv", savepath);
-        yield return downloadFile(download_url, "humancoords.csv", savepath);
-        yield return downloadFile(download_url, "layersettings.csv", savepath);
-        yield return downloadFile(download_url, "noisecoords.csv", savepath);
+        if (PlayerPrefs.GetString("ERROR") == ""){
+            yield return downloadFile(download_url, "renderbundle", savepath);
+            yield return downloadFile(download_url, "cfd.csv", savepath);
+            yield return downloadFile(download_url, "cfdorigin.csv", savepath);
+            yield return downloadFile(download_url, "jumplocations.csv", savepath);
+            yield return downloadFile(download_url, "humancoords.csv", savepath);
+            yield return downloadFile(download_url, "layersettings.csv", savepath);
+            yield return downloadFile(download_url, "noisecoords.csv", savepath);
+        }
         yield return 0;
     }
 
@@ -54,7 +62,7 @@ public static class WWWLoader{
             client.DownloadFile(download_url + filename, path);
         } catch (Exception ex)
         {
-            PlayerPrefs.SetString("ERROR", ex.Message);
+            PlayerPrefs.SetString("ERROR", "!" + ex.Message);
         }
 
         is_downloading = false;

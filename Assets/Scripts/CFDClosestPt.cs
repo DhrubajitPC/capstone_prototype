@@ -6,6 +6,8 @@ public class CFDClosestPt
 {
     //Coordinates XYZ are in architecture coordinates not unity coordinates (this.Z = Unity Y)
     ImportCsv cfdData = new ImportCsv(WWWLoader.active_download_path + "cfd");
+    //shift the origin of cfdData
+    ImportCsv cfdOrigin = new ImportCsv(WWWLoader.active_download_path + "cfdorigin");
     int id = 0;
     public float Vx = 0;
     public float Vy = 0;
@@ -24,8 +26,8 @@ public class CFDClosestPt
         float min = 99999999;
         for (int i = 0; i < cfdData.Count; i++)
         {
-            float xTest = Math.Abs(x - cfdData.Itemf(i, 0));
-            float yTest = Math.Abs(y - cfdData.Itemf(i, 1));
+            float xTest = Math.Abs(x - (cfdData.Itemf(i,0) + cfdOrigin.Itemf(0,0) )); // +x
+            float yTest = Math.Abs(y - (cfdData.Itemf(i,1) + cfdOrigin.Itemf(0,2) )); // +z
 
             float Test = xTest + yTest;
 
