@@ -6,7 +6,20 @@ using UnityEngine.SceneManagement;
 
 public class DownloadMenuController : MonoBehaviour {
 
-    bool isDownloading = false;
+    bool _isDownloading = false;
+    bool isDownloading
+    {
+        get
+        {
+            return _isDownloading;
+        }
+        set
+        {
+            _isDownloading = value;
+            GameObject.Find("Download Button").GetComponent<UnityEngine.UI.Button>().enabled = !value;
+            GameObject.Find("Back Button").GetComponent<UnityEngine.UI.Button>().enabled = !value;
+        }
+    }
 
     // Use this for initialization
     void Start()
@@ -18,7 +31,11 @@ public class DownloadMenuController : MonoBehaviour {
 
     public void downloadBundleClick()
     {
-        StartCoroutine(downloadBundle());
+        if (!isDownloading)
+        {
+            isDownloading = true;
+            StartCoroutine(downloadBundle());
+        }
     }
 
     public IEnumerator downloadBundle()
@@ -26,14 +43,15 @@ public class DownloadMenuController : MonoBehaviour {
         string url = GameObject.Find("Url Field").GetComponent<UnityEngine.UI.InputField>().text;
         string bundlename = GameObject.Find("BundleName Field").GetComponent<UnityEngine.UI.InputField>().text;
 
-        isDownloading = true;
         showStatusText("Downloading Bundle " + bundlename + "...");
         yield return WWWLoader.downloadFiles(url, bundlename);
         showStatusText("Done Downloading Bundle " + bundlename);
+        LoadBundles();
         isDownloading = false;
     }
 
     public void loadLayerScene(){
+        PlayerPrefs.DeleteAll();
         string selected = GameObject.Find("ActiveBundle Dropdown/Label").GetComponent<UnityEngine.UI.Text>().text;
         PlayerPrefs.SetString("ActiveBundleName", selected);
         SceneManager.LoadScene("LayerScene");
