@@ -9,7 +9,7 @@ public static class WWWLoader{
 #if UNITY_EDITOR
     public const string full_download_path = "Assets/resources/downloads/";
 #elif UNITY_ANDROID
-    public static string full_download_path = Application.persistentDataPath;
+    public static string full_download_path = Application.persistentDataPath + "/";
 #endif
     public static string active_download_path
     {
