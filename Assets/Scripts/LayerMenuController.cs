@@ -77,7 +77,7 @@ public class LayerMenuController : MonoBehaviour {
         enableFreeRoam = !enableFreeRoam;
     }
 
-    public void BackToRoom()
+    public void savePlayerPrefs()
     {
         PlayerPrefs.SetInt("RenderMat", renderMat ? 1 : 0);
         PlayerPrefs.SetInt("ShowFurn", showFurn ? 1 : 0);
@@ -85,11 +85,22 @@ public class LayerMenuController : MonoBehaviour {
         PlayerPrefs.SetInt("ShowView", showView ? 1 : 0);
         PlayerPrefs.SetInt("EnableNoise", enableNoise ? 1 : 0);
         PlayerPrefs.SetInt("EnableFreeRoam", enableFreeRoam ? 1 : 0);
+    }
+
+    public void BackToRoom()
+    {
+        savePlayerPrefs();
         SceneManager.LoadScene("Dynamic Scene",LoadSceneMode.Single);
     }
 
-	// Update is called once per frame
-	void Update () {
+    public void BackToDownloadMenu()
+    {
+        savePlayerPrefs();
+        SceneManager.LoadScene("DownloadMenuScene", LoadSceneMode.Single);
+    }
+
+    // Update is called once per frame
+    void Update () {
         Vector3 screenPoint = Camera.main.WorldToViewportPoint(canvas.transform.position);
 //		print (screenPoint);
         bool onScreen = screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
