@@ -21,8 +21,10 @@ public class CamControl : MonoBehaviour {
 		scene = SceneManager.GetActiveScene ();
 		cam = GameObject.Find ("VRMain");
 //		print (scene.name);
-		if(scene.name == "LayerScene"){
+		if (scene.name == "LayerScene") {
 			DontDestroyOnLoad (cam);	
+		} else if (scene.name == "DownloadMenuScene") {
+			Destroy (cam);
 		}
 
 		makeCapsuleParent ();
