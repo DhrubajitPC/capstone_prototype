@@ -6,8 +6,18 @@ using System.IO;
 public static class WWWLoader{
     static bool is_downloading = false;
     public const string download_path = "downloads/";
+#if UNITY_EDITOR
     public const string full_download_path = "Assets/resources/downloads/";
-    //public const string download_url = "https://luccan.github.io/capstone_prototype_assetbundle/";
+#elif UNITY_ANDROID
+    public static string full_download_path = Application.persistentDataPath;
+#endif
+    public static string active_download_path
+    {
+        get
+        {
+            return full_download_path + PlayerPrefs.GetString("ActiveBundleName") + ".sky/";
+        }
+    }
 
     public static IEnumerator downloadFiles(string download_url, string bundlename)
     {
@@ -37,22 +47,16 @@ public static class WWWLoader{
     public static IEnumerator downloadFile(string download_url, string filename, string savepath)
     {
         is_downloading = true;
-        //WWW www = new WWW(download_url + filename);
-        //yield return www;
-        //string content = www.text;
-        string path = savepath + filename;
-        System.Net.WebClient client = new System.Net.WebClient();
-        client.DownloadFile(download_url + filename, path);
-        /*using (FileStream fs = new FileStream(path, FileMode.Create))
+
+        try {
+            string path = savepath + filename;
+            System.Net.WebClient client = new System.Net.WebClient();
+            client.DownloadFile(download_url + filename, path);
+        } catch (Exception ex)
         {
-            using (StreamWriter writer = new StreamWriter(fs))
-            {
-                writer.Write(content);
-            }
-        }*/
-        #if UNITY_EDITOR
-        UnityEditor.AssetDatabase.Refresh();
-        #endif
+            PlayerPrefs.SetString("ERROR", ex.Message);
+        }
+
         is_downloading = false;
         yield return null;
     }

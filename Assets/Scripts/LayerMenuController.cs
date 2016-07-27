@@ -21,35 +21,76 @@ public class LayerMenuController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        //Ensure canvas is always in front of you (and facing you)
         renderMat = false;
         showFurn = false;
         showHuman = false;
         showView = false;
         enableNoise = false;
         enableFreeRoam = false;
-        if (PlayerPrefs.GetInt("RenderMat") == 1) {
-            toggleMat.isOn = PlayerPrefs.GetInt("RenderMat") == 1; //this toggles the trigger
-        }
-        if (PlayerPrefs.GetInt("ShowFurn") == 1)
+        if (!PlayerPrefs.HasKey("RenderMat"))
         {
-            toggleFurn.isOn = PlayerPrefs.GetInt("ShowFurn") == 1;
+            //Read from Defaults
+            ImportCsv Defaults = new ImportCsv(WWWLoader.active_download_path + "layersettings", ":");
+            for (int i = 0; i < Defaults.Count; i++)
+            {
+                switch (Defaults.Item(i, 0))
+                {
+                    case "Material":
+                        toggleMat.isOn = bool.Parse(Defaults.Item(i, 2));
+                        toggleMat.enabled = bool.Parse(Defaults.Item(i, 1));
+                        break;
+                    case "Furniture":
+                        toggleFurn.isOn = bool.Parse(Defaults.Item(i, 2));
+                        toggleFurn.enabled = bool.Parse(Defaults.Item(i, 1));
+                        break;
+                    case "Human":
+                        toggleHuman.isOn = bool.Parse(Defaults.Item(i, 2));
+                        toggleHuman.enabled = bool.Parse(Defaults.Item(i, 1));
+                        break;
+                    case "FreeMovement":
+                        toggleFreeRoam.isOn = bool.Parse(Defaults.Item(i, 2));
+                        toggleFreeRoam.enabled = bool.Parse(Defaults.Item(i, 1));
+                        break;
+                    case "View":
+                        toggleView.isOn = bool.Parse(Defaults.Item(i, 2));
+                        toggleView.enabled = bool.Parse(Defaults.Item(i, 1));
+                        break;
+                    case "Noise":
+                        toggleNoise.isOn = bool.Parse(Defaults.Item(i, 2));
+                        toggleNoise.enabled = bool.Parse(Defaults.Item(i, 1));
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
-        if (PlayerPrefs.GetInt("ShowHuman") == 1)
+        else
         {
-            toggleHuman.isOn = PlayerPrefs.GetInt("ShowHuman") == 1;
-        }
-        if (PlayerPrefs.GetInt("ShowView") == 1)
-        {
-            toggleView.isOn = PlayerPrefs.GetInt("ShowView") == 1;
-        }
-        if (PlayerPrefs.GetInt("EnableNoise") == 1)
-        {
-            toggleNoise.isOn = PlayerPrefs.GetInt("EnableNoise") == 1;
-        }
-        if (PlayerPrefs.GetInt("EnableFreeRoam") == 1)
-        {
-            toggleFreeRoam.isOn = PlayerPrefs.GetInt("EnableFreeRoam") == 1;
+            //read from PlayerPrefs
+            if (PlayerPrefs.GetInt("RenderMat") == 1)
+            {
+                toggleMat.isOn = PlayerPrefs.GetInt("RenderMat") == 1; //this toggles the trigger
+            }
+            if (PlayerPrefs.GetInt("ShowFurn") == 1)
+            {
+                toggleFurn.isOn = PlayerPrefs.GetInt("ShowFurn") == 1;
+            }
+            if (PlayerPrefs.GetInt("ShowHuman") == 1)
+            {
+                toggleHuman.isOn = PlayerPrefs.GetInt("ShowHuman") == 1;
+            }
+            if (PlayerPrefs.GetInt("ShowView") == 1)
+            {
+                toggleView.isOn = PlayerPrefs.GetInt("ShowView") == 1;
+            }
+            if (PlayerPrefs.GetInt("EnableNoise") == 1)
+            {
+                toggleNoise.isOn = PlayerPrefs.GetInt("EnableNoise") == 1;
+            }
+            if (PlayerPrefs.GetInt("EnableFreeRoam") == 1)
+            {
+                toggleFreeRoam.isOn = PlayerPrefs.GetInt("EnableFreeRoam") == 1;
+            }
         }
     }
 	

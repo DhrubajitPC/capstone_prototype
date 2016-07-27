@@ -16,8 +16,8 @@ public class DownloadMenuController : MonoBehaviour {
         set
         {
             _isDownloading = value;
-            GameObject.Find("Download Button").GetComponent<UnityEngine.UI.Button>().enabled = !value;
-            GameObject.Find("Back Button").GetComponent<UnityEngine.UI.Button>().enabled = !value;
+            GameObject.Find("Download Button").GetComponent<UnityEngine.UI.Button>().interactable = !value;
+            GameObject.Find("Back Button").GetComponent<UnityEngine.UI.Button>().interactable = !value;
         }
     }
 
@@ -48,6 +48,7 @@ public class DownloadMenuController : MonoBehaviour {
         showStatusText("Done Downloading Bundle " + bundlename);
         LoadBundles();
         isDownloading = false;
+        showStatusText(PlayerPrefs.GetString("ERROR"));
     }
 
     public void loadLayerScene(){

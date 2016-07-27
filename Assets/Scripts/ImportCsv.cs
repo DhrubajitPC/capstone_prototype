@@ -8,9 +8,10 @@ public class ImportCsv
 {
     List<string[]> CsvList = new List<string[]>();
     
-    public ImportCsv(string FilePath)
+    public ImportCsv(string FilePath, string separator = ",")
     //Get filepath and convert into list of strings
     {
+        FilePath = FilePath.Replace("Assets/resources/", ""); //remove redundant path
         string CsvValues = "";
         CsvValues = ((TextAsset)Resources.Load(FilePath, typeof(TextAsset))).text;
         /*using (StreamReader CsvReader = new StreamReader(File.OpenRead(FilePath)))
@@ -21,7 +22,7 @@ public class ImportCsv
         string[] CsvLines = CsvValues.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
         foreach (string CsvLine in CsvLines)
         {
-            this.CsvList.Add(CsvLine.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries));
+            this.CsvList.Add(CsvLine.Split(separator.ToCharArray(), StringSplitOptions.RemoveEmptyEntries));
         }
 
     }

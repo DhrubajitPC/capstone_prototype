@@ -27,8 +27,6 @@ public class RoomControl : MonoBehaviour {
     private bool enableNoise;
     private bool enableFreeRoam;
 
-    private string activeBundleName = "";
-
 	private bool singleTap = false;
 	private float tapTime = 0.3f;
 	private float lastTap = 0;
@@ -110,7 +108,6 @@ public class RoomControl : MonoBehaviour {
         showView = PlayerPrefs.GetInt("ShowView") == 1;
         enableNoise = PlayerPrefs.GetInt("EnableNoise") == 1;
         enableFreeRoam = PlayerPrefs.GetInt("EnableFreeRoam") == 1;
-        activeBundleName = PlayerPrefs.GetString("ActiveBundleName");
 
         yield return StartCoroutine(loadAssetBundle2(download_url, 1)); //wait for this coroutine to finish
                                                                         //loadAssetBundle(download_url, 1);
@@ -165,7 +162,7 @@ public class RoomControl : MonoBehaviour {
     private IEnumerator loadAssetBundle2(string url, int version)
     {
         yield return null;
-        string file_path = WWWLoader.full_download_path + activeBundleName + ".sky/renderbundle";
+        string file_path = WWWLoader.active_download_path + "renderbundle";
         /*if (!System.IO.File.Exists(file_path))
         {
             yield return downloadAssetBundle();
@@ -313,7 +310,7 @@ public class RoomControl : MonoBehaviour {
     }*/
     void ApplyHumanLayer()
     {
-        ImportCsv Human = new ImportCsv(WWWLoader.download_path + "humancoords");
+        ImportCsv Human = new ImportCsv(WWWLoader.active_download_path + "humancoords");
         for (int i = 0; i < Human.Count; i++)
         {
             HumanCoords.Add(new Vector4(Human.Itemf(i, 0), Human.Itemf(i, 1), Human.Itemf(i, 2), Human.Itemf(i, 3)));
@@ -366,7 +363,7 @@ public class RoomControl : MonoBehaviour {
         }
         else
         {
-            ImportCsv loc = new ImportCsv(WWWLoader.download_path + "jumplocations");
+            ImportCsv loc = new ImportCsv(WWWLoader.active_download_path + "jumplocations");
             jumpLocations = new Vector3[loc.Count];
             for (int i=0; i < loc.Count; i++)
             {
@@ -396,7 +393,7 @@ public class RoomControl : MonoBehaviour {
     }
     void ApplyNoise()
     {
-        ImportCsv Noise = new ImportCsv(WWWLoader.download_path + "noisecoords");
+        ImportCsv Noise = new ImportCsv(WWWLoader.active_download_path + "noisecoords");
         List<Vector3> NoiseCoords = new List<Vector3>();
         for (int i = 0; i < Noise.Count; i++)
         {
