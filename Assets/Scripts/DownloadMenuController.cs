@@ -27,6 +27,15 @@ public class DownloadMenuController : MonoBehaviour {
         LoadBundles();
         GameObject.Find("Url Field").GetComponent<UnityEngine.UI.InputField>().text = "http://luccan.github.io/capstone_prototype_assetbundle/";
         GameObject.Find("BundleName Field").GetComponent<UnityEngine.UI.InputField>().text = "HouseO.sky";
+        UnityEngine.UI.Dropdown dropdown = GameObject.Find("ActiveBundle Dropdown").GetComponent<UnityEngine.UI.Dropdown>();
+        for (int i=0; i< dropdown.options.Count; i++)
+        {
+            if (dropdown.options[i].text == PlayerPrefs.GetString("ActiveBundleName"))
+            {
+                dropdown.value = i;
+                break;
+            }
+        }
     }
 
     public void downloadBundleClick()

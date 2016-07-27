@@ -36,7 +36,7 @@ public static class WWWLoader{
         System.IO.Directory.CreateDirectory(savepath);
 
         string lol = String.Join(",", System.IO.Directory.GetDirectories(full_download_path));
-        PlayerPrefs.SetString("ERROR", "!" + lol);
+        PlayerPrefs.SetString("ERROR", savepath + "!" + lol);
 
         yield return downloadFile(download_url, "renderbundle", savepath);
         yield return downloadFile(download_url, "cfd.csv", savepath);
