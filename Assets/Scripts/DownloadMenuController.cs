@@ -49,7 +49,7 @@ public class DownloadMenuController : MonoBehaviour {
         showStatusText("Done Downloading Bundle " + bundlename);
         LoadBundles();
         isDownloading = false;
-        showStatusText(PlayerPrefs.GetString("ERROR"));
+        showStatusText(":" + PlayerPrefs.GetString("ERROR"));
     }
 
     public void loadLayerScene(){

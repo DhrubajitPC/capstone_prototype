@@ -34,6 +34,7 @@ public static class WWWLoader{
                 System.IO.Directory.Delete(savepath, true);
             }
             System.IO.Directory.CreateDirectory(savepath);
+            PlayerPrefs.SetString("ERROR", "WOO");
         }
         catch (Exception ex)
         {
