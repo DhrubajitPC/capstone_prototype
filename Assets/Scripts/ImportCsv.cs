@@ -11,13 +11,17 @@ public class ImportCsv
     public ImportCsv(string FilePath, string separator = ",")
     //Get filepath and convert into list of strings
     {
-        FilePath = FilePath.Replace("Assets/resources/", ""); //remove redundant path
         string CsvValues = "";
-        CsvValues = ((TextAsset)Resources.Load(FilePath, typeof(TextAsset))).text;
-        /*using (StreamReader CsvReader = new StreamReader(File.OpenRead(FilePath)))
+        //WWW www = new WWW("file://" + path);
+        //yield return www;
+        //String text = www.text;
+        //CsvValues = ((TextAsset)Resources.Load(FilePath, typeof(TextAsset))).text;
+        if (!FilePath.EndsWith(".csv"))
+            FilePath += ".csv";
+        using (StreamReader CsvReader = new StreamReader(File.OpenRead(FilePath)))
         {
             CsvValues = CsvReader.ReadToEnd();
-        }*/
+        }
 
         string[] CsvLines = CsvValues.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
         foreach (string CsvLine in CsvLines)
