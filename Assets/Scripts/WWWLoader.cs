@@ -28,28 +28,20 @@ public static class WWWLoader{
             download_url += "/";
         download_url += bundlename;
         string savepath = full_download_path + bundlename;
-        try {
-            if (System.IO.Directory.Exists(savepath))
-            {
-                System.IO.Directory.Delete(savepath, true);
-            }
-            System.IO.Directory.CreateDirectory(savepath);
-            PlayerPrefs.SetString("ERROR", "WOO");
-        }
-        catch (Exception ex)
-        {
-            PlayerPrefs.SetString("ERROR", "!" + ex.Message);
-        }
 
-        if (PlayerPrefs.GetString("ERROR") == ""){
-            yield return downloadFile(download_url, "renderbundle", savepath);
-            yield return downloadFile(download_url, "cfd.csv", savepath);
-            yield return downloadFile(download_url, "cfdorigin.csv", savepath);
-            yield return downloadFile(download_url, "jumplocations.csv", savepath);
-            yield return downloadFile(download_url, "humancoords.csv", savepath);
-            yield return downloadFile(download_url, "layersettings.csv", savepath);
-            yield return downloadFile(download_url, "noisecoords.csv", savepath);
+        if (System.IO.Directory.Exists(savepath))
+        {
+            System.IO.Directory.Delete(savepath, true);
         }
+        System.IO.Directory.CreateDirectory(savepath);
+
+        yield return downloadFile(download_url, "renderbundle", savepath);
+        yield return downloadFile(download_url, "cfd.csv", savepath);
+        yield return downloadFile(download_url, "cfdorigin.csv", savepath);
+        yield return downloadFile(download_url, "jumplocations.csv", savepath);
+        yield return downloadFile(download_url, "humancoords.csv", savepath);
+        yield return downloadFile(download_url, "layersettings.csv", savepath);
+        yield return downloadFile(download_url, "noisecoords.csv", savepath);
         yield return 0;
     }
 
@@ -61,6 +53,7 @@ public static class WWWLoader{
             string path = savepath + filename;
             System.Net.WebClient client = new System.Net.WebClient();
             client.DownloadFile(download_url + filename, path);
+            PlayerPrefs.SetString("ERROR", PlayerPrefs.GetString("ERROR") + "WOO");
         } catch (Exception ex)
         {
             PlayerPrefs.SetString("ERROR", "!" + ex.Message);

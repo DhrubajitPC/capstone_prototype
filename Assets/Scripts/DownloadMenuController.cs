@@ -66,17 +66,22 @@ public class DownloadMenuController : MonoBehaviour {
 
     private void LoadBundles()
     {
-        string[] bundles = System.IO.Directory.GetDirectories(WWWLoader.full_download_path);
-        UnityEngine.UI.Dropdown dropdown = GameObject.Find("ActiveBundle Dropdown").GetComponent<UnityEngine.UI.Dropdown>();
-        dropdown.ClearOptions();
-        foreach (string bundle in bundles)
-        {
-            if (bundle.EndsWith(".sky"))
+        try {
+            string[] bundles = System.IO.Directory.GetDirectories(WWWLoader.full_download_path);
+            UnityEngine.UI.Dropdown dropdown = GameObject.Find("ActiveBundle Dropdown").GetComponent<UnityEngine.UI.Dropdown>();
+            dropdown.ClearOptions();
+            foreach (string bundle in bundles)
             {
-                string bundlename = System.IO.Path.GetFileNameWithoutExtension(bundle);
-                dropdown.options.Add(new UnityEngine.UI.Dropdown.OptionData(bundlename));
+                if (bundle.EndsWith(".sky"))
+                {
+                    string bundlename = System.IO.Path.GetFileNameWithoutExtension(bundle);
+                    dropdown.options.Add(new UnityEngine.UI.Dropdown.OptionData(bundlename));
+                }
             }
+            dropdown.RefreshShownValue();
+        } catch (System.Exception ex)
+        {
+            PlayerPrefs.SetString("ERROR", PlayerPrefs.GetString("ERROR") + "!" + ex.Message);
         }
-        dropdown.RefreshShownValue();
     }
 }
