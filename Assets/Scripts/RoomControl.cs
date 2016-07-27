@@ -326,7 +326,7 @@ public class RoomControl : MonoBehaviour {
                 person.name = "Person" + i;
 
                 //Match location coordinates with closest CFD data
-                CFDClosestPt CFD = CFDClosestPt(HumanCoords[i].x, HumanCoords[i].z);
+                CFDClosestPt CFD = new CFDClosestPt(HumanCoords[i].x, HumanCoords[i].z);
                 Vector3 extWind = new Vector3(CFD.Vx * 0.8f, CFD.Vz * 0.8f, CFD.Vy * 0.8f);
                 Vector3 ranWind = new Vector3(CFD.Vx * 0.4f, CFD.Vz * 0.4f, CFD.Vy * 0.4f);
 
