@@ -2,18 +2,18 @@
 using System.Collections;
 
 public class AudioOcclusion : MonoBehaviour {
-    private float rolloff = 0.05f;
-    private float rollofflimit = 0.3f;
+    public float rolloff = 0.05f;
+    public float rollofflimit = 0.3f;
+    public float maxvolume = 1f;
 
     // Initial Settings
     void Start ()
     {
+        GetComponent<AudioSource>().volume = maxvolume;
         GetComponent<AudioSource>().loop = true;
         GetComponent<AudioSource>().playOnAwake = true;
-        //GetComponent<AudioSource>().spatialBlend = 0.8f;
         GetComponent<AudioSource>().minDistance = 0f;
-        //GetComponent<AudioSource>().maxDistance = 5f;
-        GetComponent<AudioSource>().rolloffMode = AudioRolloffMode.Linear;
+       
     }
 
 
@@ -22,20 +22,20 @@ public class AudioOcclusion : MonoBehaviour {
         Vector3 capsule = new Vector3(GameObject.Find("Capsule").transform.position.x, 1.6f, GameObject.Find("Capsule").transform.position.z);
        if (Physics.Linecast(transform.position, capsule))
         {
-            if (GetComponent<AudioSource>().volume > rollofflimit)
+            if (GetComponent<AudioSource>().volume > rollofflimit * maxvolume)
             {
                 GetComponent<AudioSource>().volume -= rolloff;
             }
-            else { GetComponent<AudioSource>().volume = rollofflimit; }
+            else { GetComponent<AudioSource>().volume = rollofflimit * maxvolume; }
         }
 
         else
         {
-            if (GetComponent<AudioSource>().volume < 1f)
+            if (GetComponent<AudioSource>().volume < maxvolume)
             {
                 GetComponent<AudioSource>().volume += rolloff;
             }
-            else { GetComponent<AudioSource>().volume = 1f; }
+            else { GetComponent<AudioSource>().volume = maxvolume; }
         }
 
     }
