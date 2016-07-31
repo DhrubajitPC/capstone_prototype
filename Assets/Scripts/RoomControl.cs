@@ -394,18 +394,39 @@ public class RoomControl : MonoBehaviour {
     void ApplyNoise()
     {
         ImportCsv Noise = new ImportCsv(WWWLoader.active_download_path + "noisecoords");
-        List<Vector3> NoiseCoords = new List<Vector3>();
+        List<Vector4> NoiseCoords = new List<Vector4>();
         for (int i = 0; i < Noise.Count; i++)
         {
-            NoiseCoords.Add(new Vector3(Noise.Itemf(i, 0), Noise.Itemf(i, 1), Noise.Itemf(i, 2)));
+			NoiseCoords.Add(new Vector4(Noise.Itemf(i, 0), Noise.Itemf(i, 1), Noise.Itemf(i, 2), Noise.Itemf(i, 3)));
+//			Debug.Log
         }
+
         if (enableNoise)
         {
             for (int i = 0; i < NoiseCoords.Count; i++)
             {
+				string path = "prefabs/NoisePresets/";
+				switch ((int) NoiseCoords [i].x) {
+				case 4:
+					path += "NoiseSourceEnclosed";
+					break;
+				case 3:
+					path += "NoiseSourceTelevision";
+					break;
+				case 2:
+					path += "NoiseSourceSeaside";
+					break;
+				case 1:
+					path += "NoiseSourceNeighbourhood";
+					break;
+				default:
+					path += "NoiseSourceCity";
+					break;
+				}
+
                 //"TODO" instantiating with y to be 0.14 and not coord.y as a quick fix
-                GameObject person = (GameObject)Instantiate(Resources.Load("prefabs/NoiseSource"),
-                    new Vector3(NoiseCoords[i].x, NoiseCoords[i].y, NoiseCoords[i].z),
+                GameObject person = (GameObject)Instantiate(Resources.Load(path),
+                    new Vector3(NoiseCoords[i].y, NoiseCoords[i].z, NoiseCoords[i].w),
                     Quaternion.identity);
                 person.name = "Noise" + i;
             }
