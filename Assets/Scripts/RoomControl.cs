@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using UnityEditor;
 
 public class RoomControl : MonoBehaviour {
 
@@ -81,17 +82,26 @@ public class RoomControl : MonoBehaviour {
     {
         if ((Time.time - lastTap) < tapTime)
         {
-            singleTap = false;
+			singleTap = false;
             enableFreeRoam = !enableFreeRoam;
         }
 
         if (enableFreeRoam)
         {
+//			mC = GameObject.FindGameObjectsWithTag ("movementCanvas");
+			foreach (var o in movementCanvases) {
+				o.enabled = false;
+			}
             PlayerObj.GetComponent<Navigation>().setMovementMode(0);
         }
         else {
+			foreach (var o in movementCanvases) {
+				o.enabled = true;
+			}
+			rotateMovementCanvases(transform.position);
             PlayerObj.GetComponent<Navigation>().setMovementMode(1);
         }
+//		ApplyMovements();
         lastTap = Time.time;
     }
 
@@ -382,6 +392,7 @@ public class RoomControl : MonoBehaviour {
             rotateMovementCanvases(transform.position);
             PlayerObj.GetComponent<Navigation>().setMovementMode(1);
 
+			
             /*if (pathedTeleport)
             {
                 PlayerObj.GetComponent<Navigation>().setMovementMode(2);

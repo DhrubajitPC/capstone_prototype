@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Navigation : MonoBehaviour
 {
-    public float movementSpeed = 1;
+    public float movementSpeed;
 
     private Vector3 startingLocation;
     private Rigidbody agent;
@@ -23,16 +23,16 @@ public class Navigation : MonoBehaviour
         {
             jump(position);
         }
-        else if (movementType == 2)
-        {
-            setDestination(position);
-        }
+//        else if (movementType == 2)
+//        {
+//            setDestination(position);
+//        }
     }
 
-    private void setDestination(Vector3 position)
-    {
-        agent.MovePosition(position);
-    }
+//    private void setDestination(Vector3 position)
+//    {
+//        agent.MovePosition(position);
+//    }
 
     private void jump(Vector3 position)
     {
