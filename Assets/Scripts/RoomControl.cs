@@ -406,7 +406,7 @@ public class RoomControl : MonoBehaviour {
             for (int i = 0; i < NoiseCoords.Count; i++)
             {
 				string path = "prefabs/NoisePresets/";
-				switch ((int) NoiseCoords [i].x) {
+				switch ((int) NoiseCoords [i].w) {
 				case 4:
 					path += "NoiseSourceEnclosed";
 					break;
@@ -426,7 +426,7 @@ public class RoomControl : MonoBehaviour {
 
                 //"TODO" instantiating with y to be 0.14 and not coord.y as a quick fix
                 GameObject person = (GameObject)Instantiate(Resources.Load(path),
-                    new Vector3(NoiseCoords[i].y, NoiseCoords[i].z, NoiseCoords[i].w),
+                    new Vector3(NoiseCoords[i].x, NoiseCoords[i].y, NoiseCoords[i].z),
                     Quaternion.identity);
                 person.name = "Noise" + i;
             }
