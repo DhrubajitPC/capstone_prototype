@@ -330,7 +330,7 @@ public class RoomControl : MonoBehaviour {
             for (int i = 0; i < HumanCoords.Count; i++)
             {
                 //"TODO" instantiating with y to be 0.14 and not coord.y as a quick fix
-                GameObject person = (GameObject)Instantiate(Resources.Load("prefabs/HumanFig"),
+				GameObject person = (GameObject)Instantiate(Resources.Load("prefabs/Human Prefabs/HumanFig (2)"),
                     new Vector3(HumanCoords[i].x, 0.14f, HumanCoords[i].z),
                     Quaternion.Euler(0.0f, HumanCoords[i].w, 0.0f));
                 person.name = "Person" + i;
@@ -341,17 +341,17 @@ public class RoomControl : MonoBehaviour {
                 Vector3 ranWind = new Vector3(CFD.Vx * 0.4f, CFD.Vz * 0.4f, CFD.Vy * 0.4f);
 
                 //Cloth Setting
-                GameObject WindCloth = person.transform.Find("dress").gameObject;
+				GameObject WindCloth = person.transform.Find("Skirt (1)").gameObject;
                 //GameObject WindCloth = (GameObject)Instantiate(GameObject.Find("WindCloth"), new Vector3(HumanCoords[i].x, 0.638f, HumanCoords[i].z), Quaternion.Euler(270f, HumanCoords[i].w + 180f, 0.0f));
                 WindCloth.GetComponent<Cloth>().externalAcceleration = extWind;
                 WindCloth.GetComponent<Cloth>().randomAcceleration = ranWind;
 
-                GameObject Hair = person.transform.Find("hair1").gameObject;
+				GameObject Hair = person.transform.Find("Hair (2)").gameObject;
                 //GameObject WindCloth = (GameObject)Instantiate(GameObject.Find("WindCloth"), new Vector3(HumanCoords[i].x, 0.638f, HumanCoords[i].z), Quaternion.Euler(270f, HumanCoords[i].w + 180f, 0.0f));
                 Hair.GetComponent<Cloth>().externalAcceleration = extWind * 2;
                 Hair.GetComponent<Cloth>().randomAcceleration = ranWind * 2;
 
-                GameObject Hair2 = person.transform.Find("hair2").gameObject;
+				GameObject Hair2 = person.transform.Find("Hair (3)").gameObject;
                 //GameObject WindCloth = (GameObject)Instantiate(GameObject.Find("WindCloth"), new Vector3(HumanCoords[i].x, 0.638f, HumanCoords[i].z), Quaternion.Euler(270f, HumanCoords[i].w + 180f, 0.0f));
                 Hair2.GetComponent<Cloth>().externalAcceleration = extWind;
                 Hair2.GetComponent<Cloth>().randomAcceleration = ranWind;
