@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Navigation : MonoBehaviour
 {
 	public float movementSpeed;
+	public float lightIntensity;
 
     private Vector3 startingLocation;
     private Rigidbody agent;
@@ -13,9 +14,11 @@ public class Navigation : MonoBehaviour
 
     void Start()
     {
+		lightIntensity = PlayerPrefs.GetFloat ("LightIntensity");
 		movementSpeed = PlayerPrefs.GetFloat ("MovementSpeed");
         agent = GetComponent<Rigidbody>();
         startingLocation = this.transform.position;
+		RenderSettings.ambientIntensity = lightIntensity;
     }
 
     public void move(Vector3 position)

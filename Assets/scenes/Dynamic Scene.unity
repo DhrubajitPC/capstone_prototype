@@ -974,6 +974,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 0.5
+  lightIntensity: 6
 --- !u!23 &2059873656
 MeshRenderer:
   m_ObjectHideFlags: 0

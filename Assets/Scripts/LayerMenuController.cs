@@ -20,6 +20,7 @@ public class LayerMenuController : MonoBehaviour {
     private bool enableFreeRoam;
 
 	private float movementSpeed;
+	private float lightIntensity;
     // Use this for initialization
     void Start () {
         renderMat = false;
@@ -63,6 +64,10 @@ public class LayerMenuController : MonoBehaviour {
 					case "MovementSpeed":
 						movementSpeed = Defaults.Itemf (i, 1);
 						PlayerPrefs.SetFloat ("MovementSpeed", movementSpeed);
+						break;
+					case "LightIntensity":
+						lightIntensity = Defaults.Itemf (i, 1);
+						PlayerPrefs.SetFloat ("LightIntensity", lightIntensity);
 						break;
                     default:
                         break;
