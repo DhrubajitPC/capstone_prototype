@@ -3,6 +3,7 @@ using System.Collections;
 
 public class HumanEmoticon : MonoBehaviour {
 
+
 	// Use this for initialization
 	void Start () {
 	
@@ -10,7 +11,9 @@ public class HumanEmoticon : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.Find("MoodCanvas").rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
+		Transform canvas = transform.Find ("MoodCanvas");
+        canvas.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
+		canvas.rotation = Quaternion.Euler(new Vector3(0, canvas.rotation.eulerAngles.y, 0));
     }
 
     public void setMood(float score)

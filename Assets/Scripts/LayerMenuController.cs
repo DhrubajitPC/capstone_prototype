@@ -19,6 +19,7 @@ public class LayerMenuController : MonoBehaviour {
     private bool enableNoise;
     private bool enableFreeRoam;
 
+	private float movementSpeed;
     // Use this for initialization
     void Start () {
         renderMat = false;
@@ -59,6 +60,10 @@ public class LayerMenuController : MonoBehaviour {
                         toggleNoise.isOn = bool.Parse(Defaults.Item(i, 2));
                         toggleNoise.enabled = bool.Parse(Defaults.Item(i, 1));
                         break;
+					case "MovementSpeed":
+						movementSpeed = Defaults.Itemf (i, 1);
+						PlayerPrefs.SetFloat ("MovementSpeed", movementSpeed);
+						break;
                     default:
                         break;
                 }

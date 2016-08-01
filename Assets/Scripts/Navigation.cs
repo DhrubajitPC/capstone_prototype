@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Navigation : MonoBehaviour
 {
-    public float movementSpeed;
+	public float movementSpeed;
 
     private Vector3 startingLocation;
     private Rigidbody agent;
@@ -13,6 +13,7 @@ public class Navigation : MonoBehaviour
 
     void Start()
     {
+		movementSpeed = PlayerPrefs.GetFloat ("MovementSpeed");
         agent = GetComponent<Rigidbody>();
         startingLocation = this.transform.position;
     }
