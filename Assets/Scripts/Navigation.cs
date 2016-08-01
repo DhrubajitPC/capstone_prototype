@@ -13,7 +13,7 @@ public class Navigation : MonoBehaviour
 
     void Start()
     {
-//		movementSpeed = PlayerPrefs.GetFloat ("MovementSpeed");
+		movementSpeed = PlayerPrefs.GetFloat ("MovementSpeed");
         agent = GetComponent<Rigidbody>();
         startingLocation = this.transform.position;
     }
@@ -45,9 +45,32 @@ public class Navigation : MonoBehaviour
         movementType = value;
     }
 
+	private void disableHumanCollider(GameObject human){
+		Collider[] col = human.GetComponentsInChildren<Collider> ();
+		foreach (Collider c in col) {
+			c.enabled = false;
+		}
+	}
+
+	private void enableHumanCollider(GameObject human){
+		Collider[] col = human.GetComponentsInChildren<Collider> ();
+		foreach (Collider c in col) {
+			c.enabled = true;
+		}
+	}
 
     void Update()
     {
+		GameObject[] human = GameObject.FindGameObjectsWithTag ("Human");
+		foreach (GameObject h in human) {
+			float distFromHuman = Vector3.Distance (h.transform.position, transform.position);
+			print (distFromHuman);
+			if (distFromHuman < 1.28f) {
+				disableHumanCollider (h);
+			} else {
+				enableHumanCollider (h);
+			}
+		}
 		
 		if (movementType == 0 || Input.GetKey("space"))
         {
