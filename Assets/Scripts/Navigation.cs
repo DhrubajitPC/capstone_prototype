@@ -13,7 +13,7 @@ public class Navigation : MonoBehaviour
 
     void Start()
     {
-		movementSpeed = PlayerPrefs.GetFloat ("MovementSpeed");
+//		movementSpeed = PlayerPrefs.GetFloat ("MovementSpeed");
         agent = GetComponent<Rigidbody>();
         startingLocation = this.transform.position;
     }
