@@ -67,7 +67,7 @@ public class DownloadMenuController : MonoBehaviour {
         if (selected.Length <= 0)
             selected = "";
         PlayerPrefs.SetString("ActiveBundleName", selected);
-        SceneManager.LoadScene("LayerScene");
+		SceneManager.LoadScene("LayerScene", LoadSceneMode.Single);
 	}
 
     private void showStatusText(string text)

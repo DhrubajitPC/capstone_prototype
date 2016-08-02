@@ -24,12 +24,7 @@ public class CamControl : MonoBehaviour {
 			print ("Don't destroy on load");
 			gearMenu = true;
 //			GameObject[] cams = GameObject.FindGameObjectsWithTag ("Cam");
-			if (spawned == false) {
-				spawned = true;
-				DontDestroyOnLoad (cam);	
-			} else {
-				DestroyImmediate (cam);
-			}
+			DontDestroyOnLoad (cam);
 //			if (cams.Length > 1) {
 //				Destroy (cams [1]);	
 //			}
@@ -39,7 +34,7 @@ public class CamControl : MonoBehaviour {
 			print ("lys");
 			cam.GetComponent<LayerMenuController> ().enabled = true;
 			cam.GetComponent<MeshCollider> ().enabled = true;
-//			DontDestroyOnLoad (cam);
+			DontDestroyOnLoad (cam);
 		} else if (scene.name == "Dynamic Scene") {
 			print ("dhns");
 			capsule = GameObject.Find ("Capsule");
@@ -47,7 +42,7 @@ public class CamControl : MonoBehaviour {
 			cam.transform.localPosition = new Vector3 (0, 0, 0);
 			cam.GetComponent<LayerMenuController> ().enabled = false;
 			cam.GetComponent<MeshCollider> ().enabled = false;
-//			DontDestroyOnLoad (cam);
+			DontDestroyOnLoad (cam);
 		}
 	}
 	

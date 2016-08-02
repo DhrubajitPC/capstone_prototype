@@ -45,6 +45,13 @@ public class LayerMenuController : MonoBehaviour {
 		viewButton.onClick.AddListener (() => BackToRoom ());
 		menuButton.onClick.AddListener (() => BackToDownloadMenu ());
 
+		toggleMat.onValueChanged.AddListener ((value) => {ToggleMat(value);});
+		toggleFurn.onValueChanged.AddListener ((value) => {ToggleFurn(value);});
+		toggleHuman.onValueChanged.AddListener ((value) => {ToggleHuman(value);});
+		toggleView.onValueChanged.AddListener ((value) => {ToggleView(value);});
+		toggleNoise.onValueChanged.AddListener ((value) => {ToggleNoise(value);});
+		toggleFreeRoam.onValueChanged.AddListener ((value) => {ToggleFreeRoam(value);});
+
         renderMat = false;
         showFurn = false;
         showHuman = false;
@@ -126,28 +133,28 @@ public class LayerMenuController : MonoBehaviour {
         }
     }
 	
-    public void ToggleMat(){
-        renderMat = !renderMat;
+	void ToggleMat(bool val){
+        renderMat = val;
     }
-    public void ToggleFurn()
+	void ToggleFurn(bool val)
     {
-        showFurn = !showFurn;
+        showFurn = val;
     }
-    public void ToggleHuman()
+	void ToggleHuman(bool val)
     {
-        showHuman = !showHuman;
+        showHuman = val;
     }
-    public void ToggleView()
+	void ToggleView(bool val)
     {
-        showView = !showView;
+        showView = val;
     }
-    public void ToggleNoise()
+	void ToggleNoise(bool val)
     {
-        enableNoise = !enableNoise;
+        enableNoise = val;
     }
-    public void ToggleFreeRoam()
+	void ToggleFreeRoam(bool val)
     {
-        enableFreeRoam = !enableFreeRoam;
+        enableFreeRoam = val;
     }
 
     public void savePlayerPrefs()
@@ -162,7 +169,6 @@ public class LayerMenuController : MonoBehaviour {
 
     public void BackToRoom()
     {
-		DontDestroyOnLoad (this);
         savePlayerPrefs();
         SceneManager.LoadScene("Dynamic Scene",LoadSceneMode.Single);
     }
@@ -170,12 +176,15 @@ public class LayerMenuController : MonoBehaviour {
     public void BackToDownloadMenu()
     {
         savePlayerPrefs();
+		DestroyImmediate (this.gameObject);
         SceneManager.LoadScene("Gear Menu", LoadSceneMode.Single);
     }
 
     // Update is called once per frame
     void Update () {
-        Vector3 screenPoint = Camera.main.WorldToViewportPoint(canvas.transform.position);
+		if (canvas==null)
+			canvas = GameObject.Find ("Canvas");
+		Vector3 screenPoint = Camera.main.WorldToViewportPoint(canvas.transform.position);
         bool onScreen = screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
         if (!onScreen)
         {
