@@ -252,7 +252,7 @@ public class RoomControl : MonoBehaviour {
                 //"TODO" instantiating with y to be 0.14 and not coord.y as a quick fix
 				int index = UnityEngine.Random.Range(0,hPrefab.Count);
 				GameObject person = (GameObject)Instantiate(hPrefab[index],
-                    new Vector3(HumanCoords[i].x, 0.14f, HumanCoords[i].z),
+                    new Vector3(HumanCoords[i].x, HumanCoords[i].y, HumanCoords[i].z),
                     Quaternion.Euler(0.0f, HumanCoords[i].w, 0.0f));
                 person.name = "Person" + i;
 
