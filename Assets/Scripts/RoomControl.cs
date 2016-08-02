@@ -233,7 +233,11 @@ public class RoomControl : MonoBehaviour {
                 baseGeometry.transform.rotation);
         geom.name = "BaseGeometryLayer";
         geom.transform.localScale = baseGeometry.transform.localScale;
-        geom.GetComponentInChildren<MeshRenderer>().material.shader = Shader.Find("Custom/DoubleSidedCutout");
+        MeshRenderer[] mats = geom.GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer m in mats)
+        {
+            m.material.shader = Shader.Find("Custom/DoubleSidedCutout");
+        }
 
         if (!renderMat)
         {
@@ -255,7 +259,11 @@ public class RoomControl : MonoBehaviour {
                     ViewGeometry.transform.rotation);
             view.name = "ViewLayer";
             view.transform.localScale = ViewGeometry.transform.localScale;
-            view.GetComponentInChildren<MeshRenderer>().material.shader = Shader.Find("Custom/DoubleSidedCutout");
+            MeshRenderer[] mats = view.GetComponentsInChildren<MeshRenderer>();
+            foreach (MeshRenderer m in mats)
+            {
+                m.material.shader = Shader.Find("Custom/DoubleSidedCutout");
+            }
         }
     }
 
@@ -275,6 +283,9 @@ public class RoomControl : MonoBehaviour {
 			hPrefab.Add((GameObject)Resources.Load ("prefabs/Human Prefabs/HumanFig (4)"));
 			hPrefab.Add((GameObject)Resources.Load ("prefabs/Human Prefabs/HumanFig (5)"));
 
+            ImportCsv cfdData = new ImportCsv(WWWLoader.active_download_path + "cfd");
+            ImportCsv cfdOrigin = new ImportCsv(WWWLoader.active_download_path + "cfdorigin");
+
             for (int i = 0; i < HumanCoords.Count; i++)
             {
                 //"TODO" instantiating with y to be 0.14 and not coord.y as a quick fix
@@ -285,25 +296,25 @@ public class RoomControl : MonoBehaviour {
                 person.name = "Person" + i;
 
                 //Match location coordinates with closest CFD data
-                CFDClosestPt CFD = new CFDClosestPt(HumanCoords[i].x, HumanCoords[i].z);
+                CFDClosestPt CFD = new CFDClosestPt(HumanCoords[i].x, HumanCoords[i].z, cfdData, cfdOrigin);
                 Vector3 extWind = new Vector3(CFD.Vx * 0.8f, CFD.Vz * 0.8f, CFD.Vy * 0.8f);
                 Vector3 ranWind = new Vector3(CFD.Vx * 0.4f, CFD.Vz * 0.4f, CFD.Vy * 0.4f);
 
                 //Cloth Setting
 				GameObject WindCloth = person.transform.Find("Skirt (1)").gameObject;
                 //GameObject WindCloth = (GameObject)Instantiate(GameObject.Find("WindCloth"), new Vector3(HumanCoords[i].x, 0.638f, HumanCoords[i].z), Quaternion.Euler(270f, HumanCoords[i].w + 180f, 0.0f));
-                WindCloth.GetComponent<Cloth>().externalAcceleration = extWind * 2;
-				WindCloth.GetComponent<Cloth>().randomAcceleration = ranWind * 2;
+                WindCloth.GetComponent<Cloth>().externalAcceleration = extWind * 6;
+				WindCloth.GetComponent<Cloth>().randomAcceleration = ranWind * 6;
 
 				GameObject Hair = person.transform.Find("Hair (2)").gameObject;
                 //GameObject WindCloth = (GameObject)Instantiate(GameObject.Find("WindCloth"), new Vector3(HumanCoords[i].x, 0.638f, HumanCoords[i].z), Quaternion.Euler(270f, HumanCoords[i].w + 180f, 0.0f));
-                Hair.GetComponent<Cloth>().externalAcceleration = extWind * 3;
-                Hair.GetComponent<Cloth>().randomAcceleration = ranWind * 3;
+                Hair.GetComponent<Cloth>().externalAcceleration = extWind * 8;
+                Hair.GetComponent<Cloth>().randomAcceleration = ranWind * 8;
 
 				GameObject Hair2 = person.transform.Find("Hair (3)").gameObject;
                 //GameObject WindCloth = (GameObject)Instantiate(GameObject.Find("WindCloth"), new Vector3(HumanCoords[i].x, 0.638f, HumanCoords[i].z), Quaternion.Euler(270f, HumanCoords[i].w + 180f, 0.0f));
-                Hair2.GetComponent<Cloth>().externalAcceleration = extWind * 3;
-                Hair2.GetComponent<Cloth>().randomAcceleration = ranWind * 3;
+                Hair2.GetComponent<Cloth>().externalAcceleration = extWind * 8;
+                Hair2.GetComponent<Cloth>().randomAcceleration = ranWind * 8;
 
                 person.GetComponent<TooltipPopup>().setTooltip(CFD.PPS.ToString("F0"), CFD.T.ToString("F1"), CFD.V.ToString("F2"), CFD.PMV);
 
