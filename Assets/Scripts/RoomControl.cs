@@ -233,7 +233,11 @@ public class RoomControl : MonoBehaviour {
                 baseGeometry.transform.rotation);
         geom.name = "BaseGeometryLayer";
         geom.transform.localScale = baseGeometry.transform.localScale;
-        geom.GetComponentInChildren<MeshRenderer>().material.shader = Shader.Find("Custom/DoubleSidedCutout");
+        MeshRenderer[] mats = geom.GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer m in mats)
+        {
+            m.material.shader = Shader.Find("Custom/DoubleSidedCutout");
+        }
 
         if (!renderMat)
         {
