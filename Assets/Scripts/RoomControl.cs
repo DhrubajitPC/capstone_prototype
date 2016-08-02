@@ -125,8 +125,6 @@ public class RoomControl : MonoBehaviour {
         try
         {
             ApplyGeometryAndFurnitureLayer();
-            //ApplyFurnitureLayer();
-            //ApplyMaterialLayer();
             ApplyHumanLayer();
             ApplyViewLayer();
             ApplyNoise();
@@ -279,45 +277,6 @@ public class RoomControl : MonoBehaviour {
         }
     }
 
-    /*void ApplyGeometryLayer()
-    {
-        if (true)
-        {
-            GameObject geometry = (GameObject)Instantiate(BaseGeometry, 
-                Vector3.zero, Quaternion.identity); //fix with standardized coor
-            geometry.name = "BaseGeometryLayer";
-        }
-    }*/
-
-    /*void ApplyMaterialLayer()
-    {
-        if (!renderMat)
-        {
-            GameObject[] objs = GameObject.FindObjectOfType<GameObject>();
-            for (int i = 0; i < objs.Length; i++)
-            {
-                if (true)
-                {
-                    MeshRenderer[] mrs = objs[i].GetComponents<MeshRenderer>();
-                    for (int j = 0; j < mrs.Length; j++)
-                    {
-                        mrs[j].material = Resources.Load<Material>("material/NoMaterial");
-                    }
-                }
-            }
-        }
-    }*/
-
-    /*void ApplyFurnitureLayer()
-    {
-        if (showFurn)
-        {
-            GameObject furniture = (GameObject)Instantiate(Furniture, 
-                Vector3.zero, 
-                Quaternion.identity);
-            furniture.name = "FurnitureLayer";
-        }
-    }*/
     void ApplyHumanLayer()
     {
         ImportCsv Human = new ImportCsv(WWWLoader.active_download_path + "humancoords");

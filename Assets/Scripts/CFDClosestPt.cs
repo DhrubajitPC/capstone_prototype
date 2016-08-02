@@ -40,11 +40,7 @@ public class CFDClosestPt
         this.Vx = cfdData.Itemf(this.id, 2);
         this.Vy = cfdData.Itemf(this.id, 3);
         this.Vz = cfdData.Itemf(this.id, 4);
-        /*
-        this.Wx = Mathf.Atan(this.Vz / this.Vy);
-        this.Wy = Mathf.Atan(this.Vz / this.Vx);
-        this.Wz = Mathf.Atan(this.Vy / this.Vx);
-        */
+
         this.V = Mathf.Sqrt(this.Vx * this.Vx + this.Vy * this.Vy + this.Vz * this.Vz);
 
         this.T = cfdData.Itemf(this.id, 6);
