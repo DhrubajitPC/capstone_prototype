@@ -29,37 +29,31 @@ public class LayerMenuController : MonoBehaviour {
         showView = false;
         enableNoise = false;
         enableFreeRoam = false;
+        //Read from Defaults
+        ImportCsv Defaults = new ImportCsv(WWWLoader.active_download_path + "layersettings", ":");
         if (!PlayerPrefs.HasKey("RenderMat"))
         {
-            //Read from Defaults
-            ImportCsv Defaults = new ImportCsv(WWWLoader.active_download_path + "layersettings", ":");
             for (int i = 0; i < Defaults.Count; i++)
             {
                 switch (Defaults.Item(i, 0))
                 {
                     case "Material":
                         toggleMat.isOn = bool.Parse(Defaults.Item(i, 2));
-                        toggleMat.enabled = bool.Parse(Defaults.Item(i, 1));
                         break;
                     case "Furniture":
                         toggleFurn.isOn = bool.Parse(Defaults.Item(i, 2));
-                        toggleFurn.enabled = bool.Parse(Defaults.Item(i, 1));
                         break;
                     case "Human":
                         toggleHuman.isOn = bool.Parse(Defaults.Item(i, 2));
-                        toggleHuman.enabled = bool.Parse(Defaults.Item(i, 1));
                         break;
                     case "FreeMovement":
                         toggleFreeRoam.isOn = bool.Parse(Defaults.Item(i, 2));
-                        toggleFreeRoam.enabled = bool.Parse(Defaults.Item(i, 1));
                         break;
                     case "View":
                         toggleView.isOn = bool.Parse(Defaults.Item(i, 2));
-                        toggleView.enabled = bool.Parse(Defaults.Item(i, 1));
                         break;
                     case "Noise":
                         toggleNoise.isOn = bool.Parse(Defaults.Item(i, 2));
-                        toggleNoise.enabled = bool.Parse(Defaults.Item(i, 1));
                         break;
 					case "MovementSpeed":
 						movementSpeed = Defaults.Itemf (i, 1);
@@ -101,6 +95,42 @@ public class LayerMenuController : MonoBehaviour {
             {
                 toggleFreeRoam.isOn = PlayerPrefs.GetInt("EnableFreeRoam") == 1;
             }
+        }
+
+        //set enabled or disabled
+        for (int i = 0; i < Defaults.Count; i++)
+        {
+            switch (Defaults.Item(i, 0))
+            {
+                case "Material":
+                    setToggleStatus(toggleMat, bool.Parse(Defaults.Item(i, 1)));
+                    break;
+                case "Furniture":
+                    setToggleStatus(toggleFurn, bool.Parse(Defaults.Item(i, 1)));
+                    break;
+                case "Human":
+                    setToggleStatus(toggleHuman, bool.Parse(Defaults.Item(i, 1)));
+                    break;
+                case "FreeMovement":
+                    setToggleStatus(toggleFreeRoam, bool.Parse(Defaults.Item(i, 1)));
+                    break;
+                case "View":
+                    setToggleStatus(toggleView, bool.Parse(Defaults.Item(i, 1)));
+                    break;
+                case "Noise":
+                    setToggleStatus(toggleNoise, bool.Parse(Defaults.Item(i, 1)));
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    private void setToggleStatus(UnityEngine.UI.Toggle toggle, bool enabled)
+    {
+        toggle.enabled = enabled;
+        if (!enabled)
+        {
+            toggle.transform.Find("Background").GetComponent<UnityEngine.UI.Image>().color = Color.gray;
         }
     }
 	
