@@ -40,7 +40,7 @@ public class CamControl : MonoBehaviour {
 			print ("dhns");
 			capsule = GameObject.Find ("Capsule");
 			cam.transform.parent = capsule.transform;
-			cam.transform.localPosition = new Vector3 (0, 0, 0);
+			cam.transform.localPosition = new Vector3 (0, 0.5f, 0);
 			cam.GetComponent<LayerMenuController> ().enabled = false;
 			cam.GetComponent<MeshCollider> ().enabled = false;
 			DontDestroyOnLoad (cam);

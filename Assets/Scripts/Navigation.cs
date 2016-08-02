@@ -68,7 +68,7 @@ public class Navigation : MonoBehaviour
 		
 		if (movementType == 0 || Input.GetKey("space"))
         {
-			agent.MovePosition(this.transform.position+GameObject.Find("Head").transform.forward * Time.deltaTime * movementSpeed);
+			agent.MovePosition(this.transform.position+GameObject.Find("Main Camera Right").transform.forward * Time.deltaTime * movementSpeed);
         }
     }
 }
