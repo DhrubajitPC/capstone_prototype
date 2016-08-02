@@ -9,13 +9,12 @@ public class Navigation : MonoBehaviour
 
     private Vector3 startingLocation;
     private Rigidbody agent;
-    private int movementType = 1; //0 is free roam, 1 teleport, 2 pathed teleport
-
+    private int movementType = 1; 
 
     void Start()
     {
-//		lightIntensity = PlayerPrefs.GetFloat ("LightIntensity");
-//		movementSpeed = PlayerPrefs.GetFloat ("MovementSpeed");
+		lightIntensity = PlayerPrefs.GetFloat ("LightIntensity");
+		movementSpeed = PlayerPrefs.GetFloat ("MovementSpeed");
         agent = GetComponent<Rigidbody>();
         startingLocation = this.transform.position;
 		RenderSettings.ambientIntensity = lightIntensity;
@@ -27,16 +26,7 @@ public class Navigation : MonoBehaviour
         {
             jump(position);
         }
-//        else if (movementType == 2)
-//        {
-//            setDestination(position);
-//        }
-    }
-
-//    private void setDestination(Vector3 position)
-//    {
-//        agent.MovePosition(position);
-//    }
+	}
 
     private void jump(Vector3 position)
     {
@@ -68,7 +58,7 @@ public class Navigation : MonoBehaviour
 		foreach (GameObject h in human) {
 			float distFromHuman = Vector3.Distance (h.transform.position, transform.position);
 			print (distFromHuman);
-			if (distFromHuman < 1.28f) {
+			if (distFromHuman < 1.48f) {
 				disableHumanCollider (h);
 			} else {
 				enableHumanCollider (h);

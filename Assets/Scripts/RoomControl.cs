@@ -326,11 +326,19 @@ public class RoomControl : MonoBehaviour {
             HumanCoords.Add(new Vector4(Human.Itemf(i, 0), Human.Itemf(i, 1), Human.Itemf(i, 2), Human.Itemf(i, 3)));
         }
         if (showHuman)
-        {
+        {	
+			List<GameObject> hPrefab = new List<GameObject> ();
+			hPrefab.Add((GameObject)Resources.Load ("prefabs/Human Prefabs/HumanFig"));
+			hPrefab.Add((GameObject)Resources.Load ("prefabs/Human Prefabs/HumanFig (2)"));
+			hPrefab.Add((GameObject)Resources.Load ("prefabs/Human Prefabs/HumanFig (3)"));
+			hPrefab.Add((GameObject)Resources.Load ("prefabs/Human Prefabs/HumanFig (4)"));
+			hPrefab.Add((GameObject)Resources.Load ("prefabs/Human Prefabs/HumanFig (5)"));
+
             for (int i = 0; i < HumanCoords.Count; i++)
             {
                 //"TODO" instantiating with y to be 0.14 and not coord.y as a quick fix
-				GameObject person = (GameObject)Instantiate(Resources.Load("prefabs/Human Prefabs/HumanFig (2)"),
+				int index = UnityEngine.Random.Range(0,hPrefab.Count);
+				GameObject person = (GameObject)Instantiate(hPrefab[index],
                     new Vector3(HumanCoords[i].x, 0.14f, HumanCoords[i].z),
                     Quaternion.Euler(0.0f, HumanCoords[i].w, 0.0f));
                 person.name = "Person" + i;
