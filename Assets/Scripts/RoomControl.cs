@@ -36,7 +36,6 @@ public class RoomControl : MonoBehaviour {
     void Start () {
         Cardboard.SDK.OnTrigger += TriggerPulled;
         StartCoroutine(initializeDynamicScene());
-//		print (SceneManager.GetActiveScene().name);
     }
 
     void TriggerPulled()
@@ -88,7 +87,6 @@ public class RoomControl : MonoBehaviour {
 
         if (enableFreeRoam)
         {
-//			mC = GameObject.FindGameObjectsWithTag ("movementCanvas");
 			foreach (var o in movementCanvases) {
 				o.enabled = false;
 			}
@@ -101,7 +99,6 @@ public class RoomControl : MonoBehaviour {
 			rotateMovementCanvases(transform.position);
             PlayerObj.GetComponent<Navigation>().setMovementMode(1);
         }
-//		ApplyMovements();
         lastTap = Time.time;
     }
 
@@ -158,23 +155,11 @@ public class RoomControl : MonoBehaviour {
         yield return 1;
     }
 
-    private IEnumerator downloadAssetBundle()
-    {
-        /*yield return WWWLoader.downloadFile("renderbundle");
-        yield return WWWLoader.downloadFile("cfd.csv");
-        yield return WWWLoader.downloadFile("jumplocations.csv");
-        yield return WWWLoader.downloadFile("humancoords.csv");*/
-        yield return 0;
-    }
-
     private IEnumerator loadAssetBundle2(string url, int version)
     {
         yield return null;
         string file_path = WWWLoader.active_download_path + "renderbundle";
-        /*if (!System.IO.File.Exists(file_path))
-        {
-            yield return downloadAssetBundle();
-        }*/
+
         assetBundle = AssetBundle.LoadFromFile(file_path);
         if (assetBundle != null)
         {
@@ -199,7 +184,6 @@ public class RoomControl : MonoBehaviour {
         try {
             // load AssetBundle file from Cache if it exists with the same version or download and store it in the cache
             www = WWW.LoadFromCacheOrDownload(url, version);
-            //yield return www;
 
             Debug.Log("Loaded ");
 
@@ -250,7 +234,6 @@ public class RoomControl : MonoBehaviour {
         geom.name = "BaseGeometryLayer";
         geom.transform.localScale = baseGeometry.transform.localScale;
         geom.GetComponentInChildren<MeshRenderer>().material.shader = Shader.Find("Custom/DoubleSidedCutout");
-        //furniture.GetComponentInChildren<MeshRenderer>().material.shader = Shader.Find("Standard");
 
         if (!renderMat)
         {
@@ -273,7 +256,6 @@ public class RoomControl : MonoBehaviour {
             view.name = "ViewLayer";
             view.transform.localScale = ViewGeometry.transform.localScale;
             view.GetComponentInChildren<MeshRenderer>().material.shader = Shader.Find("Custom/DoubleSidedCutout");
-            //furniture.GetComponentInChildren<MeshRenderer>().material.shader = Shader.Find("Standard");
         }
     }
 
@@ -310,18 +292,18 @@ public class RoomControl : MonoBehaviour {
                 //Cloth Setting
 				GameObject WindCloth = person.transform.Find("Skirt (1)").gameObject;
                 //GameObject WindCloth = (GameObject)Instantiate(GameObject.Find("WindCloth"), new Vector3(HumanCoords[i].x, 0.638f, HumanCoords[i].z), Quaternion.Euler(270f, HumanCoords[i].w + 180f, 0.0f));
-                WindCloth.GetComponent<Cloth>().externalAcceleration = extWind;
-                WindCloth.GetComponent<Cloth>().randomAcceleration = ranWind;
+                WindCloth.GetComponent<Cloth>().externalAcceleration = extWind * 2;
+				WindCloth.GetComponent<Cloth>().randomAcceleration = ranWind * 2;
 
 				GameObject Hair = person.transform.Find("Hair (2)").gameObject;
                 //GameObject WindCloth = (GameObject)Instantiate(GameObject.Find("WindCloth"), new Vector3(HumanCoords[i].x, 0.638f, HumanCoords[i].z), Quaternion.Euler(270f, HumanCoords[i].w + 180f, 0.0f));
-                Hair.GetComponent<Cloth>().externalAcceleration = extWind * 2;
-                Hair.GetComponent<Cloth>().randomAcceleration = ranWind * 2;
+                Hair.GetComponent<Cloth>().externalAcceleration = extWind * 3;
+                Hair.GetComponent<Cloth>().randomAcceleration = ranWind * 3;
 
 				GameObject Hair2 = person.transform.Find("Hair (3)").gameObject;
                 //GameObject WindCloth = (GameObject)Instantiate(GameObject.Find("WindCloth"), new Vector3(HumanCoords[i].x, 0.638f, HumanCoords[i].z), Quaternion.Euler(270f, HumanCoords[i].w + 180f, 0.0f));
-                Hair2.GetComponent<Cloth>().externalAcceleration = extWind;
-                Hair2.GetComponent<Cloth>().randomAcceleration = ranWind;
+                Hair2.GetComponent<Cloth>().externalAcceleration = extWind * 3;
+                Hair2.GetComponent<Cloth>().randomAcceleration = ranWind * 3;
 
                 person.GetComponent<TooltipPopup>().setTooltip(CFD.PPS.ToString("F0"), CFD.T.ToString("F1"), CFD.V.ToString("F2"), CFD.PMV);
 
@@ -359,14 +341,6 @@ public class RoomControl : MonoBehaviour {
             rotateMovementCanvases(transform.position);
             PlayerObj.GetComponent<Navigation>().setMovementMode(1);
 
-			
-            /*if (pathedTeleport)
-            {
-                PlayerObj.GetComponent<Navigation>().setMovementMode(2);
-            } else
-            {
-                PlayerObj.GetComponent<Navigation>().setMovementMode(1);
-            }*/
         }
     }
     void ApplyNoise()
@@ -376,7 +350,6 @@ public class RoomControl : MonoBehaviour {
         for (int i = 0; i < Noise.Count; i++)
         {
 			NoiseCoords.Add(new Vector4(Noise.Itemf(i, 0), Noise.Itemf(i, 1), Noise.Itemf(i, 2), Noise.Itemf(i, 3)));
-//			Debug.Log
         }
 
         if (enableNoise)

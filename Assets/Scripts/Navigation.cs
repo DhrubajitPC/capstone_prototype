@@ -18,6 +18,7 @@ public class Navigation : MonoBehaviour
         agent = GetComponent<Rigidbody>();
         startingLocation = this.transform.position;
 		RenderSettings.ambientIntensity = lightIntensity;
+		RenderSettings.ambientLight = Color.white;
     }
 
     public void move(Vector3 position)
@@ -68,7 +69,6 @@ public class Navigation : MonoBehaviour
 		if (movementType == 0 || Input.GetKey("space"))
         {
 			agent.MovePosition(this.transform.position+GameObject.Find("Head").transform.forward * Time.deltaTime * movementSpeed);
-            //this.transform.position += transform.Find("VRMain/Head").transform.forward * Time.deltaTime * movementSpeed;
         }
     }
 }
