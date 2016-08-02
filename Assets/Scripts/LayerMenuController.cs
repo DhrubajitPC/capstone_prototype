@@ -27,7 +27,10 @@ public class LayerMenuController : MonoBehaviour {
 	private float movementSpeed;
 	private float lightIntensity;
     // Use this for initialization
-    void Start () {
+	void Start(){
+		
+	}
+    public void loadStart () {
 		toggleMat = GameObject.Find ("ToggleMaterial").GetComponent<UnityEngine.UI.Toggle>();
 		toggleFurn = GameObject.Find ("ToggleFurniture").GetComponent<UnityEngine.UI.Toggle>();
 		toggleHuman = GameObject.Find ("ToggleHuman").GetComponent<UnityEngine.UI.Toggle>();

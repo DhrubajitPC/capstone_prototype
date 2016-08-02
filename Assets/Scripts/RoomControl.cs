@@ -72,6 +72,7 @@ public class RoomControl : MonoBehaviour {
                 PlayerPrefs.SetFloat("QuarternionZ", PlayerObj.transform.Find("VRMain/Head").rotation.z);
                 PlayerPrefs.SetFloat("QuarternionW", PlayerObj.transform.Find("VRMain/Head").rotation.w);
             }
+			Cardboard.SDK.OnTrigger -= TriggerPulled;
 			GameObject.Find ("Capsule").transform.DetachChildren();
             SceneManager.LoadScene("LayerScene", LoadSceneMode.Single);
             singleTap = false;

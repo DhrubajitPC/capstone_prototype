@@ -33,6 +33,7 @@ public class CamControl : MonoBehaviour {
 		} else if (scene.name == "LayerScene") {
 			print ("lys");
 			cam.GetComponent<LayerMenuController> ().enabled = true;
+			cam.GetComponent<LayerMenuController> ().loadStart ();
 			cam.GetComponent<MeshCollider> ().enabled = true;
 			DontDestroyOnLoad (cam);
 		} else if (scene.name == "Dynamic Scene") {
