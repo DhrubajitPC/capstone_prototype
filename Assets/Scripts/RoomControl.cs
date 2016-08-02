@@ -10,7 +10,6 @@ public class RoomControl : MonoBehaviour {
 
     public GameObject PlayerObj;
 
-    private const string download_url = "https://luccan.github.io/capstone_prototype_assetbundle/renderbundle";
     private bool loadRotation = true;
 
     private List<Vector4> HumanCoords = new List<Vector4>(); //w is y rotation
@@ -116,9 +115,8 @@ public class RoomControl : MonoBehaviour {
         enableNoise = PlayerPrefs.GetInt("EnableNoise") == 1;
         enableFreeRoam = PlayerPrefs.GetInt("EnableFreeRoam") == 1;
 
-        yield return StartCoroutine(loadAssetBundle2(download_url, 1)); //wait for this coroutine to finish
-                                                                        //loadAssetBundle(download_url, 1);
-                                                                        //yield return new WaitUntil(() => assetBundle != null);
+        yield return StartCoroutine(loadAssetBundle());//wait for this coroutine to finish
+
         try
         {
             ApplyGeometryAndFurnitureLayer();
@@ -155,7 +153,7 @@ public class RoomControl : MonoBehaviour {
         yield return 1;
     }
 
-    private IEnumerator loadAssetBundle2(string url, int version)
+    private IEnumerator loadAssetBundle()
     {
         yield return null;
         string file_path = WWWLoader.active_download_path + "renderbundle";
@@ -169,43 +167,6 @@ public class RoomControl : MonoBehaviour {
             ViewGeometry = assetBundle.LoadAsset<GameObject>("View.prefab");
         }
         else
-        {
-            GameObject.Find("ERROR").GetComponent<UnityEngine.UI.Text>().text = "FAIL TO LOAD ";
-        }
-    }
-
-    private IEnumerator loadAssetBundle(string url, int version)
-    {
-        // wait for the caching system to be ready
-        while (!Caching.ready)
-            yield return null;
-
-        WWW www;
-        try {
-            // load AssetBundle file from Cache if it exists with the same version or download and store it in the cache
-            www = WWW.LoadFromCacheOrDownload(url, version);
-
-            Debug.Log("Loaded ");
-
-            if (www.error != null)
-            {
-                GameObject.Find("ERROR").GetComponent<UnityEngine.UI.Text>().text = www.error;
-            }
-        } catch (Exception e)
-        {
-            throw new Exception("WWW download had an error: " + e.Message);
-        }
-
-        assetBundle = www.assetBundle;
-        /*
-        AssetBundle assetBundle = AssetBundle.LoadFromFile(path + "renderbundle");*/
-        if (assetBundle != null)
-        {
-            GameObject.Find("ERROR").GetComponent<UnityEngine.UI.Text>().text = "LOADED ";
-            FurnitureGeometry = assetBundle.LoadAsset<GameObject>("Furniture.prefab");
-            BaseGeometry = assetBundle.LoadAsset<GameObject>("Walls.prefab");
-            ViewGeometry = assetBundle.LoadAsset<GameObject>("View.prefab");
-        } else
         {
             GameObject.Find("ERROR").GetComponent<UnityEngine.UI.Text>().text = "FAIL TO LOAD ";
         }

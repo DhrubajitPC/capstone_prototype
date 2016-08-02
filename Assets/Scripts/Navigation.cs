@@ -58,7 +58,7 @@ public class Navigation : MonoBehaviour
 		GameObject[] human = GameObject.FindGameObjectsWithTag ("Human");
 		foreach (GameObject h in human) {
 			float distFromHuman = Vector3.Distance (h.transform.position, transform.position);
-			print (distFromHuman);
+			//print (distFromHuman);
 			if (distFromHuman < 1.48f) {
 				disableHumanCollider (h);
 			} else {
@@ -66,7 +66,7 @@ public class Navigation : MonoBehaviour
 			}
 		}
 		
-		if (movementType == 0 || Input.GetKey("space"))
+		if (movementType == 0 || Input.GetKey("space")) //space is for debugging
         {
 			agent.MovePosition(this.transform.position+GameObject.Find("Head").transform.forward * Time.deltaTime * movementSpeed);
         }

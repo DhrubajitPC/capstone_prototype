@@ -6,7 +6,7 @@ public class Tooltip : MonoBehaviour
 {
     // Use this for initialization
     void Start () {
-        //transform.Rotate(Camera.main.transform.right, -25f); //rotate to look nicer on the eye
+
     }
 	
 	// Update is called once per frame

@@ -12,10 +12,7 @@ public class ImportCsv
     //Get filepath and convert into list of strings
     {
         string CsvValues = "";
-        //WWW www = new WWW("file://" + path);
-        //yield return www;
-        //String text = www.text;
-        //CsvValues = ((TextAsset)Resources.Load(FilePath, typeof(TextAsset))).text;
+
         if (!FilePath.EndsWith(".csv"))
             FilePath += ".csv";
         using (StreamReader CsvReader = new StreamReader(File.OpenRead(FilePath)))
