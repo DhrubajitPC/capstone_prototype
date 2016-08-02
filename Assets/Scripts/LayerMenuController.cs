@@ -1,16 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 
 public class LayerMenuController : MonoBehaviour {
 
-    public GameObject canvas;
-    public UnityEngine.UI.Toggle toggleMat;
-    public UnityEngine.UI.Toggle toggleFurn;
-    public UnityEngine.UI.Toggle toggleHuman;
-    public UnityEngine.UI.Toggle toggleView;
-    public UnityEngine.UI.Toggle toggleNoise;
-    public UnityEngine.UI.Toggle toggleFreeRoam;
+    GameObject canvas;
+	Toggle toggleMat;
+    Toggle toggleFurn;
+    Toggle toggleHuman;
+    Toggle toggleView;
+    Toggle toggleNoise;
+    Toggle toggleFreeRoam;
+	Button viewButton;
+	Button menuButton;
+
 
     private bool renderMat;
     private bool showFurn;
@@ -23,6 +28,23 @@ public class LayerMenuController : MonoBehaviour {
 	private float lightIntensity;
     // Use this for initialization
     void Start () {
+		toggleMat = GameObject.Find ("ToggleMaterial").GetComponent<UnityEngine.UI.Toggle>();
+		toggleFurn = GameObject.Find ("ToggleFurniture").GetComponent<UnityEngine.UI.Toggle>();
+		toggleHuman = GameObject.Find ("ToggleHuman").GetComponent<UnityEngine.UI.Toggle>();
+		toggleView = GameObject.Find ("ToggleView").GetComponent<UnityEngine.UI.Toggle>();
+		toggleNoise = GameObject.Find ("ToggleNoise").GetComponent<UnityEngine.UI.Toggle>();
+		toggleFreeRoam = GameObject.Find ("ToggleMovement").GetComponent<UnityEngine.UI.Toggle>();
+
+		canvas = GameObject.Find ("Canvas");
+
+		viewButton = GameObject.Find ("ViewButton").GetComponent<Button>();
+		menuButton = GameObject.Find ("MenuButton").GetComponent<Button>();
+//		viewButton = GetComponent<Button> ();
+//		menuButton = GetComponent<Button> ();
+
+		viewButton.onClick.AddListener (() => BackToRoom ());
+		menuButton.onClick.AddListener (() => BackToDownloadMenu ());
+
         renderMat = false;
         showFurn = false;
         showHuman = false;
@@ -140,6 +162,7 @@ public class LayerMenuController : MonoBehaviour {
 
     public void BackToRoom()
     {
+		DontDestroyOnLoad (this);
         savePlayerPrefs();
         SceneManager.LoadScene("Dynamic Scene",LoadSceneMode.Single);
     }
@@ -147,7 +170,7 @@ public class LayerMenuController : MonoBehaviour {
     public void BackToDownloadMenu()
     {
         savePlayerPrefs();
-        SceneManager.LoadScene("DownloadMenuScene", LoadSceneMode.Single);
+        SceneManager.LoadScene("Gear Menu", LoadSceneMode.Single);
     }
 
     // Update is called once per frame

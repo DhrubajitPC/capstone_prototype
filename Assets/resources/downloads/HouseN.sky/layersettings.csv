@@ -1,0 +1,8 @@
+Material:True:True
+Furniture:True:True
+Human:True:True
+FreeMovement:True:False
+View:True:True
+Noise:True:True
+MovementSpeed:0.7
+LightIntensity:1.8
